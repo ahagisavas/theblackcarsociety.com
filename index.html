@@ -1,0 +1,2562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Black Car Society | Luxury Car Service NYC</title>
+    <meta name="description" content="The Black Car Society - Premium luxury car service in New York City & Tri-State Area. Escalades, Sprinter Jets, Stretch Limos & more. Available 24/7.">
+    <link rel="icon" href="CAR_PICTURES/BCS_LOGO_2.PNG" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:wght@400;500;600&family=Montserrat:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================================
+           TESLA-INSPIRED THEME — The Black Car Society
+           Clean · Minimal · Full-bleed sections · Sans-serif only
+           ============================================================ */
+
+        @font-face {
+            font-family: 'Signatrust';
+            src: url('../Fonts/Signatrust.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        :root {
+            --black:   #171a20;
+            --gray1:   #393c41;
+            --gray2:   #5c5e62;
+            --gray3:   #a0a0a0;
+            --gray4:   #d0d1d2;
+            --bg-light:#f4f4f4;
+            --white:   #ffffff;
+            --gold:    #c9a84c;
+            --nav-h:   52px;
+            --font:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --ease:    cubic-bezier(0.4,0,0.2,1);
+        }
+
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+        html { scroll-behavior: smooth; font-size: 16px; }
+
+        body {
+            font-family: var(--font);
+            background: var(--white);
+            color: var(--black);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { display: block; max-width: 100%; height: auto; }
+
+        /* ============================================================
+           NAVIGATION
+           ============================================================ */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: var(--nav-h);
+            z-index: 900;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+            transition: background 0.3s var(--ease), backdrop-filter 0.3s;
+        }
+        .nav.solid {
+            background: rgba(23,26,32,0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .nav.light {
+            background: rgba(255,255,255,0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .nav-logo img {
+            height: 64px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #ffffff;
+            opacity: 0.85;
+            text-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+            transition: opacity 0.2s;
+        }
+        .nav-links a:hover { opacity: 1; }
+        .nav.light .nav-links a { color: var(--black); }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav-btn {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: opacity 0.2s, background 0.2s;
+            border: none;
+            background: none;
+            padding: 0;
+            border-radius: 0;
+        }
+        .nav-btn-ghost {
+            color: #ffffff;
+            text-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+            text-transform: uppercase;
+        }
+        .nav-btn-ghost:hover {
+            opacity: 0.7;
+        }
+        .nav-btn-solid {
+            background: #E8E8E8;
+            color: #1a1a1a;
+            border-radius: 2px;
+            border: 1px solid #a0a0a0;
+            padding: 10px 28px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .nav-btn-solid:hover {
+            opacity: 0.85;
+        }
+        .nav.light .nav-btn-ghost {
+            color: var(--black);
+            text-shadow: none;
+        }
+        .nav.light .nav-btn-solid {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 6px;
+        }
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 1.5px;
+            background: var(--white);
+            transition: all 0.3s;
+        }
+        .nav.light .hamburger span { background: var(--black); }
+
+        /* Mobile menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0; right: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--white);
+            z-index: 1000;
+            padding: 80px 32px 40px;
+            transform: translateX(100%);
+            transition: transform 0.35s var(--ease);
+            box-shadow: -4px 0 30px rgba(0,0,0,0.15);
+        }
+        .mobile-menu.open { transform: translateX(0); }
+        .mobile-menu a {
+            display: block;
+            padding: 14px 0;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--black);
+            border-bottom: 1px solid var(--bg-light);
+        }
+        .mobile-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 999;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.35s;
+        }
+        .mobile-overlay.open { opacity: 1; pointer-events: all; }
+
+        /* ============================================================
+           HERO — Full viewport video
+           ============================================================ */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--nav-h) 0 0;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(23,26,32,0.35) 0%,
+                rgba(23,26,32,0.1) 50%,
+                rgba(23,26,32,0.55) 100%
+            );
+            z-index: 1;
+        }
+
+        .hero-title-block {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding-top: 60px;
+        }
+
+        .hero-title-block h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.2rem, 6.5vw, 5rem);
+            font-weight: 600;
+            color: #F5F3EE;
+            letter-spacing: 0.08em;
+            line-height: 1.05;
+            text-transform: uppercase;
+            text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+        }
+        .hero-society-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 4px;
+        }
+        .hero-society-row .hero-line {
+            flex: 0 0 80px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(232,232,232,0.85));
+        }
+        .hero-society-row .hero-line.right {
+            background: linear-gradient(to left, transparent, rgba(232,232,232,0.85));
+        }
+        .hero-society-row span.society-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.9rem, 6vw, 4.5rem);
+            font-weight: 600;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            background: linear-gradient(to bottom, transparent, #E8E8E8 50%, transparent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-sub {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: rgba(255,255,255,0.92);
+            margin-top: 18px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .hero-ctas {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding-bottom: 48px;
+        }
+
+        .btn-hero {
+            font-size: 0.88rem;
+            font-weight: 500;
+            padding: 13px 40px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-width: 180px;
+            text-align: center;
+            letter-spacing: 0.01em;
+        }
+        .btn-hero-dark {
+            background: rgba(23,26,32,0.8);
+            color: var(--white);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .btn-hero-dark:hover { background: rgba(23,26,32,0.95); }
+        .btn-hero-light {
+            background: rgba(255,255,255,0.85);
+            color: var(--black);
+            backdrop-filter: blur(4px);
+        }
+        .btn-hero-light:hover { background: rgba(255,255,255,1); }
+
+        /* ============================================================
+           STAT STRIP
+           ============================================================ */
+        .stat-strip {
+            background: var(--black);
+            padding: 28px 0;
+        }
+        .stat-strip .inner {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-around;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-num {
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: var(--white);
+            letter-spacing: -0.03em;
+        }
+        .stat-label {
+            font-size: 0.72rem;
+            color: var(--gray3);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 4px;
+        }
+
+        /* ============================================================
+           FLEET SHOWCASE — one section per category
+           ============================================================ */
+        .fleet-section {
+            position: relative;
+            height: 100vh;
+            min-height: 580px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+        .fleet-section.light-bg { background: var(--white); }
+        .fleet-section.dark-bg  { background: var(--black); }
+
+        .fleet-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: 0;
+            transition: opacity 0.5s;
+        }
+
+        .fleet-overlay-dark {
+            position: absolute; inset: 0;
+            background: linear-gradient(to bottom,
+                rgba(23,26,32,0.18) 0%,
+                rgba(23,26,32,0.08) 45%,
+                rgba(23,26,32,0.7) 100%
+            );
+            z-index: 1;
+        }
+        .fleet-overlay-light {
+            position: absolute; inset: 0;
+            background: linear-gradient(to bottom,
+                rgba(255,255,255,0.15) 0%,
+                rgba(255,255,255,0.05) 45%,
+                rgba(255,255,255,0.82) 100%
+            );
+            z-index: 1;
+        }
+
+        .fleet-label {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding-top: 60px;
+        }
+        .fleet-cat-tag {
+            font-size: 0.72rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            opacity: 0.6;
+            margin-bottom: 8px;
+        }
+        .fleet-section.light-text .fleet-cat-tag,
+        .fleet-section.light-text .fleet-name {
+            color: var(--white);
+        }
+        .fleet-section.dark-text .fleet-cat-tag,
+        .fleet-section.dark-text .fleet-name {
+            color: var(--black);
+        }
+        .fleet-name {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+        .fleet-label-box {
+            display: inline-block;
+            background: rgba(20,20,20,0.75);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            padding: 12px 32px;
+            border-radius: 40px;
+            border: 1px solid rgba(255,255,255,0.35);
+        }
+        .fleet-label-box .fleet-cat-tag,
+        .fleet-label-box .fleet-name {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            background: linear-gradient(to bottom, transparent, #E8E8E8 50%, transparent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .fleet-bottom {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding-bottom: 44px;
+        }
+
+        .fleet-specs-row {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            margin-bottom: 24px;
+        }
+        .fleet-section.dark-text .fleet-specs-row {
+            border-top-color: rgba(23,26,32,0.15);
+            border-bottom-color: rgba(23,26,32,0.15);
+        }
+        .fleet-spec-item {
+            flex: 1;
+            text-align: center;
+            padding: 16px 8px;
+            border-right: none;
+            max-width: 200px;
+        }
+        .spec-val {
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: var(--white);
+            letter-spacing: -0.02em;
+        }
+        .fleet-section.dark-text .spec-val { color: var(--black); }
+        .spec-key {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: rgba(255,255,255,0.5);
+            margin-top: 3px;
+        }
+        .fleet-section.dark-text .spec-key { color: rgba(23,26,32,0.45); }
+
+        .fleet-ctas {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn-fleet {
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 12px 36px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-width: 160px;
+            text-align: center;
+        }
+        .btn-fleet-dark {
+            background: #C5B382;
+            color: #1a1a1a;
+            border: none;
+            border-radius: 2px;
+        }
+        .btn-fleet-dark:hover { opacity: 0.85; }
+        .btn-fleet-light {
+            background: #E8E8E8;
+            color: #1a1a1a;
+            border: 1px solid #a0a0a0;
+            border-radius: 2px;
+        }
+        .btn-fleet-light:hover { opacity: 0.85; }
+        .btn-fleet-outline-dark {
+            background: transparent;
+            color: var(--black);
+            border: 1px solid rgba(23,26,32,0.7);
+            border-radius: 2px;
+        }
+        .btn-fleet-outline-dark:hover { border-color: var(--black); opacity: 0.8; }
+        .btn-fleet-outline-light {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid #ffffff;
+            border-radius: 2px;
+        }
+        .btn-fleet-outline-light:hover { opacity: 0.75; }
+
+        /* ============================================================
+           CAROUSEL FLEET SECTION
+           ============================================================ */
+        .fleet-cards-section {
+            background: var(--white);
+            padding: 64px 0 72px;
+        }
+
+        .section-header-row {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            max-width: 1340px;
+            margin: 0 auto 28px;
+            padding: 0 40px;
+        }
+        .section-header { text-align: left; }
+        .section-eyebrow {
+            font-size: 0.72rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gray2);
+            margin-bottom: 8px;
+        }
+        .section-title {
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            font-weight: 500;
+            color: var(--black);
+            letter-spacing: -0.02em;
+        }
+
+        .h-scroll-btns {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .h-scroll-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--gray4);
+            background: var(--white);
+            color: var(--black);
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .h-scroll-btn:hover {
+            background: var(--black);
+            color: var(--white);
+            border-color: var(--black);
+        }
+        .fleet-cards-section.dark-cards .h-scroll-btn {
+            border-color: rgba(255,255,255,0.2);
+            background: transparent;
+            color: var(--white);
+        }
+        .fleet-cards-section.dark-cards .h-scroll-btn:hover {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .h-carousel-wrap {
+            overflow: hidden;
+            padding: 0 40px;
+        }
+        .h-carousel {
+            display: flex;
+            gap: 2px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding-bottom: 4px;
+        }
+        .h-carousel::-webkit-scrollbar { display: none; }
+
+        .v-card {
+            flex: 0 0 320px;
+            background: var(--bg-light);
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s var(--ease);
+        }
+        .v-card:hover { transform: translateY(-4px); }
+
+        .fleet-cards-section.dark-cards .v-card { background: #22262e; }
+
+        /* in-card photo gallery */
+        .card-gallery {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 16/10;
+            background: var(--gray4);
+        }
+        .gallery-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+            will-change: transform;
+        }
+        .gallery-track img {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+        .g-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(0,0,0,0.5);
+            color: #fff;
+            font-size: 0.85rem;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 4;
+            opacity: 0;
+            transition: opacity 0.2s, background 0.2s;
+        }
+        .card-gallery:hover .g-arrow { opacity: 1; }
+        .g-arrow:hover { background: rgba(0,0,0,0.8); }
+        .g-arrow.prev { left: 8px; }
+        .g-arrow.next { right: 8px; }
+        .g-counter {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0,0,0,0.5);
+            color: #fff;
+            font-size: 0.62rem;
+            font-weight: 500;
+            padding: 2px 8px;
+            border-radius: 10px;
+            letter-spacing: 0.04em;
+            z-index: 4;
+            pointer-events: none;
+        }
+        .v-card-img {
+            width: 100%;
+            aspect-ratio: 16/10;
+            object-fit: cover;
+            background: var(--gray4);
+        }
+
+        .v-card-body {
+            padding: 18px 20px 22px;
+        }
+        .v-card-name {
+            font-size: 0.92rem;
+            font-weight: 500;
+            color: var(--black);
+            margin-bottom: 4px;
+        }
+        .fleet-cards-section.dark-cards .v-card-name { color: var(--white); }
+        .v-card-note {
+            font-size: 0.75rem;
+            color: var(--gray2);
+            margin-bottom: 8px;
+        }
+        .fleet-cards-section.dark-cards .v-card-note { color: var(--gray3); }
+        .v-card-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .v-card-meta { font-size: 0.73rem; color: var(--gray2); }
+        .fleet-cards-section.dark-cards .v-card-meta { color: var(--gray3); }
+        .v-card-price {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--black);
+        }
+        .fleet-cards-section.dark-cards .v-card-price { color: var(--white); }
+        .v-card-price span { font-weight: 300; color: var(--gray2); font-size: 0.73rem; }
+        .v-card-badge {
+            display: inline-block;
+            font-size: 0.6rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: var(--black);
+            color: var(--white);
+            margin-bottom: 6px;
+        }
+        .v-card-badge.gold { background: var(--gold); color: var(--black); }
+
+        /* ============================================================
+           SERVICES SECTION
+           ============================================================ */
+        .services-section {
+            background: var(--black);
+            padding: 100px 0;
+        }
+        .services-section .section-title,
+        .services-section .section-eyebrow { color: var(--white); }
+        .services-section .section-eyebrow { opacity: 0.5; }
+
+        .services-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: rgba(255,255,255,0.06);
+        }
+        .svc-card {
+            background: var(--black);
+            padding: 40px 32px;
+            transition: background 0.2s;
+        }
+        .svc-card:hover { background: #22262e; }
+        .svc-icon {
+            font-size: 1.6rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+        .svc-name {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+        .svc-desc {
+            font-size: 0.82rem;
+            color: var(--gray3);
+            line-height: 1.7;
+        }
+        .svc-link {
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--white);
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            padding-bottom: 2px;
+            transition: border-color 0.2s;
+        }
+        .svc-link:hover { border-color: var(--white); }
+
+        /* ============================================================
+           ADD-ONS
+           ============================================================ */
+        .addons-section {
+            background: var(--bg-light);
+            padding: 80px 0;
+        }
+        .addons-grid {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            gap: 2px;
+            flex-wrap: wrap;
+        }
+        .addon-tile {
+            flex: 1 1 160px;
+            background: var(--white);
+            padding: 28px 20px;
+            text-align: center;
+        }
+        .addon-icon { font-size: 1.4rem; margin-bottom: 10px; }
+        .addon-name {
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--black);
+            margin-bottom: 6px;
+        }
+        .addon-price {
+            font-size: 0.78rem;
+            color: var(--gray2);
+        }
+
+        /* ============================================================
+           WHY US
+           ============================================================ */
+        .why-section {
+            padding: 100px 0;
+            background: var(--white);
+        }
+        .why-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .why-visual img {
+            width: 90%;
+            aspect-ratio: 1/1;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+        }
+        .why-text .eyebrow {
+            font-size: 0.72rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gray2);
+            margin-bottom: 16px;
+        }
+        .why-text h2 {
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: var(--black);
+            line-height: 1.25;
+            margin-bottom: 20px;
+        }
+        .why-text p {
+            font-size: 0.88rem;
+            color: var(--gray1);
+            line-height: 1.75;
+            margin-bottom: 36px;
+        }
+        .why-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        .why-feat-title {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 4px;
+        }
+        .why-feat-desc {
+            font-size: 0.77rem;
+            color: var(--gray2);
+            line-height: 1.6;
+        }
+        .btn-standard {
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 12px 36px;
+            border-radius: 4px;
+            background: var(--black);
+            color: var(--white);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-standard:hover { background: var(--gray1); }
+
+        /* ============================================================
+           CONTACT
+           ============================================================ */
+        .contact-section {
+            background: var(--black);
+            padding: 100px 0;
+        }
+        .contact-section .section-title { color: var(--white); }
+        .contact-section .section-eyebrow { color: var(--gray3); }
+
+        .contact-info-row {
+            max-width: 860px;
+            margin: 0 auto 52px;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 1px;
+            background: rgba(255,255,255,0.06);
+        }
+        .ci-item {
+            background: var(--black);
+            padding: 24px 20px;
+            text-align: center;
+        }
+        .ci-label {
+            font-size: 0.68rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gray3);
+            margin-bottom: 8px;
+        }
+        .ci-value {
+            font-size: 0.85rem;
+            color: var(--white);
+            font-weight: 400;
+        }
+        .ci-value a { color: var(--white); }
+
+        .contact-form {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--gray3);
+            margin-bottom: 6px;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 4px;
+            padding: 12px 14px;
+            font-family: var(--font);
+            font-size: 0.85rem;
+            color: var(--white);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .form-group input::placeholder,
+        .form-group textarea::placeholder { color: var(--gray2); }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: rgba(255,255,255,0.4);
+        }
+        .form-group select option { background: var(--black); }
+        .form-group textarea { min-height: 120px; resize: vertical; }
+        .form-group-full { margin-bottom: 12px; }
+        .form-submit {
+            margin-top: 24px;
+            text-align: center;
+        }
+        .btn-submit {
+            display: inline-block;
+            font-size: 0.88rem;
+            font-weight: 500;
+            padding: 14px 60px;
+            border-radius: 4px;
+            background: var(--white);
+            color: var(--black);
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+            letter-spacing: 0.01em;
+        }
+        .btn-submit:hover { background: var(--gray4); }
+
+        /* ============================================================
+           FOOTER
+           ============================================================ */
+        .footer {
+            background: #0d1117;
+            padding: 56px 0 32px;
+        }
+        .footer-top {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px 40px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .footer-brand img {
+            height: 100px;
+            margin-bottom: 16px;
+            opacity: 0.95;
+        }
+        .footer-brand p {
+            font-size: 0.78rem;
+            color: var(--gray3);
+            line-height: 1.7;
+        }
+        .footer-col h5 {
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gray3);
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+        .footer-col a {
+            display: block;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.55);
+            padding: 5px 0;
+            transition: color 0.2s;
+        }
+        .footer-col a:hover { color: var(--white); }
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 24px 24px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.3);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .footer-socials {
+            display: flex;
+            gap: 20px;
+        }
+        .footer-socials a {
+            color: rgba(255,255,255,0.4);
+            transition: color 0.2s;
+        }
+        .footer-socials a:hover { color: var(--white); }
+        .footer-socials svg { width: 17px; height: 17px; fill: currentColor; }
+
+        /* ============================================================
+           SCROLL REVEAL
+           ============================================================ */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
+        }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* ============================================================
+           RESPONSIVE — TABLET (≤900px)
+           ============================================================ */
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .nav-actions .nav-btn-ghost { display: none; }
+            .hamburger { display: flex; }
+            .services-grid { grid-template-columns: 1fr 1fr; }
+            .why-inner { grid-template-columns: 1fr; gap: 40px; }
+            .contact-info-row { grid-template-columns: 1fr 1fr; }
+            .footer-top { grid-template-columns: 1fr 1fr; }
+            .fleet-cards-section { padding: 48px 0 56px; }
+            .section-header-row { padding: 0 20px; }
+            .h-carousel-wrap { padding: 0 20px; }
+        }
+
+        /* ============================================================
+           RESPONSIVE — MOBILE (≤600px)
+           ============================================================ */
+        @media (max-width: 600px) {
+
+            /* --- Nav --- */
+            .nav { padding: 0 16px; }
+            .nav-actions { gap: 8px; }
+            .nav-btn { padding: 6px 14px; font-size: 0.78rem; }
+
+            /* --- Hero --- */
+            .hero { min-height: 100svh; }
+            .hero-title-block { padding-top: 40px; }
+            .hero-title-block h1 {
+                font-size: clamp(1.8rem, 10vw, 3rem);
+                letter-spacing: 0.08em;
+            }
+            .hero-society-row .hero-line { flex: 0 0 36px; }
+            .hero-society-row span.society-text {
+                font-size: clamp(0.6rem, 3.5vw, 0.8rem);
+                letter-spacing: 0.32em;
+            }
+            .hero-sub { font-size: 0.82rem; padding: 0 20px; }
+            .hero-ctas {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                padding: 0 24px 36px;
+            }
+            .btn-hero {
+                width: 100%;
+                max-width: 300px;
+                padding: 15px 24px;
+                min-width: unset;
+            }
+
+            /* --- Stat strip --- */
+            .stat-strip .inner { gap: 12px; padding: 0 16px; }
+            .stat-num { font-size: 1.4rem; }
+            .stat-label { font-size: 0.65rem; }
+
+            /* --- Fleet showcase sections --- */
+            .fleet-section { min-height: 70vh; height: 70vh; }
+            .fleet-label { padding-top: 44px; }
+            .fleet-label-box { padding: 8px 20px; }
+            .fleet-name { font-size: clamp(1.3rem, 6vw, 2rem); }
+            .fleet-specs-row { flex-wrap: wrap; }
+            .fleet-spec-item { flex: 1 1 45%; max-width: none; }
+            .fleet-ctas {
+                flex-direction: column;
+                align-items: center;
+                padding: 0 24px;
+                gap: 10px;
+            }
+            .btn-fleet {
+                width: 100%;
+                max-width: 300px;
+                min-width: unset;
+                padding: 14px 24px;
+            }
+            .fleet-bottom { padding-bottom: 28px; }
+
+            /* --- Vehicle card carousels --- */
+            .fleet-cards-section { padding: 36px 0 44px; }
+            .section-header-row {
+                padding: 0 16px;
+                margin-bottom: 20px;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+            .section-title { font-size: 1.3rem; }
+            .section-eyebrow { font-size: 0.68rem; }
+            .h-carousel-wrap { padding: 0 16px; }
+            .h-carousel { gap: 10px; }
+            .v-card {
+                flex: 0 0 80vw;
+                max-width: 300px;
+            }
+
+            /* --- Card photo gallery: bigger tap targets on mobile --- */
+            .g-arrow {
+                width: 36px;
+                height: 36px;
+                font-size: 1.1rem;
+                opacity: 1;          /* always visible on touch */
+            }
+            .g-counter { font-size: 0.68rem; padding: 3px 9px; }
+            .card-gallery { aspect-ratio: 4/3; }
+
+            /* --- Services --- */
+            .services-section { padding: 64px 0; }
+            .services-grid { grid-template-columns: 1fr; }
+            .svc-card { padding: 28px 20px; }
+
+            /* --- Add-ons --- */
+            .addons-section { padding: 56px 0; }
+            .addons-grid { gap: 2px; }
+            .addon-tile { flex: 1 1 140px; padding: 20px 12px; }
+
+            /* --- Why Us --- */
+            .why-section { padding: 64px 0; }
+            .why-inner { padding: 0 16px; gap: 32px; }
+            .why-text h2 { font-size: 1.5rem; }
+            .why-features { grid-template-columns: 1fr; gap: 16px; }
+
+            /* --- Contact --- */
+            .contact-section { padding: 64px 0; }
+            .contact-info-row {
+                grid-template-columns: 1fr 1fr;
+                margin-bottom: 36px;
+            }
+            .ci-item { padding: 18px 12px; }
+            .ci-value { font-size: 0.78rem; }
+            .form-row { grid-template-columns: 1fr; }
+            .contact-form { padding: 0 16px; }
+            .btn-submit { width: 100%; padding: 16px; }
+
+            /* --- Footer --- */
+            .footer { padding: 44px 0 24px; }
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 28px;
+                padding: 0 16px 32px;
+            }
+            .footer-bottom {
+                padding: 20px 16px 0;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+
+        /* --- Extra small phones (≤380px) --- */
+        @media (max-width: 380px) {
+            .hero-title-block h1 { font-size: 2.1rem; }
+            .v-card { flex: 0 0 88vw; }
+            .contact-info-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+         NAVIGATION
+         ============================================================ -->
+    <nav class="nav" id="mainNav">
+        <a href="#" class="nav-logo">
+            <img src="CAR_PICTURES/LOGO/BlackCarSocietyLogo.PNG" alt="The Black Car Society">
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="#fleet">Fleet</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#addons">Pricing</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <div class="nav-actions">
+            <a href="tel:+19144336735" class="nav-btn nav-btn-ghost">(914) 433-6735</a>
+            <a href="#contact" class="nav-btn nav-btn-solid">Book Now</a>
+        </div>
+
+        <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#fleet">Fleet</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#addons">Pricing</a>
+        <a href="#contact">Contact</a>
+        <a href="tel:+19144336735" style="margin-top:12px;color:#c9a84c;">(914) 433-6735</a>
+    </div>
+
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <section class="hero" id="hero">
+        <video class="hero-video" autoplay muted loop playsinline poster="CAR_PICTURES/Image5.png">
+            <source src="CAR_PICTURES/LOGO/Sprinter_Background_Video4-5th.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+
+        <div class="hero-title-block fade-up">
+            <h1>The Black Car</h1>
+            <div class="hero-society-row">
+                <span class="hero-line"></span>
+                <span class="society-text">Society</span>
+                <span class="hero-line right"></span>
+            </div>
+            <p class="hero-sub">Luxury Ground Transportation &mdash; NYC &amp; Tri-State</p>
+        </div>
+
+        <div class="hero-ctas">
+            <a href="#fleet" class="btn-hero btn-hero-light">View Our Fleet</a>
+            <a href="#contact" class="btn-hero btn-hero-dark">Get a Quote</a>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         STAT STRIP
+         ============================================================ -->
+    <div class="stat-strip">
+        <div class="inner">
+            <div class="stat-item">
+                <div class="stat-num">30+</div>
+                <div class="stat-label">Vehicles</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">7</div>
+                <div class="stat-label">Fleet Categories</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">24/7</div>
+                <div class="stat-label">Availability</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">ADA</div>
+                <div class="stat-label">Accessible</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">TLC</div>
+                <div class="stat-label">Licensed</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         FLEET SHOWCASE — Full-screen sections (Tesla style)
+         ============================================================ -->
+
+    <!-- Sprinter Jets -->
+    <section class="fleet-section light-text" id="fleet">
+        <img class="fleet-bg" src="CAR_PICTURES/JET/JET%20777/Interior777_5.png" alt="Sprinter Jets" loading="lazy">
+        <div class="fleet-overlay-dark"></div>
+        <div class="fleet-label fade-up">
+            <div class="fleet-label-box">
+                <h2 class="fleet-name">Sprinter Jets</h2>
+            </div>
+        </div>
+        <div class="fleet-bottom">
+            <div class="fleet-specs-row">
+                <div class="fleet-spec-item">
+                    <div class="spec-val">4</div>
+                    <div class="spec-key">Jets</div>
+                </div>
+                <div class="fleet-spec-item">
+                    <div class="spec-val">8–13</div>
+                    <div class="spec-key">Passengers</div>
+                </div>
+                <div class="fleet-spec-item">
+                    <div class="spec-val">$150</div>
+                    <div class="spec-key">Starting /hr</div>
+                </div>
+                <div class="fleet-spec-item">
+                    <div class="spec-val">3hr</div>
+                    <div class="spec-key">Minimum</div>
+                </div>
+            </div>
+            <div class="fleet-ctas">
+                <a href="#sprinter-cards" class="btn-fleet btn-fleet-light">View All Jets</a>
+                <a href="#contact" class="btn-fleet btn-fleet-outline-light">Book Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stretch Limos -->
+    <section class="fleet-section light-text">
+        <img class="fleet-bg" src="CAR_PICTURES/Limo/Limo%20761/4bf7fb43-42e4-4b3b-b362-a56e21e5983a.jpg" alt="Stretch Limos" loading="lazy">
+        <div class="fleet-overlay-dark"></div>
+        <div class="fleet-label fade-up">
+            <div class="fleet-label-box">
+                <h2 class="fleet-name">Stretch Limos</h2>
+            </div>
+        </div>
+        <div class="fleet-bottom">
+            <div class="fleet-specs-row">
+                <div class="fleet-spec-item">
+                    <div class="spec-val">3</div>
+                    <div class="spec-key">Limos</div>
+                </div>
+                <div class="fleet-spec-item">
+                    <div class="spec-val">13–18</div>
+                    <div class="spec-key">Passengers</div>
+                </div>
+                <div class="fleet-spec-item">
+                    <div class="spec-val">$150</div>
+                    <div class="spec-key">Starting /hr</div>
+                </div>
+                <div class="fleet-spec-item">
+                    <div class="spec-val">3hr</div>
+                    <div class="spec-key">Minimum</div>
+                </div>
+            </div>
+            <div class="fleet-ctas">
+                <a href="#limo-cards" class="btn-fleet btn-fleet-light">View All Limos</a>
+                <a href="#contact" class="btn-fleet btn-fleet-outline-light">Book Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         ALL VEHICLE CAROUSELS — order: Jets, Limos, Lux Vans, SUVs, Sedans, Shuttle, WAV
+         ============================================================ -->
+
+    <!-- Sprinter Jets -->
+    <section class="fleet-cards-section" id="sprinter-cards">
+        <div class="section-header-row">
+            <div class="section-header fade-up">
+                <p class="section-eyebrow">Sprinter Jets</p>
+                <h2 class="section-title">Private-Style Group Travel</h2>
+            </div>
+            <div class="h-scroll-btns">
+                <button class="h-scroll-btn" onclick="scrollFleet(this,-1)">&#8592;</button>
+                <button class="h-scroll-btn" onclick="scrollFleet(this,1)">&#8594;</button>
+            </div>
+        </div>
+        <div class="h-carousel-wrap">
+            <div class="h-carousel">
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/JET/JET%20776/08f3685c-e466-4640-8ffd-42af50c1a0d9.jpg" alt="Sprinter Jet #776 1" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20776/a28f8011-ecfa-40b3-9dff-0228bf225f7b.jpg" alt="Sprinter Jet #776 2" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20776/8d52b1f2-1777-47a0-b22f-8bdce1d611d0.jpg" alt="Sprinter Jet #776 3" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20776/19f1aa23-43dc-4287-bd3e-24aa22bbf1e2.jpg" alt="Sprinter Jet #776 4" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20776/9dcd92ca-7bc0-47d3-b4d6-6d7c390626cb.jpg" alt="Sprinter Jet #776 5" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20776/c37f7866-3913-4768-8883-8a7cb1623624.jpg" alt="Sprinter Jet #776 6" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20776/287b3ca9-ae7b-4edb-9a36-0e40d580f61a.jpg" alt="Sprinter Jet #776 7" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20776/74125c07-ad4c-4302-ab0b-b192397aaee1.jpg" alt="Sprinter Jet #776 8" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20776/6a82423a-55f9-43ce-be2e-ac11f9e5aa96.jpg" alt="Sprinter Jet #776 9" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20776/278134f9-2331-4e44-8e91-ca0b5f78432b.jpg" alt="Sprinter Jet #776 10" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20776/e62d7dda-2e6a-4c72-ad84-429a8cfc32e5.jpg" alt="Sprinter Jet #776 11" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/11</span>
+                    </div>
+                    <div class="v-card-body">
+                        <h3 class="v-card-name">Sprinter Jet #776</h3>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">8 Passengers &middot; 3hr min</span>
+                            <span class="v-card-price">$150<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/JET/JET%20777/Interior777_3.png" alt="Sprinter Jet #777 1" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20777/Sprinter777.png" alt="Sprinter Jet #777 2" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20777/Interior777.png" alt="Sprinter Jet #777 3" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20777/Interior777_2.png" alt="Sprinter Jet #777 4" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20777/Interior777_4.png" alt="Sprinter Jet #777 5" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20777/777Storage.png" alt="Sprinter Jet #777 6" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/6</span>
+                    </div>
+                    <div class="v-card-body">
+                        <h3 class="v-card-name">Sprinter Jet #777</h3>
+                        <p class="v-card-note">White Interior</p>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">8 Passengers &middot; 3hr min</span>
+                            <span class="v-card-price">$150<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/JET/JET%20778/dce6229b-f925-45b6-8447-4d7bfff24620.jpg" alt="Sprinter Jet #778 1" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20778/ec851616-441f-4312-a6cf-b731d2d304d9.jpg" alt="Sprinter Jet #778 2" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20778/09c1a4b9-22d9-4daa-a678-477fbdca526c.jpg" alt="Sprinter Jet #778 3" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20778/70140d85-b927-44a1-bbeb-de85f4d130e7.jpg" alt="Sprinter Jet #778 4" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20778/d46dda5b-17c1-4b81-9626-b027ad6a0c88.jpg" alt="Sprinter Jet #778 5" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20778/777-Car_v2.jpg" alt="Sprinter Jet #778 6" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20778/Storage778.png" alt="Sprinter Jet #778 7" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/7</span>
+                    </div>
+                    <div class="v-card-body">
+                        <h3 class="v-card-name">Sprinter Jet #778</h3>
+                        <p class="v-card-note">White Interior</p>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">8 Passengers &middot; 3hr min</span>
+                            <span class="v-card-price">$150<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/JET/JET%20787/10c49005-663d-4508-b737-075376219e8e.jpg" alt="Sprinter Jet #787 1" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20787/35f73542-ff33-4eba-b70e-15923e39e641.jpg" alt="Sprinter Jet #787 2" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20787/824d2423-a314-44d7-aa6f-cf19b137ed2e.jpg" alt="Sprinter Jet #787 3" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20787/5d5d304f-3fee-404d-a754-304b684228a6.jpg" alt="Sprinter Jet #787 4" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20787/9535c92c-b551-4c9b-9916-d38be7d4e99c.jpg" alt="Sprinter Jet #787 5" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20787/18bd23b7-3d97-490f-8743-df53db935ef7.jpg" alt="Sprinter Jet #787 6" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20787/7.PNG" alt="Sprinter Jet #787 7" loading="lazy">
+                            <img src="CAR_PICTURES/JET/JET%20787/8.PNG" alt="Sprinter Jet #787 8" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/8</span>
+                    </div>
+                    <div class="v-card-body">
+                        <div class="v-card-badge">XL</div>
+                        <h3 class="v-card-name">Sprinter Jet #787</h3>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">13 Passengers &middot; 3hr min</span>
+                            <span class="v-card-price">$175<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stretch Limos -->
+    <section class="fleet-cards-section" id="limo-cards" style="background:var(--bg-light);">
+        <div class="section-header-row">
+            <div class="section-header fade-up">
+                <p class="section-eyebrow">Stretch Limos</p>
+                <h2 class="section-title">Make an Entrance</h2>
+            </div>
+            <div class="h-scroll-btns">
+                <button class="h-scroll-btn" onclick="scrollFleet(this,-1)">&#8592;</button>
+                <button class="h-scroll-btn" onclick="scrollFleet(this,1)">&#8594;</button>
+            </div>
+        </div>
+        <div class="h-carousel-wrap">
+            <div class="h-carousel">
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/Limo/Limo%20760/9df37b88-f6e7-49c9-8b53-49313a83a436.jpg" alt="Stretch Limo #760 1" loading="lazy">
+                            <img src="CAR_PICTURES/Limo/Limo%20760/69579db1-42f2-419a-a7a2-3fccab06e529.jpg" alt="Stretch Limo #760 2" loading="lazy">
+                            <img src="CAR_PICTURES/Limo/Limo%20760/e2af4ad8-20fc-4fe0-b548-b4202160c666.jpg" alt="Stretch Limo #760 3" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/3</span>
+                    </div>
+                    <div class="v-card-body">
+                        <h3 class="v-card-name">Stretch Limo #760</h3>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">13 Passengers &middot; 3hr min</span>
+                            <span class="v-card-price">$150<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/Limo/Limo%20761/ac7c7bc9-53ee-4633-b23f-cc34686da84b.jpg" alt="Stretch Limo #761 1" loading="lazy">
+                            <img src="CAR_PICTURES/Limo/Limo%20761/ed7172d3-9e6c-4536-a794-56770c43644c.jpg" alt="Stretch Limo #761 2" loading="lazy">
+                            <img src="CAR_PICTURES/Limo/Limo%20761/4bf7fb43-42e4-4b3b-b362-a56e21e5983a.jpg" alt="Stretch Limo #761 4" loading="lazy">
+                            <img src="CAR_PICTURES/Limo/Limo%20761/d130799b-a3cb-4ab4-9818-e6044928ef82.jpg" alt="Stretch Limo #761 5" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/5</span>
+                    </div>
+                    <div class="v-card-body">
+                        <h3 class="v-card-name">Stretch Limo #761</h3>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">18 Passengers &middot; 3hr min</span>
+                            <span class="v-card-price">$175<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/Limo/Limo%20762/094c3ce9-c761-4cc6-b77a-5a307c5090a2.jpg" alt="Stretch Limo #762 1" loading="lazy">
+                            <img src="CAR_PICTURES/Limo/Limo%20762/933ab38c-b6cb-4f10-b1e4-8d2c589113d2.jpg" alt="Stretch Limo #762 2" loading="lazy">
+                            <img src="CAR_PICTURES/Limo/Limo%20762/cd1308b9-8d57-4cb1-8150-986fa503bada.jpg" alt="Stretch Limo #762 3" loading="lazy">
+                            <img src="CAR_PICTURES/Limo/Limo%20762/0e048cc6-4271-4512-aea4-8da79acd7edd.jpg" alt="Stretch Limo #762 4" loading="lazy">
+                            <img src="CAR_PICTURES/Limo/Limo%20762/2ac92d89-676c-4515-a33d-5db0abde6e9f.jpg" alt="Stretch Limo #762 6" loading="lazy">
+                            <img src="CAR_PICTURES/Limo/Limo%20762/29a75a80-99a2-4218-b0c8-df47867ef21e.jpg" alt="Stretch Limo #762 7" loading="lazy">
+                            <img src="CAR_PICTURES/Limo/Limo%20762/cdef82f4-dbeb-43e4-9a08-5acc5cb6e319.jpg" alt="Stretch Limo #762 8" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/8</span>
+                    </div>
+                    <div class="v-card-body">
+                        <h3 class="v-card-name">Stretch Limo #762</h3>
+                        <p class="v-card-note">Removable Dance Pole</p>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">18 Passengers &middot; 3hr min</span>
+                            <span class="v-card-price">$175<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Luxury Vans -->
+    <section class="fleet-cards-section">
+        <div class="section-header-row">
+            <div class="section-header fade-up">
+                <p class="section-eyebrow">Luxury Vans</p>
+                <h2 class="section-title">Group Comfort</h2>
+            </div>
+            <div class="h-scroll-btns">
+                <button class="h-scroll-btn" onclick="scrollFleet(this,-1)">&#8592;</button>
+                <button class="h-scroll-btn" onclick="scrollFleet(this,1)">&#8594;</button>
+            </div>
+        </div>
+        <div class="h-carousel-wrap">
+            <div class="h-carousel">
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/Lux%20Van/Lux%20Van%20751/3636a4a2-9ddc-4de9-976f-4f5745aeaf22.jpg" alt="Luxury Van #751 1" loading="lazy">
+                            <img src="CAR_PICTURES/Lux%20Van/Lux%20Van%20751/894949b6-8884-406b-9a2b-b6cb3c1fa637.jpg" alt="Luxury Van #751 2" loading="lazy">
+                            <img src="CAR_PICTURES/Lux%20Van/Lux%20Van%20751/968503b1-fbdf-4e0a-9ce4-a91b7d1a6255.jpg" alt="Luxury Van #751 3" loading="lazy">
+                            <img src="CAR_PICTURES/Lux%20Van/Lux%20Van%20751/f2083a6e-7ab6-4b95-a035-6cd6ba6edbf9.jpg" alt="Luxury Van #751 4" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/5</span>
+                    </div>
+                    <div class="v-card-body">
+                        <h3 class="v-card-name">Luxury Van #751</h3>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">14 Passengers &middot; 3hr min</span>
+                            <span class="v-card-price">$150<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/Lux%20Van/Lux%20Van%20752/3db48adb-89bf-4fb4-ae65-6222795cc400.jpg" alt="Luxury Van #752 1" loading="lazy">
+                            <img src="CAR_PICTURES/Lux%20Van/Lux%20Van%20752/b3383524-8d0f-4c47-abb4-1bb7fdacccaa.jpg" alt="Luxury Van #752 3" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/3</span>
+                    </div>
+                    <div class="v-card-body">
+                        <h3 class="v-card-name">Luxury Van #752</h3>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">16 Passengers &middot; 3hr min</span>
+                            <span class="v-card-price">$150<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/Lux%20Van/Lux%20Van%20753/01a34e0f-cd85-45df-a6fd-00950be271d0.jpg" alt="Luxury Van #753 1" loading="lazy">
+                            <img src="CAR_PICTURES/Lux%20Van/Lux%20Van%20753/29cecd25-ce2e-4868-a863-6a13a5d8ac28.jpg" alt="Luxury Van #753 2" loading="lazy">
+                            <img src="CAR_PICTURES/Lux%20Van/Lux%20Van%20753/3275694b-39a6-475e-b15d-9109eb7bafbf.jpg" alt="Luxury Van #753 3" loading="lazy">
+                            <img src="CAR_PICTURES/Lux%20Van/Lux%20Van%20753/47f0ba76-5f1d-4325-8bc7-b63e1be16417.jpg" alt="Luxury Van #753 5" loading="lazy">
+                            <img src="CAR_PICTURES/Lux%20Van/Lux%20Van%20753/67546e49-a712-441d-8daa-4ff2a0f6369b.jpg" alt="Luxury Van #753 6" loading="lazy">
+                            <img src="CAR_PICTURES/Lux%20Van/Lux%20Van%20753/b3034feb-157c-4974-bd58-d1ca08a732f8.jpg" alt="Luxury Van #753 9" loading="lazy">
+                            <img src="CAR_PICTURES/Lux%20Van/Lux%20Van%20753/c6026ca8-ebfe-4bb7-99dc-d7e824bd14a4.jpg" alt="Luxury Van #753 10" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/10</span>
+                    </div>
+                    <div class="v-card-body">
+                        <h3 class="v-card-name">Luxury Van #753</h3>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">14 Passengers &middot; 3hr min</span>
+                            <span class="v-card-price">$150<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/Lux%20Van/Lux%20Van%20754/1265c6a6-97ef-4c5a-8407-7cf3bd6b4e1a.jpg" alt="Luxury Van #754 1" loading="lazy">
+                            <img src="CAR_PICTURES/Lux%20Van/Lux%20Van%20754/1d7c5401-50b5-441a-89c1-f70a09255d74.jpg" alt="Luxury Van #754 2" loading="lazy">
+                            <img src="CAR_PICTURES/Lux%20Van/Lux%20Van%20754/76119a29-f911-4252-8b12-bd86f55c3afb.jpg" alt="Luxury Van #754 4" loading="lazy">
+                            <img src="CAR_PICTURES/Lux%20Van/Lux%20Van%20754/c9cef5d3-8151-4a23-8ae9-c6e588243732.jpg" alt="Luxury Van #754 6" loading="lazy">
+                            <img src="CAR_PICTURES/Lux%20Van/Lux%20Van%20754/ef1de4d5-2344-48e5-8472-36e6100d4572.jpg" alt="Luxury Van #754 7" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/7</span>
+                    </div>
+                    <div class="v-card-body">
+                        <h3 class="v-card-name">Luxury Van #754</h3>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">14 Passengers &middot; 3hr min</span>
+                            <span class="v-card-price">$150<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SUVs -->
+    <section class="fleet-cards-section" id="suv-cards" style="background:var(--bg-light);">
+        <div class="section-header-row">
+            <div class="section-header fade-up">
+                <p class="section-eyebrow">Premium SUVs</p>
+                <h2 class="section-title">Choose Your SUV</h2>
+            </div>
+            <div class="h-scroll-btns">
+                <button class="h-scroll-btn" onclick="scrollFleet(this,-1)">&#8592;</button>
+                <button class="h-scroll-btn" onclick="scrollFleet(this,1)">&#8594;</button>
+            </div>
+        </div>
+        <div class="h-carousel-wrap">
+            <div class="h-carousel">
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/SUV/SUV%20720/24c832c2-6472-44c8-bebe-c1e3ab4460b5.jpg" alt="Escalade Plat Exec 1" loading="lazy" style="object-fit: cover; object-position: center 70%;">
+                            <img src="CAR_PICTURES/SUV/SUV%20720/0e5c5120-438e-47ff-8fc2-f449e40c5b00.jpg" alt="Escalade Plat Exec 2" loading="lazy">
+                            <img src="CAR_PICTURES/SUV/SUV%20720/2a0d2493-4a16-4cec-81e6-7b300a7c7281.jpg" alt="Escalade Plat Exec 3" loading="lazy">
+                            <img src="CAR_PICTURES/SUV/SUV%20720/8cdf11ae-55c0-461a-ac7f-ba16d6e8e15a.jpg" alt="Escalade Plat Exec 4" loading="lazy">
+                            <img src="CAR_PICTURES/SUV/SUV%20720/a3dd633d-e512-4f0b-9122-e2f2fc38bb0b.jpg" alt="Escalade Plat Exec 5" loading="lazy">
+                            <img src="CAR_PICTURES/SUV/SUV%20720/bdcc89c5-ad4e-47bd-a1e1-bb57320db116.jpg" alt="Escalade Plat Exec 6" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/6</span>
+                    </div>
+                    <div class="v-card-body">
+                        <div class="v-card-badge gold">Premium</div>
+                        <h3 class="v-card-name">2025 Escalade Platinum Executive</h3>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">6 Passengers &middot; 2hr min</span>
+                            <span class="v-card-price">$120<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/SUV/SUV%20AF1/15c24960-4820-42ba-b785-9572a35efeeb.jpg" alt="Escalade-V ESV 1" loading="lazy">
+                            <img src="CAR_PICTURES/SUV/SUV%20AF1/1b4f36a4-9947-4f07-97e1-8611f6266825.jpg" alt="Escalade-V ESV 2" loading="lazy">
+                            <img src="CAR_PICTURES/SUV/SUV%20AF1/1ee5a973-7e6a-4f03-bc8d-71d96a724339.jpg" alt="Escalade-V ESV 3" loading="lazy">
+                            <img src="CAR_PICTURES/SUV/SUV%20AF1/23221bcd-b943-4970-88e6-618e5ec53e0d.jpg" alt="Escalade-V ESV 4" loading="lazy">
+                            <img src="CAR_PICTURES/SUV/SUV%20AF1/82cf7581-412c-4f71-b36b-a0decaf89330.jpg" alt="Escalade-V ESV 5" loading="lazy">
+                            <img src="CAR_PICTURES/SUV/SUV%20AF1/8d0c93f8-598b-4fbd-9222-2cf038c1160e.jpg" alt="Escalade-V ESV 6" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/6</span>
+                    </div>
+                    <div class="v-card-body">
+                        <div class="v-card-badge gold">Premium</div>
+                        <h3 class="v-card-name">Cadillac Escalade-V ESV</h3>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">6 Passengers &middot; 2hr min</span>
+                            <span class="v-card-price">$120<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/SUV/SUV%20721/b98e9bfb-df82-40a2-a4bf-50e288fca098.jpg" alt="Escalade ESV 1" loading="lazy" style="object-fit: cover; object-position: center 85%;">
+                            <img src="CAR_PICTURES/SUV/SUV%20721/34c67463-185e-4518-8b45-fe059111732f.jpg" alt="Escalade ESV 2" loading="lazy">
+                            <img src="CAR_PICTURES/SUV/SUV%20721/583c6c32-812c-4be0-8c00-a501535d0c5c.jpg" alt="Escalade ESV 3" loading="lazy">
+                            <img src="CAR_PICTURES/SUV/SUV%20721/9aafe821-255d-4a84-9e7c-48a908ae7f5b.jpg" alt="Escalade ESV 6" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/6</span>
+                    </div>
+                    <div class="v-card-body">
+                        <div class="v-card-badge">Executive</div>
+                        <h3 class="v-card-name">2025 Cadillac Escalade ESV</h3>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">6 Passengers &middot; 2hr min</span>
+                            <span class="v-card-price">$95<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/SUV/SUV%20722/1.JPEG" alt="Escalade Plat 2026 1" loading="lazy">
+                            <img src="CAR_PICTURES/SUV/SUV%20722/2.JPEG" alt="Escalade Plat 2026 2" loading="lazy">
+                            <img src="CAR_PICTURES/SUV/SUV%20722/3.JPG" alt="Escalade Plat 2026 3" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/3</span>
+                    </div>
+                    <div class="v-card-body">
+                        <div class="v-card-badge">Executive</div>
+                        <h3 class="v-card-name">2026 Cadillac Escalade Platinum</h3>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">6 Passengers &middot; 2hr min</span>
+                            <span class="v-card-price">$95<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/SUV/SUV%20723/d68753d4-e007-4aa0-8afd-7972846c6452.jpg" alt="Escalade Sport 1" loading="lazy">
+                            <img src="CAR_PICTURES/SUV/SUV%20723/5ff13626-a907-4c77-9d26-499d7bf7b8c9.jpg" alt="Escalade Sport 2" loading="lazy">
+                            <img src="CAR_PICTURES/SUV/SUV%20723/c5556c1e-0cc0-487f-817c-770695cfc746.jpg" alt="Escalade Sport 4" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/4</span>
+                    </div>
+                    <div class="v-card-body">
+                        <div class="v-card-badge">Sport</div>
+                        <h3 class="v-card-name">2022 Cadillac Escalade Sport</h3>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">6 Passengers &middot; 2hr min</span>
+                            <span class="v-card-price">$90<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/SUV/SUV%20724/2025%20Suburban.jpg" alt="Suburban 1" loading="lazy">
+                            <img src="CAR_PICTURES/SUV/SUV%20724/2025%20SuburbanInterior.jpg" alt="Suburban 2" loading="lazy">
+                            <img src="CAR_PICTURES/SUV/SUV%20724/0b2d45f2-8b4b-45ff-a10f-07f6f6b7ccf9.jpg" alt="Suburban 3" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/4</span>
+                    </div>
+                    <div class="v-card-body">
+                        <h3 class="v-card-name">2025 Chevrolet Suburban</h3>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">7 Passengers &middot; 2hr min</span>
+                            <span class="v-card-price">$85<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Luxury Sedans -->
+    <section class="fleet-cards-section">
+        <div class="section-header-row">
+            <div class="section-header fade-up">
+                <p class="section-eyebrow">Luxury Sedans</p>
+                <h2 class="section-title">Executive Sedans</h2>
+            </div>
+            <div class="h-scroll-btns">
+                <button class="h-scroll-btn" onclick="scrollFleet(this,-1)">&#8592;</button>
+                <button class="h-scroll-btn" onclick="scrollFleet(this,1)">&#8594;</button>
+            </div>
+        </div>
+        <div class="h-carousel-wrap">
+            <div class="h-carousel">
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/Sedan/Sedan%20719/08216510-1ecc-432b-a1b3-4681deb91678.jpg" alt="CT5 1" loading="lazy">
+                            <img src="CAR_PICTURES/Sedan/Sedan%20719/5e2550d1-b971-4954-8a7a-e8c7e7dd5860.jpg" alt="CT5 2" loading="lazy">
+                            <img src="CAR_PICTURES/Sedan/Sedan%20719/8b868c5b-0ecc-4b23-b8e0-b665d8da684b.jpg" alt="CT5 3" loading="lazy">
+                            <img src="CAR_PICTURES/Sedan/Sedan%20719/bd50dd16-e557-4fad-9a20-69d341fab72a.jpg" alt="CT5 5" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/6</span>
+                    </div>
+                    <div class="v-card-body">
+                        <h3 class="v-card-name">2026 Cadillac CT5</h3>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">3 Passengers &middot; 2hr min</span>
+                            <span class="v-card-price">$75<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/Luxury%20Sedan/S-Class%20580/8e16d1fb-920e-4b9d-9cdf-72ed1b6c1662.jpg" alt="S-Class 1" loading="lazy">
+                            <img src="CAR_PICTURES/Luxury%20Sedan/S-Class%20580/18fdf848-979a-4d01-8ef8-8332450ba582.jpg" alt="S-Class 3" loading="lazy">
+                            <img src="CAR_PICTURES/Luxury%20Sedan/S-Class%20580/6d270cb2-2481-447c-bf6d-1aa2e51cd2b8.jpg" alt="S-Class 4" loading="lazy">
+                            <img src="CAR_PICTURES/Luxury%20Sedan/S-Class%20580/77d3acfe-81ee-41a8-8c8a-ffcf395db3e4.jpg" alt="S-Class 5" loading="lazy">
+                            <img src="CAR_PICTURES/Luxury%20Sedan/S-Class%20580/7824d5bd-74de-45e8-8fe5-27375a7080b2.jpg" alt="S-Class 6" loading="lazy">
+                            <img src="CAR_PICTURES/Luxury%20Sedan/S-Class%20580/a4a72d70-5115-43fd-944c-272c0715f77a.jpg" alt="S-Class 7" loading="lazy">
+                            <img src="CAR_PICTURES/Luxury%20Sedan/S-Class%20580/d734332c-aa3b-4473-af0b-b24b7a68512e.jpg" alt="S-Class 8" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/8</span>
+                    </div>
+                    <div class="v-card-body">
+                        <div class="v-card-badge gold">Flagship</div>
+                        <h3 class="v-card-name">Mercedes S-Class 580</h3>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">3 Passengers &middot; 3hr min</span>
+                            <span class="v-card-price">$125<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/Luxury%20Sedan/BMW%20760I/10315874-c0bb-41af-8f2b-726ccb2402ab.jpg" alt="BMW 1" loading="lazy">
+                            <img src="CAR_PICTURES/Luxury%20Sedan/BMW%20760I/069f37ee-074f-4ad9-8764-acd8a1704763.jpg" alt="BMW 2" loading="lazy">
+                            <img src="CAR_PICTURES/Luxury%20Sedan/BMW%20760I/455b9189-f8ff-4cb6-92c6-063c5499ef98.jpg" alt="BMW 4" loading="lazy">
+                            <img src="CAR_PICTURES/Luxury%20Sedan/BMW%20760I/94f70df3-a062-432a-bde9-b0b7e7f67614.jpg" alt="BMW 6" loading="lazy">
+                            <img src="CAR_PICTURES/Luxury%20Sedan/BMW%20760I/de30636a-a7c5-441c-b312-de4f9d7e6b55.jpg" alt="BMW 7" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/7</span>
+                    </div>
+                    <div class="v-card-body">
+                        <div class="v-card-badge gold">Flagship</div>
+                        <h3 class="v-card-name">BMW 760i</h3>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">3 Passengers &middot; 3hr min</span>
+                            <span class="v-card-price">$125<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/Sedan/Tesla%20Model%20Y/1.jpeg" alt="Tesla Y 1" loading="lazy">
+                            <img src="CAR_PICTURES/Sedan/Tesla%20Model%20Y/2.JPG" alt="Tesla Y 2" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/2</span>
+                    </div>
+                    <div class="v-card-body">
+                        <div class="v-card-badge">Electric</div>
+                        <h3 class="v-card-name">Tesla Model Y</h3>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">3 Passengers &middot; 2hr min</span>
+                            <span class="v-card-price">$70<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shuttle Vans -->
+    <section class="fleet-cards-section" style="background:var(--bg-light);">
+        <div class="section-header-row">
+            <div class="section-header fade-up">
+                <p class="section-eyebrow">Shuttle Vans</p>
+                <h2 class="section-title">Airport &amp; Group Transfers</h2>
+            </div>
+            <div class="h-scroll-btns">
+                <button class="h-scroll-btn" onclick="scrollFleet(this,-1)">&#8592;</button>
+                <button class="h-scroll-btn" onclick="scrollFleet(this,1)">&#8594;</button>
+            </div>
+        </div>
+        <div class="h-carousel-wrap">
+            <div class="h-carousel">
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/VAN/VAN%20740/aab55fd0-1ed1-4fc7-9f76-1f01da2f11f9.jpg" alt="Shuttle Van #740 1" loading="lazy">
+                            <img src="CAR_PICTURES/VAN/VAN%20740/eb8ba693-9576-435e-af76-ba09e1b9fc3b.jpg" alt="Shuttle Van #740 2" loading="lazy">
+                            <img src="CAR_PICTURES/VAN/VAN%20740/c962c880-d5cd-46a1-8ab2-4d890065d693.jpg" alt="Shuttle Van #740 3" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/3</span>
+                    </div>
+                    <div class="v-card-body">
+                        <h3 class="v-card-name">Shuttle Van #740</h3>
+                        <p class="v-card-note">Largest Trunk Space</p>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">14 Passengers &middot; 3hr min</span>
+                            <span class="v-card-price">$130<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/VAN/VAN%20741/3b0ff0b0-6514-4e27-bbfe-e9b91a358751.jpg" alt="Shuttle Van #741 1" loading="lazy">
+                            <img src="CAR_PICTURES/VAN/VAN%20741/be111faf-8d34-4496-a196-2787d511724e.jpg" alt="Shuttle Van #741 2" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/2</span>
+                    </div>
+                    <div class="v-card-body">
+                        <h3 class="v-card-name">Shuttle Van #741</h3>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">17 Passengers &middot; 3hr min</span>
+                            <span class="v-card-price">$150<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/VAN/VAN%20742/MAIN742.PNG" alt="Shuttle Van #742 1" loading="lazy" style="transform: scale(1.1);">
+                            <img src="CAR_PICTURES/VAN/VAN%20742/1ed7b102-bc1f-4c19-af4b-aee5906e0219.jpg" alt="Shuttle Van #742 3" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/3</span>
+                    </div>
+                    <div class="v-card-body">
+                        <h3 class="v-card-name">Shuttle Van #742</h3>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">14 Passengers &middot; 3hr min</span>
+                            <span class="v-card-price">$130<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/VAN/VAN%20743/66344099-978c-4157-907e-3f0f35dac111.jpg" alt="Shuttle Van #743 1" loading="lazy">
+                            <img src="CAR_PICTURES/VAN/VAN%20743/58f0ca1e-1f28-40db-bc42-4e5e10496931.jpg" alt="Shuttle Van #743 3" loading="lazy">
+                            <img src="CAR_PICTURES/VAN/VAN%20743/e8decdaf-807d-480f-b538-7c7c2f4db874.jpg" alt="Shuttle Van #743 5" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/5</span>
+                    </div>
+                    <div class="v-card-body">
+                        <h3 class="v-card-name">Shuttle Van #743</h3>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">14 Passengers &middot; 3hr min</span>
+                            <span class="v-card-price">$130<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wheelchair Accessible Vehicles -->
+    <section class="fleet-cards-section">
+        <div class="section-header-row">
+            <div class="section-header fade-up">
+                <p class="section-eyebrow">Wheelchair Accessible Vehicles</p>
+                <h2 class="section-title">Accessible Fleet</h2>
+            </div>
+            <div class="h-scroll-btns">
+                <button class="h-scroll-btn" onclick="scrollFleet(this,-1)">&#8592;</button>
+                <button class="h-scroll-btn" onclick="scrollFleet(this,1)">&#8594;</button>
+            </div>
+        </div>
+        <div class="h-carousel-wrap">
+            <div class="h-carousel">
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/WAV/WAV%20701/1bf08d3e-f43c-4e62-895b-af0651a00802.jpg" alt="WAV 701 1" loading="lazy">
+                            <img src="CAR_PICTURES/WAV/WAV%20701/389c72a1-da13-4662-b809-3e3e44433c20.jpg" alt="WAV 701 2" loading="lazy">
+                            <img src="CAR_PICTURES/WAV/WAV%20701/5202cf34-797c-4cd8-b583-ec83db63ef70.jpg" alt="WAV 701 3" loading="lazy">
+                            <img src="CAR_PICTURES/WAV/WAV%20701/d18d4c2a-0c11-4c96-af7c-334539b9922b.jpg" alt="WAV 701 4" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/4</span>
+                    </div>
+                    <div class="v-card-body">
+                        <div class="v-card-badge">ADA</div>
+                        <h3 class="v-card-name">Wheelchair Accessible #701</h3>
+                        <p class="v-card-note">Double Wheelchair / ADA Compliant</p>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">6 Passengers &middot; 3hr min</span>
+                            <span class="v-card-price">$130<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/WAV/WAV%20705/MAIN.PNG" alt="WAV 705 1" loading="lazy" style="object-fit: contain; background: #111; transform: scale(1.15);">
+                            <img src="CAR_PICTURES/WAV/WAV%20705/3d65bfc4-f919-4ceb-b4c0-d1c80d3a0ae8.jpg" alt="WAV 705 2" loading="lazy">
+                            <img src="CAR_PICTURES/WAV/WAV%20705/c5515e2f-02af-445c-8e4d-6b8c191b641f.jpg" alt="WAV 705 3" loading="lazy">
+                            <img src="CAR_PICTURES/WAV/WAV%20705/e8fb1c26-796b-479c-9cbc-3acc87277e98.jpg" alt="WAV 705 4" loading="lazy">
+                            <img src="CAR_PICTURES/WAV/WAV%20705/ea612d45-9134-4d18-964c-e6e186c9dc33.jpg" alt="WAV 705 5" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/5</span>
+                    </div>
+                    <div class="v-card-body">
+                        <div class="v-card-badge">ADA</div>
+                        <h3 class="v-card-name">Wheelchair Accessible #705</h3>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">6 Passengers &middot; 3hr min</span>
+                            <span class="v-card-price">$130<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/WAV/Cargo%20WAV%20709/1e3d1566-6939-45b9-b68c-93532b6d1865.jpg" alt="Cargo WAV 709 1" loading="lazy">
+                            <img src="CAR_PICTURES/WAV/Cargo%20WAV%20709/4ec0e889-0485-410a-946f-4e772264915b.jpg" alt="Cargo WAV 709 2" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/2</span>
+                    </div>
+                    <div class="v-card-body">
+                        <div class="v-card-badge">ADA</div>
+                        <h3 class="v-card-name">Cargo WAV #709</h3>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">3 Passengers &middot; 3hr min</span>
+                            <span class="v-card-price">$100<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/WAV/WAV%20717/MAIN717.PNG" alt="WAV 717 1" loading="lazy" style="object-fit: contain; background: #111; transform: scale(1.1);">
+                            <img src="CAR_PICTURES/WAV/WAV%20717/3d65bfc4-f919-4ceb-b4c0-d1c80d3a0ae8.jpg" alt="WAV 717 3" loading="lazy">
+                            <img src="CAR_PICTURES/WAV/WAV%20717/c5515e2f-02af-445c-8e4d-6b8c191b641f.jpg" alt="WAV 717 4" loading="lazy">
+                            <img src="CAR_PICTURES/WAV/WAV%20717/e8fb1c26-796b-479c-9cbc-3acc87277e98.jpg" alt="WAV 717 5" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/5</span>
+                    </div>
+                    <div class="v-card-body">
+                        <div class="v-card-badge">ADA</div>
+                        <h3 class="v-card-name">Wheelchair Accessible #717</h3>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">6 Passengers &middot; 3hr min</span>
+                            <span class="v-card-price">$130<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-card">
+                    <div class="card-gallery" data-idx="0">
+                        <div class="gallery-track">
+                            <img src="CAR_PICTURES/WAV/WAV%20VAN%20730/4ca691aa-ad23-4510-b6a9-65b84c260dd9.jpg" alt="WAV VAN 730 1" loading="lazy" style="transform: scale(1.0);">
+                            <img src="CAR_PICTURES/WAV/WAV%20VAN%20730/2d068914-3b41-4415-bf69-f91bd3a5332f.jpg" alt="WAV VAN 730 2" loading="lazy">
+                            <img src="CAR_PICTURES/WAV/WAV%20VAN%20730/549d5627-f4b3-4afe-be7e-49769a56c03a.jpg" alt="WAV VAN 730 3" loading="lazy">
+                            <img src="CAR_PICTURES/WAV/WAV%20VAN%20730/57f27e51-077d-457f-a626-ccd31568a1d4.jpg" alt="WAV VAN 730 4" loading="lazy">
+                            <img src="CAR_PICTURES/WAV/WAV%20VAN%20730/c54e80e2-4e88-4a8b-94a4-ef522dc65933.jpg" alt="WAV VAN 730 5" loading="lazy">
+                            <img src="CAR_PICTURES/WAV/WAV%20VAN%20730/f4f2e473-398d-47c4-a906-4eeae57f5350.jpg" alt="WAV VAN 730 6" loading="lazy">
+                        </div>
+                        <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
+                        <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
+                        <span class="g-counter">1/6</span>
+                    </div>
+                    <div class="v-card-body">
+                        <div class="v-card-badge">ADA</div>
+                        <h3 class="v-card-name">WAV Van #730</h3>
+                        <div class="v-card-row">
+                            <span class="v-card-meta">11 Passengers &middot; 3hr min</span>
+                            <span class="v-card-price">$130<span>/hr</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SERVICES
+         ============================================================ -->
+    <section class="services-section" id="services">
+        <div class="section-header fade-up" style="padding:0 24px;">
+            <p class="section-eyebrow">What We Offer</p>
+            <h2 class="section-title">Services</h2>
+        </div>
+        <div class="services-grid">
+            <div class="svc-card">
+                <span class="svc-icon">✈</span>
+                <h3 class="svc-name">Airport Transfers</h3>
+                <p class="svc-desc">Reliable pickups and drop-offs to JFK, LaGuardia, Newark, and all regional airports. Real-time flight tracking and complimentary wait time included.</p>
+                <a href="#contact" class="svc-link">Get a Quote &rarr;</a>
+            </div>
+            <div class="svc-card">
+                <span class="svc-icon">⏱</span>
+                <h3 class="svc-name">Hourly Service</h3>
+                <p class="svc-desc">Your vehicle and chauffeur at your disposal for as long as you need — business meetings, shopping, or exploring the city.</p>
+                <a href="#contact" class="svc-link">Get a Quote &rarr;</a>
+            </div>
+            <div class="svc-card">
+                <span class="svc-icon">📍</span>
+                <h3 class="svc-name">Point-to-Point</h3>
+                <p class="svc-desc">Direct, efficient transportation anywhere in the Tri-State Area. Intercity travel, office commutes, or any straightforward trip.</p>
+                <a href="#contact" class="svc-link">Get a Quote &rarr;</a>
+            </div>
+            <div class="svc-card">
+                <span class="svc-icon">🎉</span>
+                <h3 class="svc-name">Special Events</h3>
+                <p class="svc-desc">Weddings, proms, anniversaries, galas, and milestone birthdays — served with elegance and style.</p>
+                <a href="#contact" class="svc-link">Get a Quote &rarr;</a>
+            </div>
+            <div class="svc-card">
+                <span class="svc-icon">💼</span>
+                <h3 class="svc-name">Corporate Travel</h3>
+                <p class="svc-desc">Professional ground transportation for executives, roadshows, and corporate events. Discreet service and corporate billing available.</p>
+                <a href="#contact" class="svc-link">Get a Quote &rarr;</a>
+            </div>
+            <div class="svc-card">
+                <span class="svc-icon">🍾</span>
+                <h3 class="svc-name">Night Out / Party</h3>
+                <p class="svc-desc">Sprinter Jets and stretch limos for bachelor/bachelorette parties, birthday celebrations, concerts, and nightlife tours.</p>
+                <a href="#contact" class="svc-link">Get a Quote &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         ADD-ONS
+         ============================================================ -->
+    <section class="addons-section" id="addons">
+        <div class="section-header fade-up">
+            <p class="section-eyebrow">Extras</p>
+            <h2 class="section-title">Add-On Services</h2>
+        </div>
+        <div class="addons-grid">
+            <div class="addon-tile">
+                <div class="addon-icon">🤝</div>
+                <div class="addon-name">Meet &amp; Greet</div>
+                <div class="addon-price">$25 + Parking</div>
+            </div>
+            <div class="addon-tile">
+                <div class="addon-icon">🍽</div>
+                <div class="addon-name">Greeting Service</div>
+                <div class="addon-price">$175</div>
+            </div>
+            <div class="addon-tile">
+                <div class="addon-icon">👶</div>
+                <div class="addon-name">Car Seat</div>
+                <div class="addon-price">$25 each</div>
+            </div>
+            <div class="addon-tile">
+                <div class="addon-icon">🚬</div>
+                <div class="addon-name">Smoking &mdash; SUV</div>
+                <div class="addon-price">$250</div>
+            </div>
+            <div class="addon-tile">
+                <div class="addon-icon">🚐</div>
+                <div class="addon-name">Smoking &mdash; Sprinter</div>
+                <div class="addon-price">$350</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         WHY US
+         ============================================================ -->
+    <section class="why-section" id="about">
+        <div class="why-inner">
+            <div class="why-visual fade-up">
+                <img src="CAR_PICTURES/LOGO/BlackCarSocietyLogo.PNG" alt="The Black Car Society Fleet">
+            </div>
+            <div class="why-text fade-up">
+                <p class="eyebrow">Why Choose Us</p>
+                <h2>Unmatched Luxury.<br>Every Ride.</h2>
+                <p>We deliver premium ground transportation across New York City and the Tri-State Area. Our commitment to excellence, punctuality, and discretion has made us the preferred choice for clients who expect nothing less than the best.</p>
+                <div class="why-features">
+                    <div>
+                        <div class="why-feat-title">Premium Fleet</div>
+                        <div class="why-feat-desc">30+ meticulously maintained luxury vehicles.</div>
+                    </div>
+                    <div>
+                        <div class="why-feat-title">ADA Accessible</div>
+                        <div class="why-feat-desc">Full wheelchair-accessible fleet.</div>
+                    </div>
+                    <div>
+                        <div class="why-feat-title">Always On Time</div>
+                        <div class="why-feat-desc">Real-time flight tracking. You never wait.</div>
+                    </div>
+                    <div>
+                        <div class="why-feat-title">Licensed &amp; Insured</div>
+                        <div class="why-feat-desc">TLC licensed, commercially insured.</div>
+                    </div>
+                </div>
+                <a href="#contact" class="btn-standard">Book Your Ride</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         CONTACT
+         ============================================================ -->
+    <section class="contact-section" id="contact">
+        <div class="section-header fade-up" style="padding:0 24px;">
+            <p class="section-eyebrow">Get in Touch</p>
+            <h2 class="section-title">Request a Quote</h2>
+        </div>
+
+        <div class="contact-info-row">
+            <div class="ci-item">
+                <div class="ci-label">Phone</div>
+                <div class="ci-value"><a href="tel:+19144336735">+1 (914) 433-6735</a></div>
+            </div>
+            <div class="ci-item">
+                <div class="ci-label">Email</div>
+                <div class="ci-value"><a href="mailto:info@theblackcarsociety.com">info@theblackcarsociety.com</a></div>
+            </div>
+            <div class="ci-item">
+                <div class="ci-label">Service Area</div>
+                <div class="ci-value">NYC &amp; Tri-State</div>
+            </div>
+            <div class="ci-item">
+                <div class="ci-label">Availability</div>
+                <div class="ci-value">24/7, 365 Days</div>
+            </div>
+        </div>
+
+        <form class="contact-form" id="quoteForm" onsubmit="handleSubmit(event)">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fn">First Name</label>
+                    <input type="text" id="fn" required placeholder="First name">
+                </div>
+                <div class="form-group">
+                    <label for="ln">Last Name</label>
+                    <input type="text" id="ln" required placeholder="Last name">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="ph">Phone</label>
+                    <input type="tel" id="ph" required placeholder="(000) 000-0000">
+                </div>
+                <div class="form-group">
+                    <label for="em">Email</label>
+                    <input type="email" id="em" required placeholder="your@email.com">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="vt">Vehicle Type</label>
+                    <select id="vt">
+                        <option value="">Select vehicle type</option>
+                        <option>SUV</option>
+                        <option>Luxury Sedan</option>
+                        <option>Sprinter Jet</option>
+                        <option>Stretch Limo</option>
+                        <option>Luxury Van</option>
+                        <option>Shuttle Van</option>
+                        <option>Wheelchair Accessible Vehicles</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="st">Service Type</label>
+                    <select id="st">
+                        <option value="">Select service type</option>
+                        <option>Airport Transfer</option>
+                        <option>Hourly Service</option>
+                        <option>Point-to-Point</option>
+                        <option>Special Events</option>
+                        <option>Corporate Travel</option>
+                        <option>Night Out / Party</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group-full">
+                <div class="form-group">
+                    <label for="msg">Message</label>
+                    <textarea id="msg" placeholder="Tell us about your trip: date, time, pickup/drop-off, number of passengers..."></textarea>
+                </div>
+            </div>
+            <div class="form-submit">
+                <button type="submit" class="btn-submit">Send Request</button>
+            </div>
+        </form>
+    </section>
+
+    <!-- ============================================================
+         FOOTER
+         ============================================================ -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <img src="CAR_PICTURES/LOGO/BlackCarSocietyLogo.PNG" alt="The Black Car Society">
+                <p>Premium luxury ground transportation throughout New York City and the Tri-State Area. Every ride is an occasion.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Fleet</h5>
+                <a href="#sprinter-cards">Sprinter Jets</a>
+                <a href="#limo-cards">Stretch Limos</a>
+                <a href="#fleet">Luxury Vans</a>
+                <a href="#suv-cards">SUVs</a>
+                <a href="#suv-cards">Luxury Sedans</a>
+                <a href="#fleet">Shuttle Vans</a>
+                <a href="#fleet">Wheelchair Accessible</a>
+            </div>
+            <div class="footer-col">
+                <h5>Services</h5>
+                <a href="#services">Airport Transfers</a>
+                <a href="#services">Hourly Service</a>
+                <a href="#services">Point-to-Point</a>
+                <a href="#services">Special Events</a>
+                <a href="#services">Corporate Travel</a>
+                <a href="#services">Night Out / Party</a>
+            </div>
+            <div class="footer-col">
+                <h5>Contact</h5>
+                <a href="tel:+19144336735">+1 (914) 433-6735</a>
+                <a href="mailto:info@theblackcarsociety.com">info@theblackcarsociety.com</a>
+                <a href="#contact">Get a Quote</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <img src="CAR_PICTURES/LOGO/BlackCarSocietyLogo.PNG" alt="The Black Car Society" style="height:52px; opacity:0.95; display:inline-block; vertical-align:middle; margin-right:14px;">
+            <span>&copy; 2025 The Black Car Society. All rights reserved.</span>
+            <div class="footer-socials">
+                <a href="#" aria-label="Facebook">
+                    <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+                </a>
+                <a href="#" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2zm-.2 2A3.6 3.6 0 004 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6zm9.65 1.5a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5zM12 7a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6z"/></svg>
+                </a>
+                <a href="https://wa.me/19144336735" aria-label="WhatsApp">
+                    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.019-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.05 21.785a9.735 9.735 0 01-4.962-1.362l-.356-.211-3.688.967.984-3.596-.232-.369A9.726 9.726 0 012.26 12.05c0-5.397 4.393-9.79 9.79-9.79a9.735 9.735 0 016.921 2.869 9.735 9.735 0 012.869 6.921c-.004 5.397-4.397 9.79-9.79 9.79zM20.52 3.449C18.24 1.245 15.24 0 12.05 0 5.464 0 .104 5.334.101 11.893c0 2.096.547 4.142 1.588 5.946L0 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.585 0 11.946-5.336 11.949-11.896a11.83 11.83 0 00-3.48-8.449z"/></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /* ============================================================
+           NAVIGATION — scroll behavior + hamburger
+           ============================================================ */
+        const nav = document.getElementById('mainNav');
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+
+        // Determine if current section has light background
+        function updateNav() {
+            const y = window.scrollY;
+            // Hero is full-screen video (dark), switch after hero
+            const heroH = document.querySelector('.hero').offsetHeight;
+            if (y < heroH * 0.85) {
+                nav.classList.remove('solid','light');
+                if (y > 40) nav.classList.add('solid');
+            } else {
+                nav.classList.remove('solid');
+                nav.classList.add('light');
+            }
+        }
+        window.addEventListener('scroll', updateNav, { passive: true });
+        updateNav();
+
+        hamburger.addEventListener('click', () => {
+            const open = mobileMenu.classList.toggle('open');
+            mobileOverlay.classList.toggle('open', open);
+        });
+        mobileOverlay.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            mobileOverlay.classList.remove('open');
+        });
+        mobileMenu.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                mobileOverlay.classList.remove('open');
+            });
+        });
+
+        /* ============================================================
+           SCROLL REVEAL
+           ============================================================ */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        /* ============================================================
+           FLEET CAROUSEL SCROLL
+           ============================================================ */
+        function scrollFleet(btn, dir) {
+            const carousel = btn.closest('.fleet-cards-section').querySelector('.h-carousel');
+            carousel.scrollBy({ left: dir * 340, behavior: 'smooth' });
+        }
+
+        /* ============================================================
+           IN-CARD PHOTO GALLERY
+           ============================================================ */
+        function galleryNav(btn, dir) {
+            const g = btn.closest('.card-gallery');
+            moveGallery(g, dir);
+        }
+
+        function moveGallery(g, dir) {
+            const track = g.querySelector('.gallery-track');
+            const imgs = track.querySelectorAll('img');
+            let idx = parseInt(g.dataset.idx || '0');
+            idx = (idx + dir + imgs.length) % imgs.length;
+            g.dataset.idx = idx;
+            track.style.transform = `translateX(-${idx * 100}%)`;
+            const counter = g.querySelector('.g-counter');
+            if (counter) counter.textContent = (idx + 1) + '/' + imgs.length;
+        }
+
+        /* ============================================================
+           TOUCH SWIPE — in-card photo galleries
+           ============================================================ */
+        document.querySelectorAll('.card-gallery').forEach(g => {
+            let startX = 0, startY = 0, dragging = false;
+            g.addEventListener('touchstart', e => {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+                dragging = true;
+            }, { passive: true });
+            g.addEventListener('touchend', e => {
+                if (!dragging) return;
+                dragging = false;
+                const dx = e.changedTouches[0].clientX - startX;
+                const dy = e.changedTouches[0].clientY - startY;
+                if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+                    moveGallery(g, dx < 0 ? 1 : -1);
+                }
+            }, { passive: true });
+        });
+
+        /* ============================================================
+           TOUCH SWIPE — horizontal fleet carousels
+           ============================================================ */
+        document.querySelectorAll('.h-carousel').forEach(carousel => {
+            let startX = 0, scrollStart = 0, isDragging = false;
+            carousel.addEventListener('touchstart', e => {
+                startX = e.touches[0].clientX;
+                scrollStart = carousel.scrollLeft;
+                isDragging = true;
+            }, { passive: true });
+            carousel.addEventListener('touchmove', e => {
+                if (!isDragging) return;
+                const dx = startX - e.touches[0].clientX;
+                carousel.scrollLeft = scrollStart + dx;
+            }, { passive: true });
+            carousel.addEventListener('touchend', () => { isDragging = false; }, { passive: true });
+        });
+
+        /* ============================================================
+           FORM SUBMIT
+           ============================================================ */
+        function handleSubmit(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('.btn-submit');
+            btn.textContent = 'Request Sent!';
+            btn.style.background = '#2c7a2c';
+            btn.style.color = '#fff';
+            setTimeout(() => {
+                btn.textContent = 'Send Request';
+                btn.style.background = '';
+                btn.style.color = '';
+                e.target.reset();
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
