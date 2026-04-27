@@ -2309,31 +2309,31 @@
             </div>
         </div>
 
-        <form class="contact-form" id="quoteForm" onsubmit="handleSubmit(event)">
+        <form class="contact-form" id="quoteForm" action="https://formspree.io/f/xkok1wzw" method="POST">
             <div class="form-row">
                 <div class="form-group">
                     <label for="fn">First Name</label>
-                    <input type="text" id="fn" required placeholder="First name">
+                    <input type="text" id="fn" name="First Name" required placeholder="First name">
                 </div>
                 <div class="form-group">
                     <label for="ln">Last Name</label>
-                    <input type="text" id="ln" required placeholder="Last name">
+                    <input type="text" id="ln" name="Last Name" required placeholder="Last name">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label for="ph">Phone</label>
-                    <input type="tel" id="ph" required placeholder="(000) 000-0000">
+                    <input type="tel" id="ph" name="Phone" required placeholder="(000) 000-0000">
                 </div>
                 <div class="form-group">
                     <label for="em">Email</label>
-                    <input type="email" id="em" required placeholder="your@email.com">
+                    <input type="email" id="em" name="email" required placeholder="your@email.com">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label for="vt">Vehicle Type</label>
-                    <select id="vt">
+                    <select id="vt" name="Vehicle Type">
                         <option value="">Select vehicle type</option>
                         <option>SUV</option>
                         <option>Luxury Sedan</option>
@@ -2346,7 +2346,7 @@
                 </div>
                 <div class="form-group">
                     <label for="st">Service Type</label>
-                    <select id="st">
+                    <select id="st" name="Service Type">
                         <option value="">Select service type</option>
                         <option>Airport Transfer</option>
                         <option>Hourly Service</option>
@@ -2360,7 +2360,7 @@
             <div class="form-group-full">
                 <div class="form-group">
                     <label for="msg">Message</label>
-                    <textarea id="msg" placeholder="Tell us about your trip: date, time, pickup/drop-off, number of passengers..."></textarea>
+                    <textarea id="msg" name="Message" placeholder="Tell us about your trip: date, time, pickup/drop-off, number of passengers..."></textarea>
                 </div>
             </div>
             <div class="form-submit">
