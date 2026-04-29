@@ -1276,7 +1276,7 @@
          HERO
          ============================================================ -->
     <section class="hero" id="hero">
-        <video class="hero-video" autoplay muted loop playsinline poster="CAR_PICTURES/Image5.png">
+        <video class="hero-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="CAR_PICTURES/Image5.png">
             <source src="CAR_PICTURES/LOGO/Sprinter_Background_Video4-5th.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay"></div>
@@ -2637,16 +2637,31 @@
             var vid = document.querySelector('.hero-video');
             if (!vid) return;
             vid.muted = true;
+            vid.setAttribute('playsinline', '');
+            vid.setAttribute('webkit-playsinline', '');
+
             function tryPlay() {
+                vid.muted = true;
                 var p = vid.play();
                 if (p !== undefined) p.catch(function () {});
             }
-            if (document.readyState === 'complete' || document.readyState === 'interactive') {
+
+            /* Try immediately */
+            tryPlay();
+
+            /* Try again once metadata is loaded */
+            vid.addEventListener('loadedmetadata', tryPlay);
+
+            /* Try again once enough data is buffered */
+            vid.addEventListener('canplay', tryPlay);
+
+            /* Try again on first scroll (iOS gesture unlock) */
+            window.addEventListener('scroll', function handler() {
                 tryPlay();
-            } else {
-                document.addEventListener('DOMContentLoaded', tryPlay);
-            }
-            /* fallback: play on first user touch */
+                window.removeEventListener('scroll', handler);
+            }, { once: true, passive: true });
+
+            /* Try again on first touch */
             document.addEventListener('touchstart', function handler() {
                 tryPlay();
                 document.removeEventListener('touchstart', handler);
