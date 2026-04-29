@@ -2631,5 +2631,27 @@
             }, 3500);
         }
     </script>
+    <script>
+        /* ── iOS autoplay fix ── */
+        (function () {
+            var vid = document.querySelector('.hero-video');
+            if (!vid) return;
+            vid.muted = true;
+            function tryPlay() {
+                var p = vid.play();
+                if (p !== undefined) p.catch(function () {});
+            }
+            if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                tryPlay();
+            } else {
+                document.addEventListener('DOMContentLoaded', tryPlay);
+            }
+            /* fallback: play on first user touch */
+            document.addEventListener('touchstart', function handler() {
+                tryPlay();
+                document.removeEventListener('touchstart', handler);
+            }, { once: true, passive: true });
+        })();
+    </script>
 </body>
 </html>
