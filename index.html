@@ -1276,7 +1276,7 @@
          HERO
          ============================================================ -->
     <section class="hero" id="hero">
-        <video class="hero-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="CAR_PICTURES/Image5.png">
+        <video class="hero-video" autoplay muted loop playsinline webkit-playsinline preload="auto">
             <source src="CAR_PICTURES/LOGO/Sprinter_Background_Video4-5th.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay"></div>
@@ -2646,8 +2646,11 @@
                 if (p !== undefined) p.catch(function () {});
             }
 
-            /* Try immediately */
+            /* Force load then play immediately */
+            vid.load();
             tryPlay();
+            setTimeout(tryPlay, 100);
+            setTimeout(tryPlay, 500);
 
             /* Try again once metadata is loaded */
             vid.addEventListener('loadedmetadata', tryPlay);
