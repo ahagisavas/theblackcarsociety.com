@@ -1524,7 +1524,7 @@
         function galleryNav(btn, dir) {
             const gallery = btn.closest('.card-gallery');
             const track = gallery.querySelector('.gallery-track');
-            const imgs = track.querySelectorAll('img');
+            const imgs = track.querySelectorAll('img, video');
             let idx = parseInt(gallery.dataset.idx) || 0;
             idx = (idx + dir + imgs.length) % imgs.length;
             gallery.dataset.idx = idx;
