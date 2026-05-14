@@ -395,10 +395,11 @@
             transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
             will-change: transform;
         }
-        .gallery-track img {
+        .gallery-track img, .gallery-track video {
             flex: 0 0 100%; width: 100%; height: 100%;
             object-fit: cover; pointer-events: none;
         }
+        .gallery-track video { object-fit: contain; background: #000; pointer-events: auto; }
         .g-arrow {
             position: absolute; top: 50%; transform: translateY(-50%);
             width: 30px; height: 30px; border-radius: 50%;
