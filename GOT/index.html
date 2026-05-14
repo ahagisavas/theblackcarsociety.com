@@ -837,7 +837,7 @@
             <div class="v-card">
                 <style>#sc-gallery[data-idx="0"]:not(.sc-played) .sc-poster{display:block}</style>
                 <div class="card-gallery" id="sc-gallery" data-idx="0"><div class="gallery-track">
-                    <video src="../CAR_PICTURES/JET/BulletProof/PIP5.mov" style="width:100%;height:100%;object-fit:contain;background:#000" controls playsinline preload="none"></video>
+                    <video src="../CAR_PICTURES/JET/BulletProof/PIP5.mov" style="width:100%;height:100%;object-fit:contain;background:#000" playsinline preload="none"></video>
                     <img src="../CAR_PICTURES/JET/BulletProof/BulletProof_7.jpg" alt="Stormcloud 2" loading="lazy">
                     <img src="../CAR_PICTURES/JET/BulletProof/BulletProof_4.jpg" alt="Stormcloud 3" loading="lazy">
                     <img src="../CAR_PICTURES/JET/BulletProof/BulletProof_5.jpg" alt="Stormcloud 4" loading="lazy">
@@ -848,7 +848,7 @@
                     <img src="../CAR_PICTURES/JET/BulletProof/Outside-3.jpg" alt="Stormcloud 9" loading="lazy">
                     <img src="../CAR_PICTURES/JET/BulletProof/LAST.JPG" alt="Stormcloud 10" loading="lazy">
                 </div>
-                <div class="sc-poster" style="display:none;position:absolute;inset:0;z-index:3;background:url('../CAR_PICTURES/JET/BulletProof/Video_cover.JPEG') center/cover no-repeat;cursor:pointer;" onclick="this.closest('#sc-gallery').classList.add('sc-played');this.closest('#sc-gallery').querySelector('video').play()"></div>
+                <div class="sc-poster" style="display:none;position:absolute;inset:0;z-index:3;background:url('../CAR_PICTURES/JET/BulletProof/Video_cover.JPEG') center/cover no-repeat;cursor:pointer;" onclick="var v=this.closest('#sc-gallery').querySelector('video');v.setAttribute('controls','');this.closest('#sc-gallery').classList.add('sc-played');v.play()"></div>
                 <button class="g-arrow prev" onclick="galleryNav(this,-1)">&#8249;</button>
                 <button class="g-arrow next" onclick="galleryNav(this,1)">&#8250;</button>
                 <span class="g-counter">1/10</span></div>
