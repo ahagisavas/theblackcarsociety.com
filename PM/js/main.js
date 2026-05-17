@@ -33,6 +33,16 @@
     }
   });
 
+  // ── Hero video autoplay (mobile fix) ──
+  const heroVideo = document.querySelector('.hero-video');
+  if (heroVideo) {
+    heroVideo.muted = true;
+    heroVideo.play().catch(() => {
+      // Autoplay still blocked — hide video, dark gradient fallback shows through
+      heroVideo.style.display = 'none';
+    });
+  }
+
   // ── Subtle scroll-in animation ──
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
