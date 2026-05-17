@@ -37,10 +37,16 @@
   const heroVideo = document.querySelector('.hero-video');
   if (heroVideo) {
     heroVideo.muted = true;
-    heroVideo.play().catch(() => {
-      // Autoplay still blocked — hide video, dark gradient fallback shows through
-      heroVideo.style.display = 'none';
-    });
+    heroVideo.setAttribute('muted', '');
+
+    const tryPlay = () => { heroVideo.play().catch(() => {}); };
+
+    // Fire on data ready — the reliable mobile trigger
+    heroVideo.addEventListener('canplay', tryPlay, { once: true });
+    heroVideo.addEventListener('loadedmetadata', tryPlay, { once: true });
+
+    // Also attempt immediately in case it's already buffered
+    tryPlay();
   }
 
   // ── Subtle scroll-in animation ──
