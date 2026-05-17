@@ -41,12 +41,19 @@
 
     const tryPlay = () => { heroVideo.play().catch(() => {}); };
 
-    // Fire on data ready — the reliable mobile trigger
-    heroVideo.addEventListener('canplay', tryPlay, { once: true });
-    heroVideo.addEventListener('loadedmetadata', tryPlay, { once: true });
-
-    // Also attempt immediately in case it's already buffered
+    // Attempt immediately (works on desktop + some mobile)
     tryPlay();
+
+    // On first touch/scroll/click, try again — bypasses mobile autoplay policy
+    const onInteraction = () => {
+      tryPlay();
+      document.removeEventListener('touchstart', onInteraction);
+      document.removeEventListener('scroll',     onInteraction);
+      document.removeEventListener('click',      onInteraction);
+    };
+    document.addEventListener('touchstart', onInteraction, { once: true, passive: true });
+    document.addEventListener('scroll',     onInteraction, { once: true, passive: true });
+    document.addEventListener('click',      onInteraction, { once: true });
   }
 
   // ── Subtle scroll-in animation ──
