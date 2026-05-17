@@ -350,6 +350,7 @@ section { padding: 6rem 2.5rem; }
 .practice-card:hover { transform: translateY(-5px); box-shadow: 0 12px 36px rgba(0,0,0,0.13); }
 
 .practice-icon { font-size: 2.8rem; margin-bottom: 1.25rem; }
+.practice-icon-img { width: 56px; height: 56px; object-fit: contain; display: block; }
 
 .practice-card h3 {
   font-size: 1.3rem;
