@@ -331,8 +331,15 @@ img { display: block; max-width: 100%; }
 .practice-card:hover::after { width: 100%; }
 .practice-card:hover { border-color: rgba(201,168,76,0.6); }
 
-.practice-icon { font-size: 2.4rem; margin-bottom: 1.25rem; }
-.practice-icon-img { width: 52px; height: 52px; object-fit: contain; display: block; filter: invert(1) sepia(1) saturate(4); }
+.practice-icon {
+  width: 80px; height: 80px; border-radius: 50%;
+  border: 1.5px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1.25rem;
+  background: rgba(201,168,76,0.06);
+  flex-shrink: 0;
+}
+.practice-icon-img { width: 40px; height: 40px; object-fit: contain; display: block; filter: invert(1) sepia(1) saturate(4); }
 
 .practice-card h3 {
   font-family: 'Cinzel', serif;
