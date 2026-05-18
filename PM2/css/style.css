@@ -18,7 +18,7 @@
   --gold:    #c9a84c;
   --gold-dim: rgba(201,168,76,0.15);
   --gold-line: rgba(201,168,76,0.3);
-  --nav-h:   76px;
+  --nav-h:   96px;
   --max-w:   1160px;
   --ease:    cubic-bezier(0.4,0,0.2,1);
 }
@@ -55,7 +55,7 @@ img { display: block; max-width: 100%; }
   border-bottom: 1px solid var(--gold-line);
 }
 
-.nav-logo img { height: 56px; width: auto; }
+.nav-logo img { height: 84px; width: auto; }
 
 .nav-links {
   display: flex; align-items: center; gap: 32px;
@@ -76,7 +76,7 @@ img { display: block; max-width: 100%; }
   font-size: 0.68rem; font-weight: 700;
   letter-spacing: 0.1em; text-transform: uppercase;
   background: var(--gold); color: var(--black);
-  border-radius: 2px; padding: 10px 24px;
+  border-radius: 50px; padding: 10px 24px;
   border: none; cursor: pointer;
   transition: opacity 0.2s;
   white-space: nowrap;
@@ -125,7 +125,7 @@ img { display: block; max-width: 100%; }
   font-family: 'Cinzel', serif;
   font-size: 0.78rem; font-weight: 700;
   letter-spacing: 0.1em; text-transform: uppercase;
-  border-radius: 2px;
+  border-radius: 50px;
 }
 
 .mobile-overlay {
@@ -208,7 +208,7 @@ img { display: block; max-width: 100%; }
 .btn-gold {
   font-family: 'Cinzel', serif;
   font-size: 0.78rem; font-weight: 700;
-  padding: 14px 40px; border-radius: 2px;
+  padding: 14px 40px; border-radius: 50px;
   letter-spacing: 0.08em; text-transform: uppercase;
   background: var(--gold); color: var(--black);
   border: 1px solid var(--gold);
@@ -220,7 +220,7 @@ img { display: block; max-width: 100%; }
 .btn-outline {
   font-family: 'Cinzel', serif;
   font-size: 0.78rem; font-weight: 600;
-  padding: 14px 40px; border-radius: 2px;
+  padding: 14px 40px; border-radius: 50px;
   letter-spacing: 0.08em; text-transform: uppercase;
   background: transparent; color: var(--gold);
   border: 1px solid rgba(201,168,76,0.55);
@@ -301,15 +301,11 @@ img { display: block; max-width: 100%; }
   margin: 14px 0 40px;
 }
 .gold-rule .gr-line {
-  flex: 0 0 48px; height: 1px;
+  flex: 0 0 300px; height: 1px;
   background: linear-gradient(to right, var(--gold), transparent);
   opacity: 0.5;
 }
-.gold-rule .gr-diamond {
-  width: 6px; height: 6px;
-  background: var(--gold); transform: rotate(45deg);
-  opacity: 0.7;
-}
+.gold-rule .gr-diamond { display: none; }
 
 /* ── PRACTICE CARDS ── */
 .practice-grid {
@@ -494,11 +490,11 @@ img { display: block; max-width: 100%; }
 .btn-dark {
   font-family: 'Cinzel', serif;
   font-size: 0.78rem; font-weight: 700;
-  padding: 14px 40px; border-radius: 2px;
+  padding: 14px 40px; border-radius: 50px;
   letter-spacing: 0.08em; text-transform: uppercase;
   background: var(--black); color: var(--white);
   display: inline-block; transition: opacity 0.2s;
-  margin: 0 8px;
+  margin: 8px;
 }
 .btn-dark:hover { opacity: 0.8; color: var(--white); }
 
@@ -694,7 +690,7 @@ footer {
   display: grid; grid-template-columns: 2fr 1fr 1fr;
   gap: 3.5rem; margin-bottom: 3rem;
 }
-.footer-logo img { height: 52px; width: auto; margin-bottom: 1rem; }
+.footer-logo img { height: 78px; width: auto; margin-bottom: 1rem; }
 .footer-tagline {
   font-family: 'Cinzel', serif;
   color: var(--gray2); font-size: 0.62rem;
