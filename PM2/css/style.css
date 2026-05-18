@@ -733,6 +733,24 @@ footer {
 }
 .fade-up.visible { opacity: 1; transform: translateY(0); }
 
+/* ── MUSIC TOGGLE ── */
+#music-toggle {
+  position: fixed; bottom: 28px; right: 28px;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(10,8,8,0.88);
+  border: 1px solid var(--gold-line);
+  color: rgba(201,168,76,0.4);
+  font-size: 1.1rem; cursor: pointer;
+  z-index: 800;
+  display: flex; align-items: center; justify-content: center;
+  transition: color 0.2s, border-color 0.2s;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+#music-toggle:hover { border-color: var(--gold); color: var(--gold); }
+#music-toggle.playing { color: var(--gold); border-color: var(--gold); }
+#music-toggle.muted   { color: rgba(201,168,76,0.4); }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .footer-grid { grid-template-columns: 1fr 1fr; }

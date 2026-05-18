@@ -72,4 +72,24 @@
       observer.observe(el);
     });
 
+  // ── Background music toggle ──
+  const audio = document.getElementById('bg-music');
+  const musicBtn = document.getElementById('music-toggle');
+  if (audio && musicBtn) {
+    musicBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play().then(() => {
+          musicBtn.classList.add('playing');
+          musicBtn.classList.remove('muted');
+          musicBtn.title = 'Pause music';
+        }).catch(() => {});
+      } else {
+        audio.pause();
+        musicBtn.classList.remove('playing');
+        musicBtn.classList.add('muted');
+        musicBtn.title = 'Play music';
+      }
+    });
+  }
+
 })();

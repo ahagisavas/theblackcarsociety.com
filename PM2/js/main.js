@@ -59,6 +59,26 @@ if (heroVideo) {
   document.addEventListener('click', onInteraction, { once: true });
 }
 
+// Background music toggle
+const audio = document.getElementById('bg-music');
+const musicBtn = document.getElementById('music-toggle');
+if (audio && musicBtn) {
+  musicBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play().then(() => {
+        musicBtn.classList.add('playing');
+        musicBtn.classList.remove('muted');
+        musicBtn.title = 'Pause music';
+      }).catch(() => {});
+    } else {
+      audio.pause();
+      musicBtn.classList.remove('playing');
+      musicBtn.classList.add('muted');
+      musicBtn.title = 'Play music';
+    }
+  });
+}
+
 // Scroll fade-up animation
 const fadeEls = document.querySelectorAll('.fade-up');
 if (fadeEls.length && 'IntersectionObserver' in window) {
