@@ -1434,18 +1434,18 @@
             <div class="ci-item"><p class="ci-label">Service Area</p><p class="ci-value">NYC &amp; Tri-State</p></div>
             <div class="ci-item"><p class="ci-label">Availability</p><p class="ci-value">24 / 7</p></div>
         </div>
-        <form class="contact-form" onsubmit="return false;">
+        <form class="contact-form" action="https://formspree.io/f/xkoklwzw" method="POST">
             <div class="form-row">
-                <div class="form-group"><label>Name</label><input type="text" placeholder="Your name"></div>
-                <div class="form-group"><label>Phone</label><input type="tel" placeholder="(000) 000-0000"></div>
+                <div class="form-group"><label>Name</label><input type="text" name="Name" placeholder="Your name"></div>
+                <div class="form-group"><label>Phone</label><input type="tel" name="Phone" placeholder="(000) 000-0000"></div>
             </div>
             <div class="form-row">
-                <div class="form-group"><label>Email</label><input type="email" placeholder="your@email.com"></div>
-                <div class="form-group"><label>Date</label><input type="date"></div>
+                <div class="form-group"><label>Email</label><input type="email" name="email" placeholder="your@email.com"></div>
+                <div class="form-group"><label>Date</label><input type="date" name="Date"></div>
             </div>
             <div class="form-group form-group-full">
                 <label>Vehicle</label>
-                <select>
+                <select name="Vehicle">
                     <option value="">Choose your steed...</option>
                     <optgroup label="The Dragons (Sprinter Jets)">
                         <option>Drogon (XL)</option><option>Balerion (XL)</option><option>Stormcloud</option><option>Rhaegal</option><option>Viserion</option><option>Syrax</option>
@@ -1472,7 +1472,7 @@
             </div>
             <div class="form-group form-group-full">
                 <label>Message</label>
-                <textarea placeholder="Tell us about your journey..."></textarea>
+                <textarea name="Message" placeholder="Tell us about your journey..."></textarea>
             </div>
             <div class="form-submit">
                 <button type="submit" class="btn-submit">Send a Raven</button>
