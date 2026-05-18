@@ -271,10 +271,14 @@ img { display: block; max-width: 100%; }
   margin-bottom: 14px;
   display: flex; align-items: center; gap: 12px;
 }
-.section-label::before {
+.section-label::before,
+.section-label::after {
   content: ''; display: block;
   width: 36px; height: 1px;
-  background: var(--gold); opacity: 0.6;
+  background: linear-gradient(to right, transparent, rgba(201,168,76,0.7));
+}
+.section-label::after {
+  background: linear-gradient(to left, transparent, rgba(201,168,76,0.7));
 }
 
 .section-title {
