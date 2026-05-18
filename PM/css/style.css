@@ -350,14 +350,14 @@ section { padding: 6rem 2.5rem; }
 .practice-card:hover { transform: translateY(-5px); box-shadow: 0 12px 36px rgba(0,0,0,0.13); }
 
 .practice-icon {
-  width: 80px; height: 80px; border-radius: 50%;
+  width: 60px; height: 60px; border-radius: 50%;
   border: 1.5px solid var(--gold);
   display: flex; align-items: center; justify-content: center;
   margin-bottom: 1.25rem;
-  background: rgba(201,168,76,0.06);
+  background: #000;
   flex-shrink: 0;
 }
-.practice-icon-img { width: 40px; height: 40px; object-fit: contain; display: block; filter: invert(1) sepia(1) saturate(4); }
+.practice-icon-img { width: 32px; height: 32px; object-fit: contain; display: block; filter: invert(1) sepia(1) saturate(4); }
 
 .practice-card h3 {
   font-size: 1.3rem;
