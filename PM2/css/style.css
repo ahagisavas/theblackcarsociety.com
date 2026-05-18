@@ -337,6 +337,7 @@ img { display: block; max-width: 100%; }
   border: 1.5px solid var(--gold);
   padding: 6px;
   box-sizing: border-box;
+  filter: invert(1) sepia(1) saturate(4);
 }
 
 .practice-card h3 {
