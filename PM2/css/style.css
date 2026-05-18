@@ -333,9 +333,7 @@ img { display: block; max-width: 100%; }
 
 .practice-icon { margin-bottom: 1.25rem; display: inline-block; }
 .practice-icon-img {
-  width: 56px; height: 56px; object-fit: contain; display: block;
-  mix-blend-mode: multiply;
-  filter: brightness(1.8) saturate(1.4);
+  width: 100px; height: 100px; object-fit: contain; display: block;
 }
 
 .practice-card h3 {
