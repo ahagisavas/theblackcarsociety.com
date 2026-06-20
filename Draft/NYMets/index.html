@@ -210,6 +210,15 @@
       font-size: 0.7rem;
       color: var(--orange-light);
     }
+    .team-headshot {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top;
+      border: 1px solid var(--orange-dim);
+      flex-shrink: 0;
+    }
     .team-card-owner { font-size: 0.6rem; color: var(--gray1); margin-bottom: 0.25rem; }
     .on-clock-label {
       font-size: 0.58rem;
@@ -671,19 +680,20 @@ const MY_TEAM_IDX = 0;
 const NUM_ROUNDS  = 15;
 const TIMER_SECS  = 120;
 
+const MLB_PHOTO = id => `https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_120,q_auto:best/v1/people/${id}/headshot/67/current`;
 const TEAMS = [
-  {name:"Bichette's Wife",    owner:"Bo Bichette's Wife"},
-  {name:"Soto's Wife",            owner:"Juan Soto's Wife"},
-  {name:"Semien's Wife",      owner:"Marcus Semien's Wife"},
-  {name:"Manaea's Wife",      owner:"Sean Manaea's Wife"},
-  {name:"D. Williams's Wife", owner:"Devin Williams's Wife"},
-  {name:"Senga's Wife",       owner:"Kodai Senga's Wife"},
-  {name:"Minter's Wife",      owner:"A.J. Minter's Wife"},
-  {name:"Weaver's Wife",      owner:"Luke Weaver's Wife"},
-  {name:"Peterson's Wife",    owner:"David Peterson's Wife"},
-  {name:"Peralta's Wife",     owner:"Freddy Peralta's Wife"},
-  {name:"Lindor's Wife",      owner:"Francisco Lindor's Wife"},
-  {name:"Alvarez's Wife",     owner:"Francisco Alvarez's Wife"},
+  {name:"Bichette's Wife",    owner:"Bo Bichette's Wife",         photo:MLB_PHOTO(666182)},
+  {name:"Soto's Wife",        owner:"Juan Soto's Wife",           photo:MLB_PHOTO(665742)},
+  {name:"Semien's Wife",      owner:"Marcus Semien's Wife",       photo:MLB_PHOTO(543760)},
+  {name:"Manaea's Wife",      owner:"Sean Manaea's Wife",         photo:MLB_PHOTO(640455)},
+  {name:"D. Williams's Wife", owner:"Devin Williams's Wife",      photo:MLB_PHOTO(669923)},
+  {name:"Senga's Wife",       owner:"Kodai Senga's Wife",         photo:MLB_PHOTO(673548)},
+  {name:"Minter's Wife",      owner:"A.J. Minter's Wife",         photo:MLB_PHOTO(621313)},
+  {name:"Weaver's Wife",      owner:"Luke Weaver's Wife",         photo:MLB_PHOTO(621244)},
+  {name:"Peterson's Wife",    owner:"David Peterson's Wife",      photo:MLB_PHOTO(656945)},
+  {name:"Peralta's Wife",     owner:"Freddy Peralta's Wife",      photo:MLB_PHOTO(661403)},
+  {name:"Lindor's Wife",      owner:"Francisco Lindor's Wife",    photo:MLB_PHOTO(596019)},
+  {name:"Alvarez's Wife",     owner:"Francisco Alvarez's Wife",   photo:MLB_PHOTO(682628)},
 ];
 
 const PLAYERS = [
@@ -1356,7 +1366,10 @@ function renderTeams() {
 
     return `<div class="${classes}">
       <div class="team-card-header">
-        <span class="team-card-name">${t.name}</span>
+        <div style="display:flex;align-items:center;gap:0.45rem;">
+          <img class="team-headshot" src="${t.photo}" alt="${t.name}">
+          <span class="team-card-name">${t.name}</span>
+        </div>
         ${badge}
       </div>
       <div class="team-card-owner">${t.owner}</div>
