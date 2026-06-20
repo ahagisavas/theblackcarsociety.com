@@ -407,6 +407,112 @@
     ::-webkit-scrollbar { width: 4px; height: 4px; }
     ::-webkit-scrollbar-track { background: var(--darker); }
     ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
+
+    /* ── MOBILE TABS (hidden on desktop) ── */
+    .mobile-tabs { display: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      body {
+        overflow: hidden;
+        padding-bottom: calc(50px + env(safe-area-inset-bottom, 0px));
+      }
+
+      /* Header: compact */
+      .header {
+        flex-wrap: wrap;
+        padding: 0.35rem 0.6rem;
+        gap: 0.3rem;
+      }
+      .header-left { gap: 0.5rem; }
+      .header-logo { height: 26px; }
+      .header-title { font-size: 0.72rem; }
+      .header-subtitle { font-size: 0.52rem; }
+      .demo-badge { font-size: 0.5rem; padding: 2px 7px; }
+      .header-center { font-size: 0.62rem; }
+      .header-center strong { font-size: 0.7rem; }
+      .header-right { display: none; }
+
+      /* Main: panels stack, one visible at a time */
+      .main { flex-direction: column; }
+
+      .teams-panel {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--gold-dim);
+        display: none;
+      }
+      .teams-panel.mob-active { display: flex; flex: 1; }
+      .draft-panel.mob-hidden { display: none; }
+
+      /* === FULL tab: both panels side by side, scaled down === */
+      .main.mob-split { flex-direction: row; }
+      .main.mob-split .teams-panel {
+        display: flex;
+        width: 115px;
+        flex-shrink: 0;
+      }
+      .main.mob-split .draft-panel { display: flex; }
+
+      .main.mob-split .team-card-name  { font-size: 0.52rem; }
+      .main.mob-split .team-card-owner { font-size: 0.45rem; }
+      .main.mob-split .pick-chip       { font-size: 0.42rem; padding: 1px 3px; }
+      .main.mob-split .panel-header    { font-size: 0.52rem; padding: 0.35rem 0.4rem; }
+      .main.mob-split .teams-list      { padding: 0.3rem; }
+      .main.mob-split .team-card       { padding: 0.3rem 0.45rem; margin-bottom: 0.25rem; }
+      .main.mob-split .clock-bar       { padding: 0.3rem 0.5rem; gap: 0.3rem; }
+      .main.mob-split .clock-team      { font-size: 0.7rem; }
+      .main.mob-split .clock-label     { font-size: 0.45rem; }
+      .main.mob-split .clock-sub       { font-size: 0.5rem; }
+      .main.mob-split .timer           { font-size: 1.2rem; min-width: 50px; }
+      .main.mob-split .my-turn-pill,
+      .main.mob-split .waiting-pill    { font-size: 0.5rem; padding: 0.2rem 0.45rem; }
+      .main.mob-split .player-pool     { padding: 0.3rem 0.4rem; }
+      .main.mob-split .search-box      { font-size: 0.6rem; padding: 0.25rem 0.5rem; }
+      .main.mob-split .pos-btn         { font-size: 0.52rem; padding: 0.2rem 0.35rem; }
+      .main.mob-split .player-table td { padding: 0.2rem 0.3rem; font-size: 0.6rem; }
+      .main.mob-split .player-table thead th { font-size: 0.5rem; padding: 0.25rem 0.3rem; }
+      .main.mob-split .draft-btn       { font-size: 0.5rem; padding: 0.15rem 0.4rem; }
+      .main.mob-split .td-rank         { width: 22px; font-size: 0.5rem; }
+      .main.mob-split .td-btn          { width: 50px; }
+
+      /* Clock bar: tighter for single-panel modes */
+      .clock-bar { padding: 0.4rem 0.6rem; gap: 0.5rem; }
+      .clock-team { font-size: 0.85rem; }
+      .timer { font-size: 1.6rem; min-width: 60px; }
+      .my-turn-pill, .waiting-pill { padding: 0.25rem 0.6rem; font-size: 0.6rem; }
+
+      /* Fixed tab bar — above iOS browser nav */
+      .mobile-tabs {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: var(--darker);
+        border-top: 2px solid var(--gold-dim);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+        height: 50px;
+      }
+      .mobile-tab {
+        flex: 1;
+        padding: 0.55rem 0.3rem;
+        text-align: center;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        color: var(--gray2);
+        cursor: pointer;
+        border: none;
+        border-top: 3px solid transparent;
+        background: none;
+        text-transform: uppercase;
+        transition: color 0.15s, border-color 0.15s;
+      }
+      .mobile-tab.active { color: var(--gold); border-top-color: var(--gold); }
+    }
   </style>
 </head>
 <body>
@@ -495,6 +601,13 @@
   </div>
 </div>
 
+<!-- MOBILE TAB BAR -->
+<div class="mobile-tabs">
+  <button class="mobile-tab active" id="tab-full" onclick="switchTab('full')">⊞ Full</button>
+  <button class="mobile-tab" id="tab-players" onclick="switchTab('players')">⚡ Players</button>
+  <button class="mobile-tab" id="tab-teams" onclick="switchTab('teams')">🏈 Teams</button>
+</div>
+
 <!-- DRAFT COMPLETE OVERLAY -->
 <div class="overlay" id="overlay">
   <div class="overlay-rule"></div>
@@ -504,6 +617,31 @@
 </div>
 
 <script>
+// ── MOBILE TABS ───────────────────────────────────────────────────────
+function switchTab(tab) {
+  const main       = document.querySelector('.main');
+  const teamsPanel = document.querySelector('.teams-panel');
+  const draftPanel = document.querySelector('.draft-panel');
+  ['tab-full','tab-players','tab-teams'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('active');
+  });
+  main.classList.remove('mob-split');
+  teamsPanel.classList.remove('mob-active');
+  draftPanel.classList.remove('mob-hidden');
+
+  if (tab === 'teams') {
+    teamsPanel.classList.add('mob-active');
+    draftPanel.classList.add('mob-hidden');
+    document.getElementById('tab-teams').classList.add('active');
+  } else if (tab === 'full') {
+    main.classList.add('mob-split');
+    document.getElementById('tab-full').classList.add('active');
+  } else {
+    document.getElementById('tab-players').classList.add('active');
+  }
+}
+
 // ── DATA ──────────────────────────────────────────────────────────────
 const MY_TEAM_IDX = 0;
 const NUM_ROUNDS  = 16;
