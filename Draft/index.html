@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -1214,7 +1214,7 @@ function renderTeams() {
     const classes   = ['team-card', isOnClock ? 'on-clock' : '', isMine ? 'my-team-card' : ''].join(' ');
 
     const chipsHtml = picks.map(p => {
-      const short = p.pos === 'DEF' ? p.nfl : lastNameOrFull(p.name).split(' ').pop();
+      const short = p.pos === 'DST' ? p.name.split(' ').slice(0,2).join(' ') : lastNameOrFull(p.name).split(' ').pop();
       return `<span class="pick-chip pos-${p.pos}" title="${p.name}">${p.pos} ${short}</span>`;
     }).join('');
 
@@ -1238,7 +1238,7 @@ function renderPlayers() {
 
   const visible = PLAYERS.filter(p => {
     if (filterPos !== 'ALL' && p.pos !== filterPos) return false;
-    if (q && !p.name.toLowerCase().includes(q) && !p.nfl.toLowerCase().includes(q)) return false;
+    if (q && !p.name.toLowerCase().includes(q) && !p.pos.toLowerCase().includes(q)) return false;
     return true;
   });
 
