@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BCS Draft Room | The Black Car Society</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black:      #0a0808;
+      --dark:       #1a1512;
+      --darker:     #120f0d;
+      --gold:       #c9a84c;
+      --gold-light: #e2c97e;
+      --gold-dim:   rgba(201,168,76,0.25);
+      --cream:      #e8e0d0;
+      --gray1:      #a09080;
+      --gray2:      #6a5a50;
+      --urgent:     #c84b4b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--black);
+      color: var(--cream);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: var(--darker);
+      border-bottom: 1px solid var(--gold-dim);
+      padding: 0.5rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      gap: 1rem;
+    }
+    .header-left { display: flex; align-items: center; gap: 0.75rem; }
+    .header-logo { height: 34px; }
+    .header-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 0.95rem;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+    }
+    .header-center {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      color: var(--gray1);
+      text-align: center;
+      line-height: 1.6;
+    }
+    .header-center strong { color: var(--gold); font-size: 0.85rem; }
+    .header-right {
+      font-size: 0.68rem;
+      color: var(--gray2);
+      text-align: right;
+      line-height: 1.7;
+    }
+    .demo-badge {
+      background: rgba(201,168,76,0.12);
+      border: 1px solid var(--gold-dim);
+      border-radius: 3px;
+      padding: 2px 7px;
+      font-size: 0.6rem;
+      color: var(--gold);
+      font-family: 'Cinzel', serif;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── TICKER ── */
+    .ticker-wrap {
+      background: var(--darker);
+      border-bottom: 1px solid var(--gold-dim);
+      padding: 0.3rem 0;
+      overflow: hidden;
+      flex-shrink: 0;
+      min-height: 28px;
+      position: relative;
+    }
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: ticker 40s linear infinite;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    @keyframes ticker {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0 1.5rem;
+      white-space: nowrap;
+      color: var(--gray1);
+      font-size: 0.7rem;
+      border-right: 1px solid var(--gold-dim);
+    }
+    .ticker-pick-num { color: var(--gold); font-weight: 700; font-size: 0.65rem; }
+    .ticker-player { color: var(--cream); font-weight: 600; }
+    .ticker-team-name { color: var(--gray1); }
+    .ticker-empty {
+      padding: 0.1rem 1.5rem;
+      color: var(--gray2);
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── MAIN ── */
+    .main {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* ── TEAMS PANEL ── */
+    .teams-panel {
+      width: 300px;
+      flex-shrink: 0;
+      background: var(--darker);
+      border-right: 1px solid var(--gold-dim);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .panel-header {
+      padding: 0.6rem 0.75rem 0.4rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--gold-dim);
+      flex-shrink: 0;
+    }
+    .teams-list {
+      overflow-y: auto;
+      flex: 1;
+      padding: 0.5rem;
+    }
+    .team-card {
+      background: var(--dark);
+      border: 1px solid rgba(201,168,76,0.1);
+      border-radius: 4px;
+      margin-bottom: 0.4rem;
+      padding: 0.45rem 0.6rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .team-card.on-clock {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.06);
+    }
+    .team-card.my-team-card { border-color: rgba(201,168,76,0.35); }
+    .team-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.25rem;
+    }
+    .team-card-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      color: var(--gold);
+    }
+    .team-card-owner { font-size: 0.62rem; color: var(--gray1); }
+    .on-clock-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem;
+      color: var(--gold);
+      animation: pulse 1s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .team-picks-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px;
+      min-height: 14px;
+    }
+    .pick-chip {
+      font-size: 0.58rem;
+      font-weight: 700;
+      padding: 1px 4px;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+
+    /* ── RIGHT / DRAFT PANEL ── */
+    .draft-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── ON THE CLOCK BAR ── */
+    .clock-bar {
+      background: var(--dark);
+      border-bottom: 1px solid var(--gold-dim);
+      padding: 0.55rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      gap: 1rem;
+    }
+    .clock-info { display: flex; flex-direction: column; gap: 2px; }
+    .clock-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    .clock-team {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      color: var(--cream);
+    }
+    .clock-sub { font-size: 0.65rem; color: var(--gray1); }
+    .clock-center { display: flex; align-items: center; gap: 1.5rem; }
+    .timer {
+      font-family: 'Cinzel', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--gold);
+      min-width: 90px;
+      text-align: center;
+      transition: color 0.3s;
+      line-height: 1;
+    }
+    .timer.warn  { color: #e0a830; }
+    .timer.urgent { color: var(--urgent); animation: pulse 0.5s ease-in-out infinite; }
+    .my-turn-pill {
+      background: rgba(201,168,76,0.12);
+      border: 1px solid var(--gold);
+      border-radius: 4px;
+      padding: 0.3rem 0.8rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+    }
+    .waiting-pill {
+      background: rgba(106,90,80,0.2);
+      border: 1px solid var(--gray2);
+      border-radius: 4px;
+      padding: 0.3rem 0.8rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      color: var(--gray2);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── PLAYER POOL ── */
+    .player-pool {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 0.6rem 0.75rem;
+    }
+    .pool-controls {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      flex-shrink: 0;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .search-box {
+      flex: 1;
+      min-width: 140px;
+      background: var(--dark);
+      border: 1px solid var(--gold-dim);
+      border-radius: 4px;
+      color: var(--cream);
+      padding: 0.38rem 0.7rem;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.76rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-box:focus { border-color: var(--gold); }
+    .search-box::placeholder { color: var(--gray2); }
+    .pos-filters { display: flex; gap: 3px; }
+    .pos-btn {
+      background: var(--dark);
+      border: 1px solid var(--gold-dim);
+      border-radius: 3px;
+      color: var(--gray1);
+      padding: 0.28rem 0.55rem;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .pos-btn:hover { background: rgba(201,168,76,0.15); color: var(--gold); }
+    .pos-btn.active { background: var(--gold); border-color: var(--gold); color: var(--black); }
+    .pool-count {
+      font-size: 0.65rem;
+      color: var(--gray2);
+      white-space: nowrap;
+    }
+    .table-wrap {
+      flex: 1;
+      overflow-y: auto;
+    }
+    .player-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .player-table thead th {
+      background: var(--darker);
+      color: var(--gold);
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      padding: 0.38rem 0.6rem;
+      text-align: left;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      border-bottom: 1px solid var(--gold-dim);
+      cursor: pointer;
+      user-select: none;
+    }
+    .player-table thead th:hover { color: var(--gold-light); }
+    .player-table tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      transition: background 0.1s;
+    }
+    .player-table tbody tr:hover:not(.drafted) { background: rgba(201,168,76,0.06); }
+    .player-table tbody tr.drafted { opacity: 0.25; pointer-events: none; }
+    .player-table td { padding: 0.3rem 0.6rem; }
+    .td-rank { color: var(--gray2); font-size: 0.65rem; width: 36px; }
+    .td-name { font-weight: 600; color: var(--cream); }
+    .td-nfl  { color: var(--gray1); }
+    .td-bye  { color: var(--gray2); text-align: center; width: 40px; }
+    .td-btn  { width: 70px; text-align: right; }
+    .draft-btn {
+      background: var(--gold);
+      border: none;
+      border-radius: 3px;
+      color: var(--black);
+      padding: 0.22rem 0.55rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .draft-btn:hover:not(:disabled) { background: var(--gold-light); }
+    .draft-btn:disabled {
+      background: rgba(106,90,80,0.4);
+      color: var(--gray2);
+      cursor: not-allowed;
+    }
+
+    /* ── POSITION COLORS ── */
+    .pos-QB  { background:rgba(139,26,26,0.75); color:#ffb3b3; }
+    .pos-RB  { background:rgba(20,80,40,0.75);  color:#b3ffcc; }
+    .pos-WR  { background:rgba(26,46,140,0.75); color:#b3c8ff; }
+    .pos-TE  { background:rgba(110,65,10,0.75); color:#ffe0a0; }
+    .pos-K   { background:rgba(70,20,100,0.75); color:#ddb3ff; }
+    .pos-DEF { background:rgba(50,50,50,0.85);  color:#cccccc; }
+
+    /* ── DRAFT COMPLETE OVERLAY ── */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 50;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+    }
+    .overlay.show { display: flex; }
+    .overlay h2 {
+      font-family: 'Cinzel Decorative', serif;
+      color: var(--gold);
+      font-size: 2rem;
+      text-align: center;
+    }
+    .overlay p { color: var(--gray1); font-size: 0.85rem; text-align: center; }
+    .overlay-rule {
+      width: 200px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-track { background: var(--darker); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-left">
+    <img src="../images/BCS_Logo_White.png" alt="BCS" class="header-logo" onerror="this.style.display='none'">
+    <span class="header-title">BCS Draft Room</span>
+    <span class="demo-badge">PROTOTYPE</span>
+  </div>
+  <div class="header-center">
+    <strong id="hdr-league">Black Car Society Fantasy League 2026</strong><br>
+    Round <span id="hdr-round">1</span> of 16 &nbsp;·&nbsp; Pick <span id="hdr-pick">1</span> of 160
+  </div>
+  <div class="header-right" id="hdr-right">
+    You are: <strong style="color:var(--gold)">House Stark</strong><br>
+    Your next pick: <span id="hdr-next-pick">–</span>
+  </div>
+</header>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track" id="ticker-track">
+    <span class="ticker-empty">Awaiting first pick of the draft…</span>
+    <span class="ticker-empty">Awaiting first pick of the draft…</span>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- LEFT: TEAMS -->
+  <div class="teams-panel">
+    <div class="panel-header">The Houses &nbsp;· &nbsp;<span id="teams-pick-count" style="color:var(--gray2)">0 picks made</span></div>
+    <div class="teams-list" id="teams-list"></div>
+  </div>
+
+  <!-- RIGHT: DRAFT -->
+  <div class="draft-panel">
+
+    <!-- ON THE CLOCK -->
+    <div class="clock-bar">
+      <div class="clock-info">
+        <div class="clock-label">On the Clock</div>
+        <div class="clock-team" id="clock-team-name">House Stark</div>
+        <div class="clock-sub" id="clock-sub">Round 1, Pick 1 overall</div>
+      </div>
+      <div class="clock-center">
+        <div class="timer" id="timer">2:00</div>
+        <div id="turn-pill" class="my-turn-pill">YOUR PICK</div>
+      </div>
+    </div>
+
+    <!-- PLAYER POOL -->
+    <div class="player-pool">
+      <div class="pool-controls">
+        <input type="text" class="search-box" id="search-box" placeholder="Search players…">
+        <div class="pos-filters" id="pos-filters">
+          <button class="pos-btn active" data-pos="ALL">ALL</button>
+          <button class="pos-btn" data-pos="QB">QB</button>
+          <button class="pos-btn" data-pos="RB">RB</button>
+          <button class="pos-btn" data-pos="WR">WR</button>
+          <button class="pos-btn" data-pos="TE">TE</button>
+          <button class="pos-btn" data-pos="K">K</button>
+          <button class="pos-btn" data-pos="DEF">DEF</button>
+        </div>
+        <span class="pool-count" id="pool-count"></span>
+      </div>
+      <div class="table-wrap">
+        <table class="player-table">
+          <thead>
+            <tr>
+              <th class="td-rank">#</th>
+              <th>Player</th>
+              <th>POS</th>
+              <th>NFL</th>
+              <th class="td-bye">BYE</th>
+              <th class="td-btn"></th>
+            </tr>
+          </thead>
+          <tbody id="player-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- DRAFT COMPLETE OVERLAY -->
+<div class="overlay" id="overlay">
+  <div class="overlay-rule"></div>
+  <h2>Draft Complete</h2>
+  <p>All 160 picks have been made. May the best team win.</p>
+  <div class="overlay-rule"></div>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────
+const MY_TEAM_IDX = 0;
+const NUM_ROUNDS  = 16;
+const TIMER_SECS  = 120;
+
+const TEAMS = [
+  {name:"House Stark",      owner:"Jon Snow"},
+  {name:"House Lannister",  owner:"Tyrion L."},
+  {name:"House Targaryen",  owner:"Daenerys T."},
+  {name:"House Baratheon",  owner:"Robert B."},
+  {name:"House Greyjoy",    owner:"Theon G."},
+  {name:"House Tyrell",     owner:"Margaery T."},
+  {name:"House Martell",    owner:"Oberyn M."},
+  {name:"House Bolton",     owner:"Ramsay B."},
+  {name:"House Tully",      owner:"Catelyn T."},
+  {name:"Night's Watch",    owner:"Samwell T."},
+];
+
+const PLAYERS = [
+  // QB
+  {id:1,  name:"Patrick Mahomes",     pos:"QB",  nfl:"KC",  bye:6},
+  {id:2,  name:"Josh Allen",          pos:"QB",  nfl:"BUF", bye:12},
+  {id:3,  name:"Lamar Jackson",       pos:"QB",  nfl:"BAL", bye:14},
+  {id:4,  name:"Joe Burrow",          pos:"QB",  nfl:"CIN", bye:7},
+  {id:5,  name:"Jalen Hurts",         pos:"QB",  nfl:"PHI", bye:5},
+  {id:6,  name:"Dak Prescott",        pos:"QB",  nfl:"DAL", bye:7},
+  {id:7,  name:"Justin Herbert",      pos:"QB",  nfl:"LAC", bye:5},
+  {id:8,  name:"Tua Tagovailoa",      pos:"QB",  nfl:"MIA", bye:11},
+  {id:9,  name:"Jordan Love",         pos:"QB",  nfl:"GB",  bye:10},
+  {id:10, name:"Anthony Richardson",  pos:"QB",  nfl:"IND", bye:14},
+  {id:11, name:"Brock Purdy",         pos:"QB",  nfl:"SF",  bye:9},
+  {id:12, name:"Kirk Cousins",        pos:"QB",  nfl:"ATL", bye:12},
+  {id:13, name:"Trevor Lawrence",     pos:"QB",  nfl:"JAX", bye:12},
+  {id:14, name:"Geno Smith",          pos:"QB",  nfl:"SEA", bye:10},
+  {id:15, name:"Sam Darnold",         pos:"QB",  nfl:"MIN", bye:6},
+  // RB
+  {id:20, name:"Christian McCaffrey", pos:"RB",  nfl:"SF",  bye:9},
+  {id:21, name:"Breece Hall",         pos:"RB",  nfl:"NYJ", bye:12},
+  {id:22, name:"Derrick Henry",       pos:"RB",  nfl:"BAL", bye:14},
+  {id:23, name:"Saquon Barkley",      pos:"RB",  nfl:"PHI", bye:5},
+  {id:24, name:"Jahmyr Gibbs",        pos:"RB",  nfl:"DET", bye:5},
+  {id:25, name:"Isiah Pacheco",       pos:"RB",  nfl:"KC",  bye:6},
+  {id:26, name:"Josh Jacobs",         pos:"RB",  nfl:"GB",  bye:10},
+  {id:27, name:"De'Von Achane",       pos:"RB",  nfl:"MIA", bye:11},
+  {id:28, name:"James Cook",          pos:"RB",  nfl:"BUF", bye:12},
+  {id:29, name:"Kyren Williams",      pos:"RB",  nfl:"LAR", bye:6},
+  {id:30, name:"Travis Etienne",      pos:"RB",  nfl:"JAX", bye:12},
+  {id:31, name:"David Montgomery",    pos:"RB",  nfl:"DET", bye:5},
+  {id:32, name:"Rachaad White",       pos:"RB",  nfl:"TB",  bye:11},
+  {id:33, name:"Kenneth Walker III",  pos:"RB",  nfl:"SEA", bye:10},
+  {id:34, name:"Aaron Jones",         pos:"RB",  nfl:"MIN", bye:6},
+  {id:35, name:"Tony Pollard",        pos:"RB",  nfl:"TEN", bye:5},
+  {id:36, name:"Rhamondre Stevenson", pos:"RB",  nfl:"NE",  bye:14},
+  {id:37, name:"Brian Robinson Jr.",  pos:"RB",  nfl:"WSH", bye:14},
+  {id:38, name:"Javonte Williams",    pos:"RB",  nfl:"DEN", bye:14},
+  {id:39, name:"Zack Moss",           pos:"RB",  nfl:"CIN", bye:7},
+  // WR
+  {id:50, name:"Tyreek Hill",         pos:"WR",  nfl:"MIA", bye:11},
+  {id:51, name:"Justin Jefferson",    pos:"WR",  nfl:"MIN", bye:6},
+  {id:52, name:"CeeDee Lamb",         pos:"WR",  nfl:"DAL", bye:7},
+  {id:53, name:"Ja'Marr Chase",       pos:"WR",  nfl:"CIN", bye:7},
+  {id:54, name:"A.J. Brown",          pos:"WR",  nfl:"PHI", bye:5},
+  {id:55, name:"Amon-Ra St. Brown",   pos:"WR",  nfl:"DET", bye:5},
+  {id:56, name:"Davante Adams",       pos:"WR",  nfl:"NYJ", bye:12},
+  {id:57, name:"Tee Higgins",         pos:"WR",  nfl:"CIN", bye:7},
+  {id:58, name:"Stefon Diggs",        pos:"WR",  nfl:"HOU", bye:14},
+  {id:59, name:"Keenan Allen",        pos:"WR",  nfl:"CHI", bye:7},
+  {id:60, name:"Mike Evans",          pos:"WR",  nfl:"TB",  bye:11},
+  {id:61, name:"Chris Olave",         pos:"WR",  nfl:"NO",  bye:12},
+  {id:62, name:"Jaylen Waddle",       pos:"WR",  nfl:"MIA", bye:11},
+  {id:63, name:"Drake London",        pos:"WR",  nfl:"ATL", bye:12},
+  {id:64, name:"Garrett Wilson",      pos:"WR",  nfl:"NYJ", bye:12},
+  {id:65, name:"DJ Moore",            pos:"WR",  nfl:"CHI", bye:7},
+  {id:66, name:"DeVonta Smith",       pos:"WR",  nfl:"PHI", bye:5},
+  {id:67, name:"Rashee Rice",         pos:"WR",  nfl:"KC",  bye:6},
+  {id:68, name:"Calvin Ridley",       pos:"WR",  nfl:"TEN", bye:5},
+  {id:69, name:"Puka Nacua",          pos:"WR",  nfl:"LAR", bye:6},
+  {id:70, name:"Terry McLaurin",      pos:"WR",  nfl:"WSH", bye:14},
+  {id:71, name:"DK Metcalf",          pos:"WR",  nfl:"SEA", bye:10},
+  {id:72, name:"Deebo Samuel",        pos:"WR",  nfl:"SF",  bye:9},
+  {id:73, name:"Michael Pittman Jr.", pos:"WR",  nfl:"IND", bye:14},
+  {id:74, name:"Courtland Sutton",    pos:"WR",  nfl:"DEN", bye:14},
+  {id:75, name:"Zay Flowers",         pos:"WR",  nfl:"BAL", bye:14},
+  {id:76, name:"Tyler Lockett",       pos:"WR",  nfl:"SEA", bye:10},
+  {id:77, name:"Christian Watson",    pos:"WR",  nfl:"GB",  bye:10},
+  {id:78, name:"Josh Downs",          pos:"WR",  nfl:"IND", bye:14},
+  {id:79, name:"Rome Odunze",         pos:"WR",  nfl:"CHI", bye:7},
+  {id:80, name:"Brian Thomas Jr.",    pos:"WR",  nfl:"JAX", bye:12},
+  {id:81, name:"Ladd McConkey",       pos:"WR",  nfl:"LAC", bye:5},
+  // TE
+  {id:100,name:"Travis Kelce",        pos:"TE",  nfl:"KC",  bye:6},
+  {id:101,name:"Sam LaPorta",         pos:"TE",  nfl:"DET", bye:5},
+  {id:102,name:"Trey McBride",        pos:"TE",  nfl:"ARI", bye:11},
+  {id:103,name:"George Kittle",       pos:"TE",  nfl:"SF",  bye:9},
+  {id:104,name:"Dallas Goedert",      pos:"TE",  nfl:"PHI", bye:5},
+  {id:105,name:"Mark Andrews",        pos:"TE",  nfl:"BAL", bye:14},
+  {id:106,name:"David Njoku",         pos:"TE",  nfl:"CLE", bye:10},
+  {id:107,name:"Evan Engram",         pos:"TE",  nfl:"JAX", bye:12},
+  {id:108,name:"T.J. Hockenson",      pos:"TE",  nfl:"MIN", bye:6},
+  {id:109,name:"Kyle Pitts",          pos:"TE",  nfl:"ATL", bye:12},
+  {id:110,name:"Jake Ferguson",       pos:"TE",  nfl:"DAL", bye:7},
+  {id:111,name:"Pat Freiermuth",      pos:"TE",  nfl:"PIT", bye:9},
+  {id:112,name:"Cole Kmet",           pos:"TE",  nfl:"CHI", bye:7},
+  {id:113,name:"Dalton Kincaid",      pos:"TE",  nfl:"BUF", bye:12},
+  {id:114,name:"Tyler Higbee",        pos:"TE",  nfl:"LAR", bye:6},
+  // K
+  {id:130,name:"Justin Tucker",       pos:"K",   nfl:"BAL", bye:14},
+  {id:131,name:"Harrison Butker",     pos:"K",   nfl:"KC",  bye:6},
+  {id:132,name:"Evan McPherson",      pos:"K",   nfl:"CIN", bye:7},
+  {id:133,name:"Brandon Aubrey",      pos:"K",   nfl:"DAL", bye:7},
+  {id:134,name:"Jake Moody",          pos:"K",   nfl:"SF",  bye:9},
+  {id:135,name:"Younghoe Koo",        pos:"K",   nfl:"ATL", bye:12},
+  {id:136,name:"Jake Elliott",        pos:"K",   nfl:"PHI", bye:5},
+  {id:137,name:"Tyler Bass",          pos:"K",   nfl:"BUF", bye:12},
+  {id:138,name:"Ka'imi Fairbairn",    pos:"K",   nfl:"HOU", bye:14},
+  {id:139,name:"Cairo Santos",        pos:"K",   nfl:"CHI", bye:7},
+  // DEF
+  {id:150,name:"San Francisco 49ers", pos:"DEF", nfl:"SF",  bye:9},
+  {id:151,name:"Dallas Cowboys",      pos:"DEF", nfl:"DAL", bye:7},
+  {id:152,name:"Baltimore Ravens",    pos:"DEF", nfl:"BAL", bye:14},
+  {id:153,name:"Philadelphia Eagles", pos:"DEF", nfl:"PHI", bye:5},
+  {id:154,name:"New York Jets",       pos:"DEF", nfl:"NYJ", bye:12},
+  {id:155,name:"Pittsburgh Steelers", pos:"DEF", nfl:"PIT", bye:9},
+  {id:156,name:"Cleveland Browns",    pos:"DEF", nfl:"CLE", bye:10},
+  {id:157,name:"Miami Dolphins",      pos:"DEF", nfl:"MIA", bye:11},
+  {id:158,name:"Kansas City Chiefs",  pos:"DEF", nfl:"KC",  bye:6},
+  {id:159,name:"Buffalo Bills",       pos:"DEF", nfl:"BUF", bye:12},
+];
+
+// ── DRAFT STATE ────────────────────────────────────────────────────────
+const teamPicks = TEAMS.map(() => []);
+const drafted   = new Set();
+const pickLog   = []; // {overall, round, pickInRound, teamIdx, player}
+
+// Build snake order
+const draftOrder = [];
+for (let r = 0; r < NUM_ROUNDS; r++) {
+  const even = r % 2 === 0;
+  for (let i = 0; i < TEAMS.length; i++) {
+    draftOrder.push(even ? i : TEAMS.length - 1 - i);
+  }
+}
+
+let currentIdx   = 0;
+let timerSeconds = TIMER_SECS;
+let timerInterval = null;
+let filterPos    = 'ALL';
+let searchQuery  = '';
+let autoPickQueued = false;
+
+// ── HELPERS ────────────────────────────────────────────────────────────
+function currentTeamIdx()    { return draftOrder[currentIdx]; }
+function currentRound()      { return Math.floor(currentIdx / TEAMS.length) + 1; }
+function currentPickInRound(){ return (currentIdx % TEAMS.length) + 1; }
+function isMyTurn()          { return currentTeamIdx() === MY_TEAM_IDX; }
+
+function nextPickForTeam(teamIdx) {
+  for (let i = currentIdx; i < draftOrder.length; i++) {
+    if (draftOrder[i] === teamIdx) {
+      return i + 1; // overall pick number (1-based)
+    }
+  }
+  return null;
+}
+
+function formatTime(s) {
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  return m + ':' + String(sec).padStart(2, '0');
+}
+
+function lastNameOrFull(name) {
+  if (name.includes(' ')) return name.split(' ').slice(1).join(' ');
+  return name;
+}
+
+// ── TIMER ──────────────────────────────────────────────────────────────
+function startTimer() {
+  stopTimer();
+  timerSeconds = TIMER_SECS;
+  updateTimerDisplay();
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    updateTimerDisplay();
+    if (timerSeconds <= 0) {
+      stopTimer();
+      autoPickForTeam(currentTeamIdx());
+    }
+  }, 1000);
+}
+
+function stopTimer() {
+  if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+}
+
+function updateTimerDisplay() {
+  const el = document.getElementById('timer');
+  el.textContent = formatTime(timerSeconds);
+  el.className = 'timer';
+  if (timerSeconds <= 30) el.classList.add('urgent');
+  else if (timerSeconds <= 60) el.classList.add('warn');
+}
+
+// ── AUTO PICK ──────────────────────────────────────────────────────────
+function autoPickForTeam(teamIdx) {
+  const available = PLAYERS.filter(p => !drafted.has(p.id));
+  if (!available.length) return;
+  // Simple priority: pick best available by array order (already ranked)
+  makePick(available[0].id);
+}
+
+// ── MAKE PICK ──────────────────────────────────────────────────────────
+function makePick(playerId) {
+  if (drafted.has(playerId) || currentIdx >= draftOrder.length) return;
+  const player  = PLAYERS.find(p => p.id === playerId);
+  const teamIdx = currentTeamIdx();
+
+  drafted.add(playerId);
+  teamPicks[teamIdx].push(player);
+  pickLog.push({
+    overall: currentIdx + 1,
+    round: currentRound(),
+    pickInRound: currentPickInRound(),
+    teamIdx,
+    player
+  });
+
+  stopTimer();
+  currentIdx++;
+  updateTicker();
+  render();
+
+  if (currentIdx >= draftOrder.length) {
+    document.getElementById('overlay').classList.add('show');
+    return;
+  }
+
+  // If next pick isn't mine, schedule auto-pick
+  if (!isMyTurn()) {
+    setTimeout(() => autoPickForTeam(currentTeamIdx()), 2200);
+  } else {
+    startTimer();
+  }
+}
+
+// ── TICKER ────────────────────────────────────────────────────────────
+function updateTicker() {
+  if (!pickLog.length) return;
+  const track = document.getElementById('ticker-track');
+
+  const makeItems = () => pickLog.slice().reverse().map(p => {
+    const chipClass = 'pos-' + p.player.pos;
+    return `<span class="ticker-item">
+      <span class="ticker-pick-num">#${p.overall}</span>
+      <span class="pick-chip ${chipClass}" style="font-size:0.6rem;padding:1px 4px;border-radius:2px;">${p.player.pos}</span>
+      <span class="ticker-player">${p.player.name}</span>
+      <span class="ticker-team-name">→ ${TEAMS[p.teamIdx].name}</span>
+    </span>`;
+  }).join('');
+
+  track.innerHTML = makeItems() + makeItems(); // double for seamless loop
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────
+function render() {
+  renderHeader();
+  renderClockBar();
+  renderTeams();
+  renderPlayers();
+}
+
+function renderHeader() {
+  const round = currentIdx < draftOrder.length ? currentRound() : NUM_ROUNDS;
+  const pick  = Math.min(currentIdx + 1, draftOrder.length);
+  document.getElementById('hdr-round').textContent = round;
+  document.getElementById('hdr-pick').textContent  = pick;
+
+  const next = nextPickForTeam(MY_TEAM_IDX);
+  document.getElementById('hdr-next-pick').textContent =
+    next ? `Pick #${next} (Rd ${Math.floor((next-1)/TEAMS.length)+1})` : '–';
+}
+
+function renderClockBar() {
+  if (currentIdx >= draftOrder.length) return;
+  const tIdx = currentTeamIdx();
+  document.getElementById('clock-team-name').textContent = TEAMS[tIdx].name;
+  document.getElementById('clock-sub').textContent =
+    `Round ${currentRound()}, Pick ${currentPickInRound()} · Overall #${currentIdx + 1}`;
+
+  const pill = document.getElementById('turn-pill');
+  if (isMyTurn()) {
+    pill.className = 'my-turn-pill';
+    pill.textContent = 'YOUR PICK';
+  } else {
+    pill.className = 'waiting-pill';
+    pill.textContent = 'WAITING…';
+  }
+}
+
+function renderTeams() {
+  const list = document.getElementById('teams-list');
+  const totalPicks = pickLog.length;
+  document.getElementById('teams-pick-count').textContent = totalPicks + ' pick' + (totalPicks !== 1 ? 's' : '') + ' made';
+
+  list.innerHTML = TEAMS.map((t, i) => {
+    const isOnClock = currentIdx < draftOrder.length && currentTeamIdx() === i;
+    const isMine    = i === MY_TEAM_IDX;
+    const picks     = teamPicks[i];
+    const classes   = ['team-card', isOnClock ? 'on-clock' : '', isMine ? 'my-team-card' : ''].join(' ');
+
+    const chipsHtml = picks.map(p => {
+      const short = p.pos === 'DEF' ? p.nfl : lastNameOrFull(p.name).split(' ').pop();
+      return `<span class="pick-chip pos-${p.pos}" title="${p.name}">${p.pos} ${short}</span>`;
+    }).join('');
+
+    const badge = isOnClock ? `<span class="on-clock-label">● ON CLOCK</span>` : `<span style="font-size:0.6rem;color:var(--gray2)">${picks.length} picks</span>`;
+
+    return `<div class="${classes}">
+      <div class="team-card-header">
+        <span class="team-card-name">${t.name}</span>
+        ${badge}
+      </div>
+      <div class="team-card-owner" style="margin-bottom:0.25rem">${t.owner}</div>
+      <div class="team-picks-chips">${chipsHtml || '<span style="color:var(--gray2);font-size:0.6rem">No picks yet</span>'}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderPlayers() {
+  const tbody   = document.getElementById('player-tbody');
+  const myTurn  = isMyTurn() && currentIdx < draftOrder.length;
+  const q       = searchQuery.toLowerCase();
+
+  const visible = PLAYERS.filter(p => {
+    if (filterPos !== 'ALL' && p.pos !== filterPos) return false;
+    if (q && !p.name.toLowerCase().includes(q) && !p.nfl.toLowerCase().includes(q)) return false;
+    return true;
+  });
+
+  document.getElementById('pool-count').textContent =
+    `${visible.filter(p => !drafted.has(p.id)).length} available`;
+
+  let rank = 0;
+  tbody.innerHTML = visible.map(p => {
+    const isDrafted = drafted.has(p.id);
+    if (!isDrafted) rank++;
+    return `<tr class="${isDrafted ? 'drafted' : ''}" data-id="${p.id}">
+      <td class="td-rank">${isDrafted ? '–' : rank}</td>
+      <td class="td-name">${p.name}</td>
+      <td><span class="pick-chip pos-${p.pos}">${p.pos}</span></td>
+      <td class="td-nfl">${p.nfl}</td>
+      <td class="td-bye">${p.bye}</td>
+      <td class="td-btn">
+        <button class="draft-btn" data-id="${p.id}" ${(!myTurn || isDrafted) ? 'disabled' : ''}>
+          ${isDrafted ? 'DRAFTED' : 'DRAFT'}
+        </button>
+      </td>
+    </tr>`;
+  }).join('');
+
+  // Attach click handlers
+  tbody.querySelectorAll('.draft-btn:not([disabled])').forEach(btn => {
+    btn.addEventListener('click', () => makePick(parseInt(btn.dataset.id)));
+  });
+}
+
+// ── CONTROLS ───────────────────────────────────────────────────────────
+document.getElementById('search-box').addEventListener('input', e => {
+  searchQuery = e.target.value;
+  renderPlayers();
+});
+
+document.getElementById('pos-filters').addEventListener('click', e => {
+  const btn = e.target.closest('.pos-btn');
+  if (!btn) return;
+  filterPos = btn.dataset.pos;
+  document.querySelectorAll('.pos-btn').forEach(b => b.classList.toggle('active', b === btn));
+  renderPlayers();
+});
+
+// ── INIT ───────────────────────────────────────────────────────────────
+render();
+// Team 0 = user, so start timer immediately (it's their pick first)
+startTimer();
+// In prototype: if you want to see auto-picks first, comment out above
+// and uncomment below:
+// setTimeout(() => autoPickForTeam(currentTeamIdx()), 1500);
+</script>
+</body>
+</html>
