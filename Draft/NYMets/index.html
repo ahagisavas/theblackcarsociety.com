@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mets Wives Fantasy Draft | BCS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-deep:    #060d1a;
+      --navy-dark:    #0c1830;
+      --navy-mid:     #102040;
+      --orange:       #FF5910;
+      --orange-light: #FF8F65;
+      --orange-dim:   rgba(255,89,16,0.22);
+      --pink:         #E91E8C;
+      --pink-soft:    #F06292;
+      --pink-light:   #FCB8D8;
+      --pink-dim:     rgba(233,30,140,0.18);
+      --mets-blue:    #002D72;
+      --white:        #FFFFFF;
+      --cream:        #FFF0F5;
+      --gray1:        #B0A8C0;
+      --gray2:        #705880;
+      --urgent:       #e53935;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--navy-deep);
+      color: var(--cream);
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.8rem;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: var(--navy-dark);
+      border-bottom: 2px solid var(--orange-dim);
+      padding: 0.5rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      gap: 1rem;
+    }
+    .header-left { display: flex; align-items: center; gap: 0.75rem; }
+    .header-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .header-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--orange);
+      letter-spacing: 0.04em;
+      line-height: 1.2;
+    }
+    .header-subtitle {
+      font-size: 0.6rem;
+      color: var(--pink-soft);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .header-center {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.75rem;
+      color: var(--gray1);
+      text-align: center;
+      line-height: 1.7;
+    }
+    .header-center strong { color: var(--orange); font-size: 0.88rem; }
+    .header-right {
+      font-size: 0.68rem;
+      color: var(--gray2);
+      text-align: right;
+      line-height: 1.7;
+    }
+    .demo-badge {
+      background: var(--pink-dim);
+      border: 1px solid var(--pink-dim);
+      border-radius: 20px;
+      padding: 2px 9px;
+      font-size: 0.58rem;
+      color: var(--pink-soft);
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+    .mets-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--mets-blue);
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── TICKER ── */
+    .ticker-wrap {
+      background: linear-gradient(90deg, var(--mets-blue), var(--navy-dark), var(--mets-blue));
+      border-bottom: 1px solid var(--orange-dim);
+      padding: 0.3rem 0;
+      overflow: hidden;
+      flex-shrink: 0;
+      min-height: 28px;
+    }
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: ticker 40s linear infinite;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    @keyframes ticker {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0 1.5rem;
+      white-space: nowrap;
+      color: var(--gray1);
+      font-size: 0.7rem;
+      border-right: 1px solid var(--orange-dim);
+    }
+    .ticker-pick-num { color: var(--orange); font-weight: 700; font-size: 0.65rem; }
+    .ticker-player   { color: var(--white); font-weight: 600; }
+    .ticker-team-name { color: var(--pink-light); }
+    .ticker-empty {
+      padding: 0.1rem 1.5rem;
+      color: var(--gray2);
+      font-family: 'Playfair Display', serif;
+      font-size: 0.65rem;
+      font-style: italic;
+    }
+
+    /* ── MAIN ── */
+    .main { display: flex; flex: 1; overflow: hidden; }
+
+    /* ── TEAMS PANEL ── */
+    .teams-panel {
+      width: 305px;
+      flex-shrink: 0;
+      background: var(--navy-dark);
+      border-right: 1px solid var(--orange-dim);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .panel-header {
+      padding: 0.6rem 0.75rem 0.4rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.68rem;
+      color: var(--orange);
+      border-bottom: 1px solid var(--orange-dim);
+      flex-shrink: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .panel-header span { color: var(--gray2); font-size: 0.6rem; font-family: 'Raleway', sans-serif; }
+    .teams-list { overflow-y: auto; flex: 1; padding: 0.5rem; }
+
+    .team-card {
+      background: var(--navy-mid);
+      border: 1px solid rgba(255,89,16,0.12);
+      border-radius: 8px;
+      margin-bottom: 0.4rem;
+      padding: 0.45rem 0.65rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .team-card.on-clock {
+      border-color: var(--pink);
+      background: rgba(233,30,140,0.07);
+      box-shadow: 0 0 12px rgba(233,30,140,0.12);
+    }
+    .team-card.my-team-card { border-color: rgba(255,89,16,0.4); }
+    .team-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.2rem;
+    }
+    .team-card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.7rem;
+      color: var(--orange-light);
+    }
+    .team-card-owner { font-size: 0.6rem; color: var(--gray1); margin-bottom: 0.25rem; }
+    .on-clock-label {
+      font-size: 0.58rem;
+      color: var(--pink-soft);
+      font-weight: 700;
+      animation: pulse 1s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .team-picks-chips { display: flex; flex-wrap: wrap; gap: 2px; min-height: 14px; }
+    .pick-chip {
+      font-size: 0.56rem;
+      font-weight: 700;
+      padding: 1px 4px;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
+
+    /* ── DRAFT PANEL ── */
+    .draft-panel { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+    /* ── CLOCK BAR ── */
+    .clock-bar {
+      background: var(--navy-dark);
+      border-bottom: 1px solid var(--orange-dim);
+      padding: 0.55rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      gap: 1rem;
+    }
+    .clock-info { display: flex; flex-direction: column; gap: 2px; }
+    .clock-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      color: var(--pink-soft);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .clock-team {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--white);
+    }
+    .clock-sub { font-size: 0.65rem; color: var(--gray1); }
+    .clock-center { display: flex; align-items: center; gap: 1.5rem; }
+    .timer {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--orange);
+      min-width: 90px;
+      text-align: center;
+      line-height: 1;
+      transition: color 0.3s;
+    }
+    .timer.warn   { color: var(--pink-soft); }
+    .timer.urgent { color: var(--urgent); animation: pulse 0.5s ease-in-out infinite; }
+    .my-turn-pill {
+      background: var(--pink-dim);
+      border: 1px solid var(--pink);
+      border-radius: 20px;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.68rem;
+      color: var(--pink-light);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+    .waiting-pill {
+      background: rgba(112,88,128,0.2);
+      border: 1px solid var(--gray2);
+      border-radius: 20px;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.68rem;
+      color: var(--gray2);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── PLAYER POOL ── */
+    .player-pool {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 0.6rem 0.75rem;
+    }
+    .pool-controls {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      flex-shrink: 0;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .search-box {
+      flex: 1;
+      min-width: 140px;
+      background: var(--navy-mid);
+      border: 1px solid var(--orange-dim);
+      border-radius: 20px;
+      color: var(--cream);
+      padding: 0.38rem 0.85rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.76rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-box:focus { border-color: var(--pink-soft); }
+    .search-box::placeholder { color: var(--gray2); }
+    .pos-filters { display: flex; gap: 3px; }
+    .pos-btn {
+      background: var(--navy-mid);
+      border: 1px solid var(--orange-dim);
+      border-radius: 20px;
+      color: var(--gray1);
+      padding: 0.28rem 0.6rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .pos-btn:hover { border-color: var(--pink-soft); color: var(--pink-light); }
+    .pos-btn.active { background: var(--pink); border-color: var(--pink); color: var(--white); }
+    .pool-count { font-size: 0.65rem; color: var(--gray2); white-space: nowrap; }
+
+    .table-wrap { flex: 1; overflow-y: auto; }
+    .player-table { width: 100%; border-collapse: collapse; }
+    .player-table thead th {
+      background: var(--navy-dark);
+      color: var(--orange);
+      font-family: 'Playfair Display', serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      padding: 0.38rem 0.6rem;
+      text-align: left;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      border-bottom: 1px solid var(--orange-dim);
+      cursor: pointer;
+      user-select: none;
+    }
+    .player-table thead th:hover { color: var(--orange-light); }
+    .player-table tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      transition: background 0.1s;
+    }
+    .player-table tbody tr:hover:not(.drafted) { background: rgba(233,30,140,0.05); }
+    .player-table tbody tr.drafted { opacity: 0.22; pointer-events: none; }
+    .player-table td { padding: 0.3rem 0.6rem; }
+    .td-rank { color: var(--gray2); font-size: 0.65rem; width: 36px; }
+    .td-name { font-weight: 600; color: var(--white); }
+    .td-nfl  { color: var(--gray1); }
+    .td-bye  { color: var(--gray2); text-align: center; width: 40px; }
+    .td-btn  { width: 75px; text-align: right; }
+
+    .draft-btn {
+      background: linear-gradient(135deg, var(--pink), var(--orange));
+      border: none;
+      border-radius: 20px;
+      color: var(--white);
+      padding: 0.22rem 0.65rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .draft-btn:hover:not(:disabled) { opacity: 0.85; }
+    .draft-btn:disabled {
+      background: rgba(112,88,128,0.3);
+      color: var(--gray2);
+      cursor: not-allowed;
+    }
+
+    /* ── POSITION COLORS (pill-shaped) ── */
+    .pos-QB  { background:rgba(180,30,30,0.7);  color:#ffcccc; border-radius:10px; }
+    .pos-RB  { background:rgba(20,120,60,0.7);  color:#ccffdd; border-radius:10px; }
+    .pos-WR  { background:rgba(30,60,180,0.7);  color:#ccdaff; border-radius:10px; }
+    .pos-TE  { background:rgba(140,80,10,0.8);  color:#ffe5b8; border-radius:10px; }
+    .pos-K   { background:rgba(120,30,140,0.7); color:#f0ccff; border-radius:10px; }
+    .pos-DEF { background:rgba(40,40,60,0.9);   color:#c8c8d8; border-radius:10px; }
+
+    /* ── OVERLAY ── */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 50;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+    }
+    .overlay.show { display: flex; }
+    .overlay h2 {
+      font-family: 'Playfair Display', serif;
+      color: var(--orange);
+      font-size: 2rem;
+      text-align: center;
+    }
+    .overlay p { color: var(--gray1); font-size: 0.85rem; text-align: center; }
+    .overlay-rule {
+      width: 200px; height: 1px;
+      background: linear-gradient(to right, transparent, var(--pink), var(--orange), transparent);
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-track { background: var(--navy-dark); }
+    ::-webkit-scrollbar-thumb { background: var(--orange-dim); border-radius: 2px; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-left">
+    <div class="header-brand">
+      <div class="header-title">BCS Fantasy Draft Room</div>
+      <div class="header-subtitle">Mets Wives League 2026</div>
+    </div>
+    <span class="mets-pill">⚾ NYM</span>
+    <span class="demo-badge">PROTOTYPE</span>
+  </div>
+  <div class="header-center">
+    <strong id="hdr-league">Mets Wives Fantasy League 2026</strong><br>
+    Round <span id="hdr-round">1</span> of 15 &nbsp;·&nbsp; Pick <span id="hdr-pick">1</span> of 180
+  </div>
+  <div class="header-right" id="hdr-right">
+    You are: <strong style="color:var(--orange)">Manaea's Wife</strong><br>
+    Your next pick: <span id="hdr-next-pick">–</span>
+  </div>
+</header>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track" id="ticker-track">
+    <span class="ticker-empty">Awaiting the first pick of the draft…</span>
+    <span class="ticker-empty">Awaiting the first pick of the draft…</span>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- LEFT: TEAMS -->
+  <div class="teams-panel">
+    <div class="panel-header">
+      The League
+      <span id="teams-pick-count">0 picks made</span>
+    </div>
+    <div class="teams-list" id="teams-list"></div>
+  </div>
+
+  <!-- RIGHT: DRAFT -->
+  <div class="draft-panel">
+
+    <!-- ON THE CLOCK -->
+    <div class="clock-bar">
+      <div class="clock-info">
+        <div class="clock-label">On the Clock</div>
+        <div class="clock-team" id="clock-team-name">Manaea's Wife</div>
+        <div class="clock-sub" id="clock-sub">Round 1, Pick 1 overall</div>
+      </div>
+      <div class="clock-center">
+        <div class="timer" id="timer">2:00</div>
+        <div id="turn-pill" class="my-turn-pill">YOUR PICK ✨</div>
+      </div>
+    </div>
+
+    <!-- PLAYER POOL -->
+    <div class="player-pool">
+      <div class="pool-controls">
+        <input type="text" class="search-box" id="search-box" placeholder="🔍 Search players…">
+        <div class="pos-filters" id="pos-filters">
+          <button class="pos-btn active" data-pos="ALL">ALL</button>
+          <button class="pos-btn" data-pos="QB">QB</button>
+          <button class="pos-btn" data-pos="RB">RB</button>
+          <button class="pos-btn" data-pos="WR">WR</button>
+          <button class="pos-btn" data-pos="TE">TE</button>
+          <button class="pos-btn" data-pos="K">K</button>
+          <button class="pos-btn" data-pos="DEF">DEF</button>
+        </div>
+        <span class="pool-count" id="pool-count"></span>
+      </div>
+      <div class="table-wrap">
+        <table class="player-table">
+          <thead>
+            <tr>
+              <th class="td-rank">#</th>
+              <th>Player</th>
+              <th>POS</th>
+              <th>NFL</th>
+              <th class="td-bye">BYE</th>
+              <th class="td-btn"></th>
+            </tr>
+          </thead>
+          <tbody id="player-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- DRAFT COMPLETE OVERLAY -->
+<div class="overlay" id="overlay">
+  <div class="overlay-rule"></div>
+  <h2>Draft Complete! 🎉</h2>
+  <p>All 180 picks have been made. Let the season begin!</p>
+  <div class="overlay-rule"></div>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────
+const MY_TEAM_IDX = 0;
+const NUM_ROUNDS  = 15;
+const TIMER_SECS  = 120;
+
+const TEAMS = [
+  {name:"Manaea's Wife",    owner:"Sean Manaea's Wife"},
+  {name:"Peralta's Wife",   owner:"Freddy Peralta's Wife"},
+  {name:"Bichette's Wife",  owner:"Bo Bichette's Wife"},
+  {name:"Warren's Wife",    owner:"Austin Warren's Wife"},
+  {name:"Brazoban's Wife",  owner:"Huascar Brazoban's Wife"},
+  {name:"Alvarez's Wife",   owner:"Francisco Alvarez's Wife"},
+  {name:"Weaver's Wife",    owner:"Luke Weaver's Wife"},
+  {name:"D. Williams's Wife", owner:"Devin Williams's Wife"},
+  {name:"Benge's Wife",     owner:"Carson Benge's Wife"},
+  {name:"Ewing's Wife",     owner:"A.J. Ewing's Wife"},
+  {name:"McLean's Wife",    owner:"Nolan McLean's Wife"},
+  {name:"Soto's Wife",      owner:"Juan Soto's Wife"},
+];
+
+const PLAYERS = [
+  // QB
+  {id:1,  name:"Patrick Mahomes",     pos:"QB",  nfl:"KC",  bye:6},
+  {id:2,  name:"Josh Allen",          pos:"QB",  nfl:"BUF", bye:12},
+  {id:3,  name:"Lamar Jackson",       pos:"QB",  nfl:"BAL", bye:14},
+  {id:4,  name:"Joe Burrow",          pos:"QB",  nfl:"CIN", bye:7},
+  {id:5,  name:"Jalen Hurts",         pos:"QB",  nfl:"PHI", bye:5},
+  {id:6,  name:"Dak Prescott",        pos:"QB",  nfl:"DAL", bye:7},
+  {id:7,  name:"Justin Herbert",      pos:"QB",  nfl:"LAC", bye:5},
+  {id:8,  name:"Tua Tagovailoa",      pos:"QB",  nfl:"MIA", bye:11},
+  {id:9,  name:"Jordan Love",         pos:"QB",  nfl:"GB",  bye:10},
+  {id:10, name:"Anthony Richardson",  pos:"QB",  nfl:"IND", bye:14},
+  {id:11, name:"Brock Purdy",         pos:"QB",  nfl:"SF",  bye:9},
+  {id:12, name:"Kirk Cousins",        pos:"QB",  nfl:"ATL", bye:12},
+  {id:13, name:"Trevor Lawrence",     pos:"QB",  nfl:"JAX", bye:12},
+  {id:14, name:"Geno Smith",          pos:"QB",  nfl:"SEA", bye:10},
+  {id:15, name:"Sam Darnold",         pos:"QB",  nfl:"MIN", bye:6},
+  // RB
+  {id:20, name:"Christian McCaffrey", pos:"RB",  nfl:"SF",  bye:9},
+  {id:21, name:"Breece Hall",         pos:"RB",  nfl:"NYJ", bye:12},
+  {id:22, name:"Derrick Henry",       pos:"RB",  nfl:"BAL", bye:14},
+  {id:23, name:"Saquon Barkley",      pos:"RB",  nfl:"PHI", bye:5},
+  {id:24, name:"Jahmyr Gibbs",        pos:"RB",  nfl:"DET", bye:5},
+  {id:25, name:"Isiah Pacheco",       pos:"RB",  nfl:"KC",  bye:6},
+  {id:26, name:"Josh Jacobs",         pos:"RB",  nfl:"GB",  bye:10},
+  {id:27, name:"De'Von Achane",       pos:"RB",  nfl:"MIA", bye:11},
+  {id:28, name:"James Cook",          pos:"RB",  nfl:"BUF", bye:12},
+  {id:29, name:"Kyren Williams",      pos:"RB",  nfl:"LAR", bye:6},
+  {id:30, name:"Travis Etienne",      pos:"RB",  nfl:"JAX", bye:12},
+  {id:31, name:"David Montgomery",    pos:"RB",  nfl:"DET", bye:5},
+  {id:32, name:"Rachaad White",       pos:"RB",  nfl:"TB",  bye:11},
+  {id:33, name:"Kenneth Walker III",  pos:"RB",  nfl:"SEA", bye:10},
+  {id:34, name:"Aaron Jones",         pos:"RB",  nfl:"MIN", bye:6},
+  {id:35, name:"Tony Pollard",        pos:"RB",  nfl:"TEN", bye:5},
+  {id:36, name:"Rhamondre Stevenson", pos:"RB",  nfl:"NE",  bye:14},
+  {id:37, name:"Brian Robinson Jr.",  pos:"RB",  nfl:"WSH", bye:14},
+  {id:38, name:"Javonte Williams",    pos:"RB",  nfl:"DEN", bye:14},
+  {id:39, name:"Zack Moss",           pos:"RB",  nfl:"CIN", bye:7},
+  // WR
+  {id:50, name:"Tyreek Hill",         pos:"WR",  nfl:"MIA", bye:11},
+  {id:51, name:"Justin Jefferson",    pos:"WR",  nfl:"MIN", bye:6},
+  {id:52, name:"CeeDee Lamb",         pos:"WR",  nfl:"DAL", bye:7},
+  {id:53, name:"Ja'Marr Chase",       pos:"WR",  nfl:"CIN", bye:7},
+  {id:54, name:"A.J. Brown",          pos:"WR",  nfl:"PHI", bye:5},
+  {id:55, name:"Amon-Ra St. Brown",   pos:"WR",  nfl:"DET", bye:5},
+  {id:56, name:"Davante Adams",       pos:"WR",  nfl:"NYJ", bye:12},
+  {id:57, name:"Tee Higgins",         pos:"WR",  nfl:"CIN", bye:7},
+  {id:58, name:"Stefon Diggs",        pos:"WR",  nfl:"HOU", bye:14},
+  {id:59, name:"Keenan Allen",        pos:"WR",  nfl:"CHI", bye:7},
+  {id:60, name:"Mike Evans",          pos:"WR",  nfl:"TB",  bye:11},
+  {id:61, name:"Chris Olave",         pos:"WR",  nfl:"NO",  bye:12},
+  {id:62, name:"Jaylen Waddle",       pos:"WR",  nfl:"MIA", bye:11},
+  {id:63, name:"Drake London",        pos:"WR",  nfl:"ATL", bye:12},
+  {id:64, name:"Garrett Wilson",      pos:"WR",  nfl:"NYJ", bye:12},
+  {id:65, name:"DJ Moore",            pos:"WR",  nfl:"CHI", bye:7},
+  {id:66, name:"DeVonta Smith",       pos:"WR",  nfl:"PHI", bye:5},
+  {id:67, name:"Rashee Rice",         pos:"WR",  nfl:"KC",  bye:6},
+  {id:68, name:"Calvin Ridley",       pos:"WR",  nfl:"TEN", bye:5},
+  {id:69, name:"Puka Nacua",          pos:"WR",  nfl:"LAR", bye:6},
+  {id:70, name:"Terry McLaurin",      pos:"WR",  nfl:"WSH", bye:14},
+  {id:71, name:"DK Metcalf",          pos:"WR",  nfl:"SEA", bye:10},
+  {id:72, name:"Deebo Samuel",        pos:"WR",  nfl:"SF",  bye:9},
+  {id:73, name:"Michael Pittman Jr.", pos:"WR",  nfl:"IND", bye:14},
+  {id:74, name:"Courtland Sutton",    pos:"WR",  nfl:"DEN", bye:14},
+  {id:75, name:"Zay Flowers",         pos:"WR",  nfl:"BAL", bye:14},
+  {id:76, name:"Tyler Lockett",       pos:"WR",  nfl:"SEA", bye:10},
+  {id:77, name:"Christian Watson",    pos:"WR",  nfl:"GB",  bye:10},
+  {id:78, name:"Josh Downs",          pos:"WR",  nfl:"IND", bye:14},
+  {id:79, name:"Rome Odunze",         pos:"WR",  nfl:"CHI", bye:7},
+  {id:80, name:"Brian Thomas Jr.",    pos:"WR",  nfl:"JAX", bye:12},
+  {id:81, name:"Ladd McConkey",       pos:"WR",  nfl:"LAC", bye:5},
+  // TE
+  {id:100,name:"Travis Kelce",        pos:"TE",  nfl:"KC",  bye:6},
+  {id:101,name:"Sam LaPorta",         pos:"TE",  nfl:"DET", bye:5},
+  {id:102,name:"Trey McBride",        pos:"TE",  nfl:"ARI", bye:11},
+  {id:103,name:"George Kittle",       pos:"TE",  nfl:"SF",  bye:9},
+  {id:104,name:"Dallas Goedert",      pos:"TE",  nfl:"PHI", bye:5},
+  {id:105,name:"Mark Andrews",        pos:"TE",  nfl:"BAL", bye:14},
+  {id:106,name:"David Njoku",         pos:"TE",  nfl:"CLE", bye:10},
+  {id:107,name:"Evan Engram",         pos:"TE",  nfl:"JAX", bye:12},
+  {id:108,name:"T.J. Hockenson",      pos:"TE",  nfl:"MIN", bye:6},
+  {id:109,name:"Kyle Pitts",          pos:"TE",  nfl:"ATL", bye:12},
+  {id:110,name:"Jake Ferguson",       pos:"TE",  nfl:"DAL", bye:7},
+  {id:111,name:"Pat Freiermuth",      pos:"TE",  nfl:"PIT", bye:9},
+  {id:112,name:"Cole Kmet",           pos:"TE",  nfl:"CHI", bye:7},
+  {id:113,name:"Dalton Kincaid",      pos:"TE",  nfl:"BUF", bye:12},
+  {id:114,name:"Tyler Higbee",        pos:"TE",  nfl:"LAR", bye:6},
+  // K
+  {id:130,name:"Justin Tucker",       pos:"K",   nfl:"BAL", bye:14},
+  {id:131,name:"Harrison Butker",     pos:"K",   nfl:"KC",  bye:6},
+  {id:132,name:"Evan McPherson",      pos:"K",   nfl:"CIN", bye:7},
+  {id:133,name:"Brandon Aubrey",      pos:"K",   nfl:"DAL", bye:7},
+  {id:134,name:"Jake Moody",          pos:"K",   nfl:"SF",  bye:9},
+  {id:135,name:"Younghoe Koo",        pos:"K",   nfl:"ATL", bye:12},
+  {id:136,name:"Jake Elliott",        pos:"K",   nfl:"PHI", bye:5},
+  {id:137,name:"Tyler Bass",          pos:"K",   nfl:"BUF", bye:12},
+  {id:138,name:"Ka'imi Fairbairn",    pos:"K",   nfl:"HOU", bye:14},
+  {id:139,name:"Cairo Santos",        pos:"K",   nfl:"CHI", bye:7},
+  // DEF
+  {id:150,name:"San Francisco 49ers", pos:"DEF", nfl:"SF",  bye:9},
+  {id:151,name:"Dallas Cowboys",      pos:"DEF", nfl:"DAL", bye:7},
+  {id:152,name:"Baltimore Ravens",    pos:"DEF", nfl:"BAL", bye:14},
+  {id:153,name:"Philadelphia Eagles", pos:"DEF", nfl:"PHI", bye:5},
+  {id:154,name:"New York Jets",       pos:"DEF", nfl:"NYJ", bye:12},
+  {id:155,name:"Pittsburgh Steelers", pos:"DEF", nfl:"PIT", bye:9},
+  {id:156,name:"Cleveland Browns",    pos:"DEF", nfl:"CLE", bye:10},
+  {id:157,name:"Miami Dolphins",      pos:"DEF", nfl:"MIA", bye:11},
+  {id:158,name:"Kansas City Chiefs",  pos:"DEF", nfl:"KC",  bye:6},
+  {id:159,name:"Buffalo Bills",       pos:"DEF", nfl:"BUF", bye:12},
+];
+
+// ── DRAFT STATE ────────────────────────────────────────────────────────
+const teamPicks = TEAMS.map(() => []);
+const drafted   = new Set();
+const pickLog   = [];
+
+const draftOrder = [];
+for (let r = 0; r < NUM_ROUNDS; r++) {
+  const even = r % 2 === 0;
+  for (let i = 0; i < TEAMS.length; i++) {
+    draftOrder.push(even ? i : TEAMS.length - 1 - i);
+  }
+}
+
+let currentIdx    = 0;
+let timerSeconds  = TIMER_SECS;
+let timerInterval = null;
+let filterPos     = 'ALL';
+let searchQuery   = '';
+
+// ── HELPERS ────────────────────────────────────────────────────────────
+const currentTeamIdx    = () => draftOrder[currentIdx];
+const currentRound      = () => Math.floor(currentIdx / TEAMS.length) + 1;
+const currentPickInRound= () => (currentIdx % TEAMS.length) + 1;
+const isMyTurn          = () => currentTeamIdx() === MY_TEAM_IDX;
+const formatTime        = s => Math.floor(s/60) + ':' + String(s%60).padStart(2,'0');
+
+function nextPickForTeam(teamIdx) {
+  for (let i = currentIdx; i < draftOrder.length; i++) {
+    if (draftOrder[i] === teamIdx) return i + 1;
+  }
+  return null;
+}
+
+// ── TIMER ──────────────────────────────────────────────────────────────
+function startTimer() {
+  stopTimer();
+  timerSeconds = TIMER_SECS;
+  updateTimerDisplay();
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    updateTimerDisplay();
+    if (timerSeconds <= 0) { stopTimer(); autoPickForTeam(currentTeamIdx()); }
+  }, 1000);
+}
+
+function stopTimer() {
+  if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+}
+
+function updateTimerDisplay() {
+  const el = document.getElementById('timer');
+  el.textContent = formatTime(timerSeconds);
+  el.className = 'timer';
+  if (timerSeconds <= 30) el.classList.add('urgent');
+  else if (timerSeconds <= 60) el.classList.add('warn');
+}
+
+// ── AUTO PICK ──────────────────────────────────────────────────────────
+function autoPickForTeam() {
+  const available = PLAYERS.filter(p => !drafted.has(p.id));
+  if (available.length) makePick(available[0].id);
+}
+
+// ── MAKE PICK ──────────────────────────────────────────────────────────
+function makePick(playerId) {
+  if (drafted.has(playerId) || currentIdx >= draftOrder.length) return;
+  const player  = PLAYERS.find(p => p.id === playerId);
+  const teamIdx = currentTeamIdx();
+
+  drafted.add(playerId);
+  teamPicks[teamIdx].push(player);
+  pickLog.push({ overall: currentIdx + 1, round: currentRound(), pickInRound: currentPickInRound(), teamIdx, player });
+
+  stopTimer();
+  currentIdx++;
+  updateTicker();
+  render();
+
+  if (currentIdx >= draftOrder.length) {
+    document.getElementById('overlay').classList.add('show');
+    return;
+  }
+
+  if (!isMyTurn()) {
+    setTimeout(autoPickForTeam, 2200);
+  } else {
+    startTimer();
+  }
+}
+
+// ── TICKER ────────────────────────────────────────────────────────────
+function updateTicker() {
+  if (!pickLog.length) return;
+  const track = document.getElementById('ticker-track');
+  const makeItems = () => pickLog.slice().reverse().map(p =>
+    `<span class="ticker-item">
+      <span class="ticker-pick-num">#${p.overall}</span>
+      <span class="pick-chip pos-${p.player.pos}" style="font-size:0.58rem;padding:1px 5px;">${p.player.pos}</span>
+      <span class="ticker-player">${p.player.name}</span>
+      <span class="ticker-team-name">→ ${TEAMS[p.teamIdx].name}</span>
+    </span>`
+  ).join('');
+  track.innerHTML = makeItems() + makeItems();
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────
+function render() {
+  renderHeader();
+  renderClockBar();
+  renderTeams();
+  renderPlayers();
+}
+
+function renderHeader() {
+  const round = currentIdx < draftOrder.length ? currentRound() : NUM_ROUNDS;
+  const pick  = Math.min(currentIdx + 1, draftOrder.length);
+  document.getElementById('hdr-round').textContent = round;
+  document.getElementById('hdr-pick').textContent  = pick;
+  const next = nextPickForTeam(MY_TEAM_IDX);
+  document.getElementById('hdr-next-pick').textContent =
+    next ? `Pick #${next} (Rd ${Math.floor((next-1)/TEAMS.length)+1})` : '–';
+}
+
+function renderClockBar() {
+  if (currentIdx >= draftOrder.length) return;
+  const tIdx = currentTeamIdx();
+  document.getElementById('clock-team-name').textContent = TEAMS[tIdx].owner;
+  document.getElementById('clock-sub').textContent =
+    `Round ${currentRound()}, Pick ${currentPickInRound()} · Overall #${currentIdx + 1}`;
+  const pill = document.getElementById('turn-pill');
+  if (isMyTurn()) {
+    pill.className   = 'my-turn-pill';
+    pill.textContent = 'YOUR PICK ✨';
+  } else {
+    pill.className   = 'waiting-pill';
+    pill.textContent = 'WAITING…';
+  }
+}
+
+function renderTeams() {
+  const list       = document.getElementById('teams-list');
+  const totalPicks = pickLog.length;
+  document.getElementById('teams-pick-count').textContent =
+    totalPicks + ' pick' + (totalPicks !== 1 ? 's' : '') + ' made';
+
+  list.innerHTML = TEAMS.map((t, i) => {
+    const isOnClock = currentIdx < draftOrder.length && currentTeamIdx() === i;
+    const isMine    = i === MY_TEAM_IDX;
+    const picks     = teamPicks[i];
+    const classes   = ['team-card', isOnClock ? 'on-clock' : '', isMine ? 'my-team-card' : ''].join(' ');
+    const chipsHtml = picks.map(p => {
+      const short = p.pos === 'DEF' ? p.nfl : p.name.split(' ').pop();
+      return `<span class="pick-chip pos-${p.pos}" title="${p.name}">${p.pos} ${short}</span>`;
+    }).join('');
+    const badge = isOnClock
+      ? `<span class="on-clock-label">● ON CLOCK</span>`
+      : `<span style="font-size:0.6rem;color:var(--gray2)">${picks.length} picks</span>`;
+
+    return `<div class="${classes}">
+      <div class="team-card-header">
+        <span class="team-card-name">${t.name}</span>
+        ${badge}
+      </div>
+      <div class="team-card-owner">${t.owner}</div>
+      <div class="team-picks-chips">${chipsHtml || '<span style="color:var(--gray2);font-size:0.58rem;font-style:italic">No picks yet</span>'}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderPlayers() {
+  const tbody  = document.getElementById('player-tbody');
+  const myTurn = isMyTurn() && currentIdx < draftOrder.length;
+  const q      = searchQuery.toLowerCase();
+
+  const visible = PLAYERS.filter(p => {
+    if (filterPos !== 'ALL' && p.pos !== filterPos) return false;
+    if (q && !p.name.toLowerCase().includes(q) && !p.nfl.toLowerCase().includes(q)) return false;
+    return true;
+  });
+
+  document.getElementById('pool-count').textContent =
+    `${visible.filter(p => !drafted.has(p.id)).length} available`;
+
+  let rank = 0;
+  tbody.innerHTML = visible.map(p => {
+    const isDrafted = drafted.has(p.id);
+    if (!isDrafted) rank++;
+    return `<tr class="${isDrafted ? 'drafted' : ''}" data-id="${p.id}">
+      <td class="td-rank">${isDrafted ? '–' : rank}</td>
+      <td class="td-name">${p.name}</td>
+      <td><span class="pick-chip pos-${p.pos}">${p.pos}</span></td>
+      <td class="td-nfl">${p.nfl}</td>
+      <td class="td-bye">${p.bye}</td>
+      <td class="td-btn">
+        <button class="draft-btn" data-id="${p.id}" ${(!myTurn || isDrafted) ? 'disabled' : ''}>
+          ${isDrafted ? 'DRAFTED' : 'DRAFT'}
+        </button>
+      </td>
+    </tr>`;
+  }).join('');
+
+  tbody.querySelectorAll('.draft-btn:not([disabled])').forEach(btn => {
+    btn.addEventListener('click', () => makePick(parseInt(btn.dataset.id)));
+  });
+}
+
+// ── CONTROLS ───────────────────────────────────────────────────────────
+document.getElementById('search-box').addEventListener('input', e => {
+  searchQuery = e.target.value;
+  renderPlayers();
+});
+document.getElementById('pos-filters').addEventListener('click', e => {
+  const btn = e.target.closest('.pos-btn');
+  if (!btn) return;
+  filterPos = btn.dataset.pos;
+  document.querySelectorAll('.pos-btn').forEach(b => b.classList.toggle('active', b === btn));
+  renderPlayers();
+});
+
+// ── INIT ───────────────────────────────────────────────────────────────
+render();
+startTimer();
+</script>
+</body>
+</html>
