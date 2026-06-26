@@ -84,7 +84,8 @@
       padding: 1rem 0.75rem;
       text-align: center;
     }
-    .route-icon   { font-size: 2rem; margin-bottom: 0.3rem; line-height: 1; }
+    .route-icon   { margin-bottom: 0.3rem; line-height: 1; }
+    .route-icon img { width: 52px; height: 52px; object-fit: contain; }
     .route-name   { font-size: 0.62rem; color: var(--gray1); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.6rem; }
     .status-badge {
       display: inline-block;
@@ -152,7 +153,8 @@
       align-items: center;
       gap: 1rem;
     }
-    .compare-icon { font-size: 2.2rem; flex-shrink: 0; }
+    .compare-icon { flex-shrink: 0; }
+    .compare-icon img { width: 48px; height: 48px; object-fit: contain; }
     .compare-body { flex: 1; }
     .compare-label {
       font-size: 0.6rem;
@@ -469,7 +471,7 @@ async function loadForecast() {
       );
       const diff = Math.abs(libScore - gwbScore);
 
-      let icon, winner, reason;
+      let iconImg, winner, reason;
       if (diff < 2) {
         return `<div class="compare-card">
           <div class="compare-icon">⚖️</div>
@@ -480,11 +482,13 @@ async function loadForecast() {
         </div>`;
       }
       if (libScore < gwbScore) {
-        icon = '🗽'; winner = 'Statue of Liberty is smoother';
+        iconImg = '<img src="StatueOfLibery.png" alt="Statue of Liberty">';
+        winner = 'Statue of Liberty is smoother';
         const margin = ((gwbScore - libScore) / gwbScore * 100).toFixed(0);
         reason = `Harbor chop score ~${margin}% lower than GWB right now.`;
       } else {
-        icon = '🌉'; winner = 'GW Bridge is smoother';
+        iconImg = '<img src="GeorgeWashingtonBridge.png" alt="GW Bridge">';
+        winner = 'GW Bridge is smoother';
         const fromHarbor = cur.dir >= 150 && cur.dir <= 270;
         const seaBreeze  = nowH >= 11;
         const parts = [];
@@ -495,7 +499,7 @@ async function loadForecast() {
         reason = reason.charAt(0).toUpperCase() + reason.slice(1);
       }
       return `<div class="compare-card">
-        <div class="compare-icon">${icon}</div>
+        <div class="compare-icon">${iconImg}</div>
         <div class="compare-body">
           <div class="compare-label">Leaving Now — Smoother Route</div>
           <div class="compare-winner">${winner}</div>
@@ -535,13 +539,13 @@ async function loadForecast() {
       <div class="content">
         <div class="routes">
           <div class="route-card">
-            <div class="route-icon">🗽</div>
+            <div class="route-icon"><img src="StatueOfLibery.png" alt="Statue of Liberty"></div>
             <div class="route-name">Statue of Liberty</div>
             <span class="status-badge ${libSt}">${libSt === 'green' ? '✓ IDEAL' : libSt === 'yellow' ? '~ OK' : '✗ NO'}</span>
             <div class="route-note">${libBack ? `Be back by <strong>${fmtHour(libBack)}</strong>` : libSt !== 'red' ? 'Good all afternoon' : 'Wait for conditions to improve'}</div>
           </div>
           <div class="route-card">
-            <div class="route-icon">🌉</div>
+            <div class="route-icon"><img src="GeorgeWashingtonBridge.png" alt="GW Bridge"></div>
             <div class="route-name">GW Bridge</div>
             <span class="status-badge ${gwbSt}">${gwbSt === 'green' ? '✓ IDEAL' : gwbSt === 'yellow' ? '~ OK' : '✗ NO'}</span>
             <div class="route-note">${gwbBack ? `Be back by <strong>${fmtHour(gwbBack)}</strong>` : gwbSt !== 'red' ? 'Good all afternoon' : 'Wait for conditions to improve'}</div>
