@@ -162,6 +162,14 @@
     .h-box.yellow { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow); }
     .h-box.red    { background: var(--red-bg);    color: var(--red);    border: 1px solid var(--red); }
     .h-box.past   { opacity: 0.28; }
+    .h-box.ideal  {
+      background: var(--green);
+      color: #fff;
+      border-color: var(--green);
+      box-shadow: 0 0 14px rgba(46,204,113,0.7), 0 0 30px rgba(46,204,113,0.3);
+      animation: goPulse 2s ease-in-out infinite;
+      font-size: 0.52rem;
+    }
     .h-wind { font-size: 0.5rem; color: var(--gray2); }
 
     /* ── LOADING / ERROR ── */
@@ -333,8 +341,8 @@ async function loadForecast() {
       statuses.gwb[h.hour]     = getStatus(h.wind, h.dir, ph, 'gwb',     h.hour);
     }
 
-    const libSt  = 'green'; // TEMP TEST — remove after preview
-    const gwbSt  = 'green'; // TEMP TEST — remove after preview
+    const libSt  = statuses.liberty[nowH] || 'yellow';
+    const gwbSt  = statuses.gwb[nowH]     || 'yellow';
     const libBack = beBackBy(statuses.liberty, nowH);
     const gwbBack = beBackBy(statuses.gwb, nowH);
 
@@ -396,14 +404,19 @@ async function loadForecast() {
       return hours
         .filter(h => h.hour >= 6 && h.hour <= 20)
         .map(h => {
-          const st   = statuses[routeKey][h.hour] || 'yellow';
-          const past = h.hour < nowH;
-          const now  = h.hour === nowH;
-          const lbl  = now ? 'NOW' : fmtHour(h.hour);
-          const txt  = st === 'green' ? 'GO' : st === 'yellow' ? 'OK' : 'NO';
+          // TEMP: force Liberty NOW to green so we can preview IDEAL style
+          let st = (h.hour === nowH && routeKey === 'liberty')
+            ? 'green'
+            : (statuses[routeKey][h.hour] || 'yellow');
+          const past    = h.hour < nowH;
+          const isNow   = h.hour === nowH;
+          const isIdeal = isNow && st === 'green';
+          const lbl  = isNow ? 'NOW' : fmtHour(h.hour);
+          const txt  = isIdeal ? 'IDEAL' : st === 'green' ? 'GO' : st === 'yellow' ? 'OK' : 'NO';
+          const cls  = `h-box ${st}${past ? ' past' : ''}${isIdeal ? ' ideal' : ''}`;
           return `<div class="h-block">
-            <span class="h-label${now ? ' now' : ''}">${lbl}</span>
-            <div class="h-box ${st}${past ? ' past' : ''}">${txt}</div>
+            <span class="h-label${isNow ? ' now' : ''}">${lbl}</span>
+            <div class="${cls}">${txt}</div>
             <span class="h-wind">${h.wind.toFixed(0)}mph</span>
           </div>`;
         }).join('');
