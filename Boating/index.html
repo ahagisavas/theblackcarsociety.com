@@ -459,8 +459,8 @@ async function loadForecast() {
     function routeCompareCard() {
       const cur  = hours.find(h => h.hour === nowH)     || hours[0];
       const next = hours.find(h => h.hour === nowH + 1) || cur;
-      const ph   = tidePhase(nowH);
-      const ph1  = tidePhase(nowH + 1);
+      const ph   = tidePhaseAt(tideEvents, nowH);
+      const ph1  = tidePhaseAt(tideEvents, nowH + 1);
       const libScore = Math.max(
         getScore(cur.wind,  cur.dir,  ph,  'liberty', nowH),
         getScore(next.wind, next.dir, ph1, 'liberty', nowH + 1)
