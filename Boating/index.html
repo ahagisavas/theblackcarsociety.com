@@ -425,11 +425,11 @@ async function loadForecast() {
     }));
 
     const nowH = new Date().getHours();
+    const cur  = hours[nowH] || hours[0];
     const isWeekend = [0, 6].includes(new Date().getDay());
     const ferryRush = !isWeekend && ((nowH >= 6 && nowH < 9) || (nowH >= 17 && nowH < 20));
     const ferryActive = !isWeekend || (nowH >= 10 && nowH < 18);
     const manhattanWind = cur.dir >= 60 && cur.dir <= 120;
-    const cur  = hours[nowH] || hours[0];
     const tideNow = tidePhaseAt(tideEvents, nowH);
 
     // Hourly statuses
