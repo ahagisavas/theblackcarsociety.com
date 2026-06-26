@@ -411,7 +411,7 @@ async function loadForecast() {
 
     // Summary text
     const windAlong = angleDiff(cur.dir % 180, 0) < 45;
-    const tidePhraseMap = { flood: 'rising (flood — current flowing north)', ebb: 'falling (ebb — current flowing south)', unknown: 'unknown' };
+    const tidePhraseMap = { flood: 'rising', ebb: 'falling', unknown: 'unknown' };
 
     const harborWindBad = cur.dir >= 150 && cur.dir <= 270;
     const seaBreezeBuilding = nowH >= 9 && nowH < 14;
@@ -421,23 +421,23 @@ async function loadForecast() {
     const summaryParts = [
       `Wind is ${cur.wind.toFixed(0)} mph from the ${windLabel(cur.dir)}.`,
       windAlong
-        ? 'North-south winds run the full length of the Hudson, building larger waves — the most significant chop factor on both routes today.'
-        : 'Crosswinds are limited by the riverbanks, keeping wave height more manageable on the Hudson.',
-      `The tide is ${tidePhraseMap[tideNow] || tideNow}.`,
+        ? 'Wind is blowing straight up or down the river, which builds bigger waves on both routes.'
+        : 'Wind is blowing across the river rather than along it, so waves stay smaller.',
+      `Tide is ${tidePhraseMap[tideNow] || tideNow}.`,
       tideNow !== 'unknown' && ((tideNow === 'flood' && (cur.dir >= 135 && cur.dir <= 225)) || (tideNow === 'ebb' && (cur.dir >= 315 || cur.dir <= 45)))
-        ? 'Wind is opposing the tidal current — expect choppier conditions than wind speed alone suggests.'
-        : 'Wind and current are aligned — conditions are smoother than they might otherwise be.',
+        ? 'Wind and current are pushing against each other, making it choppier than it looks.'
+        : 'Wind and current are moving the same direction, so the water is calmer.',
       harborWindBad
-        ? 'S/SW winds blow directly across Upper New York Bay, giving the Statue of Liberty route much longer fetch and bigger waves than the sheltered GWB route.'
+        ? 'South/southwest wind blows straight across the open harbor toward the Statue of Liberty, making that route rougher than GWB right now.'
         : '',
       seaBreezePeak
-        ? '⚠️ Afternoon sea breeze has peaked — thermal winds off the heated land are funneling into the harbor, making the Liberty route significantly rougher than the numbers suggest. Ideal Liberty window was 6–9 AM.'
+        ? '⚠️ Afternoon winds have picked up off the land — the Liberty route is getting noticeably rougher. Best window was early morning (6–9 AM).'
         : seaBreezeBuilding
-        ? 'Sea breeze is building as the land heats up — Liberty route conditions will worsen through the afternoon. Consider heading back before 2 PM.'
+        ? 'Wind off the land is building as the day heats up — Liberty conditions will get rougher through the afternoon. Try to head back before 2 PM.'
         : idealLibWindow
-        ? '✅ Prime Liberty window: thermal winds haven\'t kicked in yet. Calmer harbor, less boat traffic — best time of day for the south route.'
+        ? '✅ Early morning sweet spot — winds haven\'t picked up yet. Best time of day to head to the Statue of Liberty.'
         : '',
-      cur.precip > 40 ? `Rain probability is ${cur.precip}% — factor in reduced visibility.` : ''
+      cur.precip > 40 ? `${cur.precip}% chance of rain — visibility may be reduced.` : ''
     ].filter(Boolean);
 
     function recHtml() {
