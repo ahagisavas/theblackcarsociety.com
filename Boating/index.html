@@ -203,7 +203,7 @@ function angleDiff(a, b) {
   return d > 180 ? 360 - d : d;
 }
 
-function getStatus(windSpeed, windDir, tidePhase, routeKey) {
+function getStatus(windSpeed, windDir, tidePhase, routeKey, hour) {
   // Fetch factor: N/S winds travel full river length → bigger waves
   const riverAlign = angleDiff(windDir % 180, 0); // 0 = N/S wind, 90 = E/W wind
   const fetchFactor = 1 + 0.45 * (1 - riverAlign / 90);
@@ -224,7 +224,27 @@ function getStatus(windSpeed, windDir, tidePhase, routeKey) {
   const headwind = angleDiff(windDir, ROUTES[routeKey].bearing);
   const headFactor = headwind < 45 ? 1.15 : 1.0;
 
-  const score = windSpeed * fetchFactor * tideMult * headFactor;
+  let score = windSpeed * fetchFactor * tideMult * headFactor;
+
+  // ── LIBERTY-SPECIFIC FACTORS ──────────────────────────────────────────
+  if (routeKey === 'liberty') {
+    // Harbor exposure: Upper NY Bay is wide open to S/SW — far longer fetch
+    // than the narrow, Palisades-sheltered Hudson going north
+    const fromHarborSector = windDir >= 150 && windDir <= 270; // SSE to W
+    const fromDirectSouth  = windDir >= 160 && windDir <= 200; // direct fetch across bay
+    if (fromDirectSouth)  score *= 1.45; // worst: wind straight up the harbor
+    else if (fromHarborSector) score *= 1.25;
+
+    // Thermal sea breeze: land heats up through the day, coastal wind builds
+    // from ~10am, peaks 2–4pm. 6–9am is the calm window before it kicks in.
+    if      (hour >= 14) score *= 1.38; // 2pm+: strong sea breeze + peak boat traffic
+    else if (hour >= 11) score *= 1.22; // 11am–2pm: building
+    else if (hour >= 9)  score *= 1.10; // 9–11am: early warmup
+    // 6–9am: no penalty — ideal window
+
+    // Baseline: Hudson/Bay current convergence + ferry/tanker traffic year-round
+    score *= 1.18;
+  }
 
   if (windSpeed >= 20 || score >= 28) return 'red';
   if (windSpeed >= 11 || score >= 16) return 'yellow';
@@ -298,8 +318,8 @@ async function loadForecast() {
     const statuses = { liberty: {}, gwb: {} };
     for (const h of hours) {
       const ph = tidePhaseAt(tideEvents, h.hour);
-      statuses.liberty[h.hour] = getStatus(h.wind, h.dir, ph, 'liberty');
-      statuses.gwb[h.hour]     = getStatus(h.wind, h.dir, ph, 'gwb');
+      statuses.liberty[h.hour] = getStatus(h.wind, h.dir, ph, 'liberty', h.hour);
+      statuses.gwb[h.hour]     = getStatus(h.wind, h.dir, ph, 'gwb',     h.hour);
     }
 
     const libSt  = statuses.liberty[nowH] || 'yellow';
@@ -311,15 +331,30 @@ async function loadForecast() {
     const windAlong = angleDiff(cur.dir % 180, 0) < 45;
     const tidePhraseMap = { flood: 'rising (flood — current flowing north)', ebb: 'falling (ebb — current flowing south)', unknown: 'unknown' };
 
+    const harborWindBad = cur.dir >= 150 && cur.dir <= 270;
+    const seaBreezeBuilding = nowH >= 9 && nowH < 14;
+    const seaBreezePeak = nowH >= 14;
+    const idealLibWindow = nowH >= 6 && nowH < 9;
+
     const summaryParts = [
       `Wind is ${cur.wind.toFixed(0)} mph from the ${windLabel(cur.dir)}.`,
       windAlong
-        ? 'North-south winds run the full length of the Hudson, building larger waves — the most significant factor for choppiness today.'
-        : 'Crosswinds are limited by the riverbanks, which keeps wave height more manageable.',
+        ? 'North-south winds run the full length of the Hudson, building larger waves — the most significant chop factor on both routes today.'
+        : 'Crosswinds are limited by the riverbanks, keeping wave height more manageable on the Hudson.',
       `The tide is ${tidePhraseMap[tideNow] || tideNow}.`,
       tideNow !== 'unknown' && ((tideNow === 'flood' && (cur.dir >= 135 && cur.dir <= 225)) || (tideNow === 'ebb' && (cur.dir >= 315 || cur.dir <= 45)))
         ? 'Wind is opposing the tidal current — expect choppier conditions than wind speed alone suggests.'
         : 'Wind and current are aligned — conditions are smoother than they might otherwise be.',
+      harborWindBad
+        ? 'S/SW winds blow directly across Upper New York Bay, giving the Statue of Liberty route much longer fetch and bigger waves than the sheltered GWB route.'
+        : '',
+      seaBreezePeak
+        ? '⚠️ Afternoon sea breeze has peaked — thermal winds off the heated land are funneling into the harbor, making the Liberty route significantly rougher than the numbers suggest. Ideal Liberty window was 6–9 AM.'
+        : seaBreezeBuilding
+        ? 'Sea breeze is building as the land heats up — Liberty route conditions will worsen through the afternoon. Consider heading back before 2 PM.'
+        : idealLibWindow
+        ? '✅ Prime Liberty window: thermal winds haven\'t kicked in yet. Calmer harbor, less boat traffic — best time of day for the south route.'
+        : '',
       cur.precip > 40 ? `Rain probability is ${cur.precip}% — factor in reduced visibility.` : ''
     ].filter(Boolean);
 
