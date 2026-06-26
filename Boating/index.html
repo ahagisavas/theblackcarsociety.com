@@ -404,10 +404,7 @@ async function loadForecast() {
       return hours
         .filter(h => h.hour >= 6 && h.hour <= 20)
         .map(h => {
-          // TEMP: force Liberty NOW to green so we can preview IDEAL style
-          let st = (h.hour === nowH && routeKey === 'liberty')
-            ? 'green'
-            : (statuses[routeKey][h.hour] || 'yellow');
+          let st = statuses[routeKey][h.hour] || 'yellow';
           const past    = h.hour < nowH;
           const isNow   = h.hour === nowH;
           const isIdeal = isNow && st === 'green';
