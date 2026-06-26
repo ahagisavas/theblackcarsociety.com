@@ -418,24 +418,29 @@ async function loadForecast() {
     const seaBreezePeak = nowH >= 14;
     const idealLibWindow = nowH >= 6 && nowH < 9;
 
+    const headingToLiberty = angleDiff(cur.dir, 170) < 45; // wind in your face going south
+    const headingToGWB     = angleDiff(cur.dir, 355) < 45; // wind in your face going north
+
     const summaryParts = [
       `Wind is ${cur.wind.toFixed(0)} mph from the ${windLabel(cur.dir)}.`,
-      windAlong
-        ? 'Wind is blowing straight up or down the river, which builds bigger waves on both routes.'
-        : 'Wind is blowing across the river rather than along it, so waves stay smaller.',
+      headingToLiberty
+        ? 'That\'s a headwind leaving Hoboken toward the Statue of Liberty.'
+        : headingToGWB
+        ? 'That\'s a headwind leaving Hoboken toward the GW Bridge.'
+        : 'Wind is mostly crosswind on both routes leaving Hoboken — not directly in your face either way.',
       `Tide is ${tidePhraseMap[tideNow] || tideNow}.`,
       tideNow !== 'unknown' && ((tideNow === 'flood' && (cur.dir >= 135 && cur.dir <= 225)) || (tideNow === 'ebb' && (cur.dir >= 315 || cur.dir <= 45)))
         ? 'Wind and current are pushing against each other, making it choppier than it looks.'
         : 'Wind and current are moving the same direction, so the water is calmer.',
       harborWindBad
-        ? 'South/southwest wind blows straight across the open harbor toward the Statue of Liberty, making that route rougher than GWB right now.'
+        ? 'The harbor is wide open to the south, so S/SW wind builds bigger waves on the way to Liberty — rougher than the GWB route right now.'
         : '',
       seaBreezePeak
-        ? '⚠️ Afternoon winds have picked up off the land — the Liberty route is getting noticeably rougher. Best window was early morning (6–9 AM).'
+        ? '⚠️ Afternoon winds have picked up — the Liberty route is getting noticeably rougher leaving Hoboken. Best window was early morning (6–9 AM).'
         : seaBreezeBuilding
-        ? 'Wind off the land is building as the day heats up — Liberty conditions will get rougher through the afternoon. Try to head back before 2 PM.'
+        ? 'Wind is building as the day heats up — expect a rougher ride to Liberty the later you leave. Try to head back before 2 PM.'
         : idealLibWindow
-        ? '✅ Early morning sweet spot — winds haven\'t picked up yet. Best time of day to head to the Statue of Liberty.'
+        ? '✅ Early morning sweet spot — calm harbor, wind hasn\'t picked up yet. Best time to leave Hoboken for the Statue of Liberty.'
         : '',
       cur.precip > 40 ? `${cur.precip}% chance of rain — visibility may be reduced.` : ''
     ].filter(Boolean);
