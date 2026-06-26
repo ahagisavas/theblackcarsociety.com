@@ -141,6 +141,36 @@
     .rec-box.yellow { background: var(--yellow-bg); border-color: var(--yellow); color: #ffd98a; }
     .rec-box.red    { background: var(--red-bg);    border-color: var(--red);    color: #ffaaaa; }
 
+    /* ── ROUTE COMPARE ── */
+    .compare-card {
+      background: var(--navy-mid);
+      border: 1px solid var(--teal-dim);
+      border-radius: 14px;
+      padding: 1rem 1.1rem;
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .compare-icon { font-size: 2.2rem; flex-shrink: 0; }
+    .compare-body { flex: 1; }
+    .compare-label {
+      font-size: 0.6rem;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .compare-winner {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+    .compare-reason { font-size: 0.72rem; color: var(--gray1); line-height: 1.5; }
+    .compare-tie { font-size: 0.85rem; font-weight: 600; color: var(--gray1); }
+
     /* ── HOURLY ── */
     .hourly-card {
       background: var(--navy-mid);
@@ -220,6 +250,28 @@ const ROUTES = {
 function angleDiff(a, b) {
   let d = Math.abs(a - b) % 360;
   return d > 180 ? 360 - d : d;
+}
+
+function getScore(windSpeed, windDir, tidePhase, routeKey, hour) {
+  const riverAlign  = angleDiff(windDir % 180, 0);
+  const fetchFactor = 1 + 0.45 * (1 - riverAlign / 90);
+  const fromNorth   = windDir >= 315 || windDir <= 45;
+  const fromSouth   = windDir >= 135 && windDir <= 225;
+  let tideMult = 1.0;
+  if (tidePhase === 'flood') { if (fromSouth) tideMult = 1.28; else if (fromNorth) tideMult = 0.85; }
+  else if (tidePhase === 'ebb') { if (fromNorth) tideMult = 1.28; else if (fromSouth) tideMult = 0.85; }
+  const headwind   = angleDiff(windDir, ROUTES[routeKey].bearing);
+  const headFactor = headwind < 45 ? 1.15 : 1.0;
+  let score = windSpeed * fetchFactor * tideMult * headFactor;
+  if (routeKey === 'liberty') {
+    const fromHarborSector = windDir >= 150 && windDir <= 270;
+    const fromDirectSouth  = windDir >= 160 && windDir <= 200;
+    if (fromDirectSouth) score *= 1.45; else if (fromHarborSector) score *= 1.25;
+    if (hour >= 14) score *= 1.38; else if (hour >= 11) score *= 1.22;
+    else if (hour >= 9) score *= 1.10;
+    score *= 1.18;
+  }
+  return score;
 }
 
 function getStatus(windSpeed, windDir, tidePhase, routeKey, hour) {
@@ -400,6 +452,48 @@ async function loadForecast() {
       return { cls, html: lines.join('<br>') };
     }
 
+    function routeCompareCard() {
+      const cur = hours.find(h => h.hour === nowH) || hours[0];
+      const ph  = tidePhase(nowH);
+      const libScore = getScore(cur.wind, cur.dir, ph, 'liberty', nowH);
+      const gwbScore = getScore(cur.wind, cur.dir, ph, 'gwb',     nowH);
+      const diff = Math.abs(libScore - gwbScore);
+
+      let icon, winner, reason;
+      if (diff < 2) {
+        return `<div class="compare-card">
+          <div class="compare-icon">⚖️</div>
+          <div class="compare-body">
+            <div class="compare-label">Leaving Now</div>
+            <div class="compare-tie">Both routes are roughly equal right now.</div>
+          </div>
+        </div>`;
+      }
+      if (libScore < gwbScore) {
+        icon = '🗽'; winner = 'Statue of Liberty is smoother';
+        const margin = ((gwbScore - libScore) / gwbScore * 100).toFixed(0);
+        reason = `Harbor chop score ~${margin}% lower than GWB right now.`;
+      } else {
+        icon = '🌉'; winner = 'GW Bridge is smoother';
+        const fromHarbor = cur.dir >= 150 && cur.dir <= 270;
+        const seaBreeze  = nowH >= 11;
+        const parts = [];
+        if (fromHarbor)  parts.push('S/SW wind drives long harbor fetch toward Liberty');
+        if (seaBreeze)   parts.push('sea breeze is building into the harbor');
+        if (!parts.length) parts.push('overall chop score is lower on the Hudson');
+        reason = parts.join('; ') + '.';
+        reason = reason.charAt(0).toUpperCase() + reason.slice(1);
+      }
+      return `<div class="compare-card">
+        <div class="compare-icon">${icon}</div>
+        <div class="compare-body">
+          <div class="compare-label">Leaving Now — Smoother Route</div>
+          <div class="compare-winner">${winner}</div>
+          <div class="compare-reason">${reason}</div>
+        </div>
+      </div>`;
+    }
+
     function hourlyGrid(routeKey) {
       return hours
         .filter(h => h.hour >= 6 && h.hour <= 20)
@@ -443,6 +537,8 @@ async function loadForecast() {
             <div class="route-note">${gwbBack ? `Be back by <strong>${fmtHour(gwbBack)}</strong>` : gwbSt !== 'red' ? 'Good all afternoon' : 'Wait for conditions to improve'}</div>
           </div>
         </div>
+
+        ${routeCompareCard()}
 
         <div class="summary-card">
           <div class="card-title">⚓ Conditions Summary</div>
