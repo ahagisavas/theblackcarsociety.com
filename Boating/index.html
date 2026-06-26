@@ -441,10 +441,14 @@ async function loadForecast() {
         : headingToGWB
         ? 'That\'s a headwind leaving Hoboken toward the GW Bridge.'
         : 'Wind is mostly crosswind on both routes leaving Hoboken — not directly in your face either way.',
-      `Tide is ${tidePhraseMap[tideNow] || tideNow}.`,
+      tideNow === 'flood'
+        ? 'Tide is rising — water is flowing north toward the GW Bridge. Current is with you heading to GWB, against you heading to Liberty.'
+        : tideNow === 'ebb'
+        ? 'Tide is falling — water is flowing south toward the Statue of Liberty. Current is with you heading to Liberty, against you heading to GWB.'
+        : 'Tide is slack — minimal current in either direction, neutral for both routes.',
       tideNow !== 'unknown' && ((tideNow === 'flood' && (cur.dir >= 135 && cur.dir <= 225)) || (tideNow === 'ebb' && (cur.dir >= 315 || cur.dir <= 45)))
-        ? 'Wind and current are pushing against each other, making it choppier than it looks.'
-        : 'Wind and current are moving the same direction, so the water is calmer.',
+        ? 'Wind and current are pushing against each other right now — this creates short choppy waves even if the wind speed seems manageable.'
+        : 'Wind and current are moving in the same direction — this actually smooths the water out a bit.',
       harborWindBad
         ? 'The harbor is wide open to the south, so S/SW wind builds bigger waves on the way to Liberty — rougher than the GWB route right now.'
         : '',
