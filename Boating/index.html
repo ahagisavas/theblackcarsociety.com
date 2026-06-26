@@ -338,14 +338,14 @@ function windLabel(deg) {
 
 function windContext(deg) {
   // Explains wind direction relative to Hoboken marina
-  if (deg >= 338 || deg < 23)  return 'coming from up the river toward GW Bridge';
-  if (deg >= 23  && deg < 68)  return 'coming from upriver toward the Palisades side';
+  if (deg >= 338 || deg < 23)  return 'coming from the George Washington Bridge direction';
+  if (deg >= 23  && deg < 68)  return 'coming from the George Washington Bridge direction, slightly inland';
   if (deg >= 68  && deg < 113) return 'coming from across the river — blowing in from Manhattan';
-  if (deg >= 113 && deg < 158) return 'coming from lower Manhattan / downtown direction';
-  if (deg >= 158 && deg < 203) return 'coming from the open harbor — the Statue of Liberty direction';
-  if (deg >= 203 && deg < 248) return 'coming from the harbor / Staten Island direction';
+  if (deg >= 113 && deg < 158) return 'coming from lower Manhattan, toward the Statue of Liberty side';
+  if (deg >= 158 && deg < 203) return 'coming from the Statue of Liberty direction — straight out of the open harbor';
+  if (deg >= 203 && deg < 248) return 'coming from the Statue of Liberty direction, slightly inland';
   if (deg >= 248 && deg < 293) return 'coming from inland — blowing in from behind the marina';
-  if (deg >= 293 && deg < 338) return 'coming from inland, slightly upriver';
+  if (deg >= 293 && deg < 338) return 'coming from inland, toward the George Washington Bridge side';
   return '';
 }
 
