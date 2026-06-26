@@ -494,7 +494,7 @@ async function loadForecast() {
         const margin = ((gwbScore - libScore) / gwbScore * 100).toFixed(0);
         reason = `Harbor chop score ~${margin}% lower than GWB right now.`;
       } else {
-        iconImg = '<img src="GeorgeWashingtonBridge.png" alt="GW Bridge">';
+        iconImg = '<img src="GWBridge.PNG" alt="GW Bridge">';
         winner = 'GW Bridge is smoother';
         const fromHarbor = cur.dir >= 150 && cur.dir <= 270;
         const seaBreeze  = nowH >= 11;
@@ -552,7 +552,7 @@ async function loadForecast() {
             <div class="route-note">${libBack ? `Be back by <strong>${fmtHour(libBack)}</strong>` : libSt !== 'red' ? 'Good all afternoon' : 'Wait for conditions to improve'}</div>
           </div>
           <div class="route-card">
-            <div class="route-icon"><img src="GeorgeWashingtonBridge.png" alt="GW Bridge"></div>
+            <div class="route-icon"><img src="GWBridge.PNG" alt="GW Bridge"></div>
             <div class="route-name">GW Bridge</div>
             <span class="status-badge ${gwbSt}">${gwbSt === 'green' ? '✓ IDEAL' : gwbSt === 'yellow' ? '~ OK' : '✗ NO'}</span>
             <div class="route-note">${gwbBack ? `Be back by <strong>${fmtHour(gwbBack)}</strong>` : gwbSt !== 'red' ? 'Good all afternoon' : 'Wait for conditions to improve'}</div>
