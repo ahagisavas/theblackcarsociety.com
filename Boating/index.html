@@ -423,13 +423,13 @@ async function loadForecast() {
           <div class="route-card">
             <div class="route-icon">🗽</div>
             <div class="route-name">Statue of Liberty</div>
-            <span class="status-badge ${libSt}">${libSt === 'green' ? '✓ GO' : libSt === 'yellow' ? '~ OK' : '✗ NO'}</span>
+            <span class="status-badge ${libSt}">${libSt === 'green' ? '✓ IDEAL' : libSt === 'yellow' ? '~ OK' : '✗ NO'}</span>
             <div class="route-note">${libBack ? `Be back by <strong>${fmtHour(libBack)}</strong>` : libSt !== 'red' ? 'Good all afternoon' : 'Wait for conditions to improve'}</div>
           </div>
           <div class="route-card">
             <div class="route-icon">🌉</div>
             <div class="route-name">GW Bridge</div>
-            <span class="status-badge ${gwbSt}">${gwbSt === 'green' ? '✓ GO' : gwbSt === 'yellow' ? '~ OK' : '✗ NO'}</span>
+            <span class="status-badge ${gwbSt}">${gwbSt === 'green' ? '✓ IDEAL' : gwbSt === 'yellow' ? '~ OK' : '✗ NO'}</span>
             <div class="route-note">${gwbBack ? `Be back by <strong>${fmtHour(gwbBack)}</strong>` : gwbSt !== 'red' ? 'Good all afternoon' : 'Wait for conditions to improve'}</div>
           </div>
         </div>
