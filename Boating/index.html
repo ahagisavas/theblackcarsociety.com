@@ -336,6 +336,19 @@ function windLabel(deg) {
   return d[Math.round(deg / 22.5) % 16];
 }
 
+function windContext(deg) {
+  // Explains wind direction relative to Hoboken marina
+  if (deg >= 338 || deg < 23)  return 'coming from up the river toward GW Bridge';
+  if (deg >= 23  && deg < 68)  return 'coming from upriver toward the Palisades side';
+  if (deg >= 68  && deg < 113) return 'coming from across the river — blowing in from Manhattan';
+  if (deg >= 113 && deg < 158) return 'coming from lower Manhattan / downtown direction';
+  if (deg >= 158 && deg < 203) return 'coming from the open harbor — the Statue of Liberty direction';
+  if (deg >= 203 && deg < 248) return 'coming from the harbor / Staten Island direction';
+  if (deg >= 248 && deg < 293) return 'coming from inland — blowing in from behind the marina';
+  if (deg >= 293 && deg < 338) return 'coming from inland, slightly upriver';
+  return '';
+}
+
 function fmtHour(h) {
   if (h === 0)  return '12am';
   if (h === 12) return '12pm';
@@ -422,7 +435,7 @@ async function loadForecast() {
     const headingToGWB     = angleDiff(cur.dir, 355) < 45; // wind in your face going north
 
     const summaryParts = [
-      `Wind is ${cur.wind.toFixed(0)} mph from the ${windLabel(cur.dir)}.`,
+      `Wind is ${cur.wind.toFixed(0)} mph from the ${windLabel(cur.dir)} — ${windContext(cur.dir)}.`,
       headingToLiberty
         ? 'That\'s a headwind leaving Hoboken toward the Statue of Liberty.'
         : headingToGWB
