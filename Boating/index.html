@@ -333,8 +333,8 @@ async function loadForecast() {
       statuses.gwb[h.hour]     = getStatus(h.wind, h.dir, ph, 'gwb',     h.hour);
     }
 
-    const libSt  = statuses.liberty[nowH] || 'yellow';
-    const gwbSt  = statuses.gwb[nowH]     || 'yellow';
+    const libSt  = 'green'; // TEMP TEST — remove after preview
+    const gwbSt  = 'green'; // TEMP TEST — remove after preview
     const libBack = beBackBy(statuses.liberty, nowH);
     const gwbBack = beBackBy(statuses.gwb, nowH);
 
