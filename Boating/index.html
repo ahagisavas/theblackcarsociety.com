@@ -474,7 +474,7 @@ async function loadForecast() {
       tideNow !== 'unknown' && ((tideNow === 'flood' && (cur.dir >= 135 && cur.dir <= 225)) || (tideNow === 'ebb' && (cur.dir >= 315 || cur.dir <= 45)))
         ? 'Wind and current are pushing against each other right now — this creates short choppy waves even if the wind speed seems manageable.'
         : 'Wind and current are moving in the same direction — this actually smooths the water out a bit.',
-      harborWindBad
+      harborWindBad && cur.wind >= 8
         ? 'The harbor is wide open to the south, so S/SW wind builds bigger waves on the way to Liberty — rougher than the GWB route right now.'
         : '',
       seaBreezePeak && cur.wind >= 8
@@ -554,10 +554,10 @@ async function loadForecast() {
         iconImg = '<img src="GWBridge.PNG" alt="GW Bridge">';
         winner = 'GW Bridge is smoother';
         const fromHarbor = cur.dir >= 150 && cur.dir <= 270;
-        const seaBreeze  = nowH >= 11;
+        const seaBreeze  = nowH >= 11 && cur.wind >= 8;
         const parts = [];
-        if (fromHarbor)  parts.push('S/SW wind drives long harbor fetch toward Liberty');
-        if (seaBreeze)   parts.push('sea breeze is building into the harbor');
+        if (fromHarbor && cur.wind >= 8)  parts.push('S/SW wind drives long harbor fetch toward Liberty');
+        if (seaBreeze)                    parts.push('sea breeze is building into the harbor');
         if (!parts.length) parts.push('overall chop score is lower on the Hudson');
         reason = parts.join('; ') + '.';
         reason = reason.charAt(0).toUpperCase() + reason.slice(1);
