@@ -477,9 +477,9 @@ async function loadForecast() {
       harborWindBad
         ? 'The harbor is wide open to the south, so S/SW wind builds bigger waves on the way to Liberty — rougher than the GWB route right now.'
         : '',
-      seaBreezePeak
+      seaBreezePeak && cur.wind >= 8
         ? '⚠️ Afternoon winds have picked up — the Liberty route is getting noticeably rougher leaving Hoboken. Best window was early morning (6–9 AM).'
-        : seaBreezeBuilding
+        : seaBreezeBuilding && cur.wind >= 8
         ? 'Wind is building as the day heats up — expect a rougher ride to Liberty the later you leave. Try to head back before 2 PM.'
         : idealLibWindow
         ? '✅ Early morning sweet spot — calm harbor, wind hasn\'t picked up yet. Best time to leave Hoboken for the Statue of Liberty.'
@@ -501,16 +501,18 @@ async function loadForecast() {
       }
       const lines = [];
       if (libSt !== 'red') {
+        const libAllClear = nowH >= 18 ? 'Good through the evening. ✓' : nowH >= 12 ? 'Good all afternoon. ✓' : 'Good all day. ✓';
         lines.push(libBack
           ? `🗽 Liberty route: <strong>head out now — be back by ${fmtHour(libBack)}</strong>.`
-          : '🗽 Liberty route looks good all afternoon. ✓');
+          : `🗽 Liberty route: ${libAllClear}`);
       } else {
         lines.push('🗽 Liberty route: not recommended — too rough heading south.');
       }
       if (gwbSt !== 'red') {
+        const gwbAllClear = nowH >= 18 ? 'Good through the evening. ✓' : nowH >= 12 ? 'Good all afternoon. ✓' : 'Good all day. ✓';
         lines.push(gwbBack
           ? `🌉 GWB route: <strong>head out now — be back by ${fmtHour(gwbBack)}</strong>.`
-          : '🌉 GWB route looks good all afternoon. ✓');
+          : `🌉 GWB route: ${gwbAllClear}`);
       } else {
         lines.push('🌉 GWB route: not recommended — too rough heading north.');
       }
