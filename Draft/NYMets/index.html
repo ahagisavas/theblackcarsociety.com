@@ -20,6 +20,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <style>
     :root {
       --navy-deep:    #060d1a;
@@ -1472,6 +1473,21 @@ document.getElementById('pos-filters').addEventListener('click', e => {
   renderPlayers();
 });
 
+// ── EMAILJS ────────────────────────────────────────────────────────────
+emailjs.init('cBWfKMO_qauS80YDf');
+
+function sendDraftResults() {
+  const lines = TEAMS.map(t => {
+    const picks = teamPicks[TEAMS.indexOf(t)];
+    const pickLines = picks.map((p, i) => `  Rd ${Math.floor(i / 1) + 1}: ${p.pos} ${p.name}`).join('\n');
+    return `${t.name}\n${pickLines}`;
+  }).join('\n\n');
+
+  emailjs.send('service_bv2dyzj', 'template_cfax2l8', {
+    results: lines
+  });
+}
+
 // ── FIREBASE ───────────────────────────────────────────────────────────
 const firebaseConfig = {
   apiKey:            "AIzaSyDfmfW86DXB2s39AAOr-ZdPMtIa4Td3pK4",
@@ -1523,6 +1539,7 @@ db.ref('picks').once('value', snapshot => {
     render();
     if (currentIdx >= draftOrder.length) {
       document.getElementById('overlay').classList.add('show');
+      sendDraftResults();
       return;
     }
     if (!isMyTurn()) {
