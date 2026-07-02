@@ -210,6 +210,10 @@
       font-family: 'Playfair Display', serif;
       font-size: 0.7rem;
       color: var(--orange-light);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
     }
     .team-headshot {
       width: 52px;
@@ -1417,11 +1421,11 @@ function renderTeams() {
     const altBorder = i % 2 === 0 ? '#E91E8C' : '#9C27B0';
     return `<div class="${classes}" style="--card-bg:${altBg};border-color:${altBorder}">
       <div class="team-card-header">
-        <div style="display:flex;align-items:center;gap:0.45rem;">
+        <div style="display:flex;align-items:center;gap:0.45rem;min-width:0;overflow:hidden;">
           <img class="team-headshot" src="${t.photo}" alt="${t.name}">
           <span class="team-card-name">${t.name}</span>
         </div>
-        ${badge}
+        <div style="flex-shrink:0;margin-left:0.4rem;">${badge}</div>
       </div>
       <div class="team-card-owner">${t.owner}</div>
       <div class="team-picks-chips">${chipsHtml || '<span style="color:var(--gray2);font-size:0.58rem;font-style:italic">No picks yet</span>'}</div>
