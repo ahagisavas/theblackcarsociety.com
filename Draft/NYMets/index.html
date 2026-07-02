@@ -403,6 +403,19 @@
       color: var(--gray2);
       cursor: not-allowed;
     }
+    .star-btn { background:none; border:none; cursor:pointer; font-size:1rem; padding:0 3px; color:var(--gray2); transition:color 0.1s; line-height:1; }
+    .star-btn:hover { color:#FFD700; }
+    .star-btn.fav { color:#FFD700; }
+    .td-star { width:24px; text-align:center; }
+    .queue-add-btn { background:none; border:1px solid var(--gray2); border-radius:50%; width:17px; height:17px; cursor:pointer; font-size:0.65rem; color:var(--gray2); display:inline-flex; align-items:center; justify-content:center; transition:all 0.1s; margin-right:3px; flex-shrink:0; }
+    .queue-add-btn:hover { border-color:var(--pink-soft); color:var(--pink-soft); }
+    .queue-add-btn.in-queue { background:var(--pink); border-color:var(--pink); color:var(--white); }
+    .td-btn { width:90px; text-align:right; white-space:nowrap; }
+    .queue-pos { font-size:0.62rem; color:var(--orange); font-weight:700; width:16px; display:inline-block; text-align:center; }
+    .queue-arrow { background:none; border:none; cursor:pointer; color:var(--gray2); font-size:0.55rem; padding:0 1px; }
+    .queue-arrow:hover { color:var(--white); }
+    .hide-drafted-btn { background:var(--navy-mid); border:1px solid var(--orange-dim); border-radius:20px; color:var(--gray1); padding:0.28rem 0.6rem; font-family:'Raleway',sans-serif; font-size:0.68rem; font-weight:600; cursor:pointer; transition:all 0.15s; white-space:nowrap; }
+    .hide-drafted-btn.active { background:var(--orange); border-color:var(--orange); color:var(--white); }
 
     /* ── POSITION COLORS (pill-shaped) ── */
     .pos-QB  { background:rgba(180,30,30,0.7);  color:#ffcccc; border-radius:10px; }
@@ -638,7 +651,10 @@
           <button class="pos-btn" data-pos="TE">TE</button>
           <button class="pos-btn" data-pos="K">K</button>
           <button class="pos-btn" data-pos="DST">DST</button>
+          <button class="pos-btn" data-pos="FAV">⭐ FAV</button>
+          <button class="pos-btn" data-pos="QUEUE">📋 QUEUE</button>
         </div>
+        <button class="hide-drafted-btn" id="hide-drafted-btn">Hide Drafted</button>
         <span class="pool-count" id="pool-count"></span>
       </div>
       <div class="table-wrap">
@@ -646,6 +662,7 @@
           <thead>
             <tr>
               <th class="td-rank">#</th>
+              <th class="td-star">★</th>
               <th>Player</th>
               <th>POS</th>
               <th>POS RK</th>
@@ -1257,6 +1274,9 @@ let timerSeconds  = TIMER_SECS;
 let timerInterval = null;
 let filterPos     = 'ALL';
 let searchQuery   = '';
+let hideDrafted   = false;
+let favorites     = new Set(JSON.parse(localStorage.getItem('draft_favs') || '[]'));
+let queue         = JSON.parse(localStorage.getItem('draft_queue') || '[]');
 
 // ── HELPERS ────────────────────────────────────────────────────────────
 const currentTeamIdx    = () => draftOrder[currentIdx];
@@ -1270,6 +1290,27 @@ function nextPickForTeam(teamIdx) {
     if (draftOrder[i] === teamIdx) return i + 1;
   }
   return null;
+}
+
+// ── FAVORITES & QUEUE ─────────────────────────────────────────────────
+function toggleFavorite(id) {
+  if (favorites.has(id)) favorites.delete(id); else favorites.add(id);
+  localStorage.setItem('draft_favs', JSON.stringify([...favorites]));
+  renderPlayers();
+}
+function toggleQueue(id) {
+  const i = queue.indexOf(id);
+  if (i >= 0) queue.splice(i, 1); else queue.push(id);
+  localStorage.setItem('draft_queue', JSON.stringify(queue));
+  renderPlayers();
+}
+function moveQueue(id, dir) {
+  const i = queue.indexOf(id);
+  const j = i + dir;
+  if (i < 0 || j < 0 || j >= queue.length) return;
+  [queue[i], queue[j]] = [queue[j], queue[i]];
+  localStorage.setItem('draft_queue', JSON.stringify(queue));
+  renderPlayers();
 }
 
 // ── TIMER ──────────────────────────────────────────────────────────────
@@ -1428,26 +1469,53 @@ function renderPlayers() {
   const tbody  = document.getElementById('player-tbody');
   const myTurn = isMyTurn() && currentIdx < draftOrder.length;
   const q      = searchQuery.toLowerCase();
+  const isQueue = filterPos === 'QUEUE';
+  const isFav   = filterPos === 'FAV';
 
-  const visible = PLAYERS.filter(p => {
-    if (filterPos !== 'ALL' && p.pos !== filterPos) return false;
-    if (q && !p.name.toLowerCase().includes(q) && !p.pos.toLowerCase().includes(q)) return false;
-    return true;
-  });
+  let visible;
+  if (isQueue) {
+    visible = queue.map(id => PLAYERS.find(p => p.id === id)).filter(Boolean);
+  } else {
+    visible = PLAYERS.filter(p => {
+      if (isFav && !favorites.has(p.id)) return false;
+      if (!isFav && !isQueue && filterPos !== 'ALL' && p.pos !== filterPos) return false;
+      if (hideDrafted && drafted.has(p.id)) return false;
+      if (q && !p.name.toLowerCase().includes(q) && !p.pos.toLowerCase().includes(q)) return false;
+      return true;
+    });
+  }
 
   document.getElementById('pool-count').textContent =
     `${visible.filter(p => !drafted.has(p.id)).length} available`;
 
   let rank = 0;
-  tbody.innerHTML = visible.map(p => {
-    const isDrafted = drafted.has(p.id);
+  tbody.innerHTML = visible.map((p, visIdx) => {
+    const isDrafted  = drafted.has(p.id);
+    const isFavd     = favorites.has(p.id);
+    const inQueue    = queue.includes(p.id);
+    const queueIdx   = queue.indexOf(p.id);
     if (!isDrafted) rank++;
+
+    const starBtn = `<button class="star-btn${isFavd ? ' fav' : ''}" data-fav="${p.id}">${isFavd ? '★' : '☆'}</button>`;
+
+    let queueCell;
+    if (isQueue) {
+      queueCell = `<span class="queue-pos">${visIdx + 1}</span>
+        <button class="queue-arrow" data-qup="${p.id}">▲</button>
+        <button class="queue-arrow" data-qdn="${p.id}">▼</button>
+        <button class="queue-add-btn in-queue" data-queue="${p.id}" title="Remove from queue">✕</button>`;
+    } else {
+      queueCell = `<button class="queue-add-btn${inQueue ? ' in-queue' : ''}" data-queue="${p.id}" title="${inQueue ? 'Remove from queue' : 'Add to queue'}">${inQueue ? '✓' : '+'}</button>`;
+    }
+
     return `<tr class="${isDrafted ? 'drafted' : ''}" data-id="${p.id}">
       <td class="td-rank">${isDrafted ? '–' : rank}</td>
+      <td class="td-star">${starBtn}</td>
       <td class="td-name">${p.name}</td>
       <td><span class="pick-chip pos-${p.pos}">${p.pos}</span></td>
       <td class="td-nfl">${p.posRank}</td>
       <td class="td-btn">
+        ${queueCell}
         <button class="draft-btn" data-id="${p.id}" ${(!myTurn || isDrafted) ? 'disabled' : ''}>
           ${isDrafted ? 'DRAFTED' : 'DRAFT'}
         </button>
@@ -1457,6 +1525,18 @@ function renderPlayers() {
 
   tbody.querySelectorAll('.draft-btn:not([disabled])').forEach(btn => {
     btn.addEventListener('click', () => makePick(parseInt(btn.dataset.id)));
+  });
+  tbody.querySelectorAll('.star-btn').forEach(btn => {
+    btn.addEventListener('click', () => toggleFavorite(parseInt(btn.dataset.fav)));
+  });
+  tbody.querySelectorAll('[data-queue]').forEach(btn => {
+    btn.addEventListener('click', () => toggleQueue(parseInt(btn.dataset.queue)));
+  });
+  tbody.querySelectorAll('[data-qup]').forEach(btn => {
+    btn.addEventListener('click', () => moveQueue(parseInt(btn.dataset.qup), -1));
+  });
+  tbody.querySelectorAll('[data-qdn]').forEach(btn => {
+    btn.addEventListener('click', () => moveQueue(parseInt(btn.dataset.qdn), 1));
   });
 }
 
@@ -1470,6 +1550,12 @@ document.getElementById('pos-filters').addEventListener('click', e => {
   if (!btn) return;
   filterPos = btn.dataset.pos;
   document.querySelectorAll('.pos-btn').forEach(b => b.classList.toggle('active', b === btn));
+  renderPlayers();
+});
+document.getElementById('hide-drafted-btn').addEventListener('click', function() {
+  hideDrafted = !hideDrafted;
+  this.classList.toggle('active', hideDrafted);
+  this.textContent = hideDrafted ? 'Show Drafted' : 'Hide Drafted';
   renderPlayers();
 });
 
