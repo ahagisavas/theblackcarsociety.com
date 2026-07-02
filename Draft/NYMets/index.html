@@ -18,6 +18,8 @@
   <meta name="twitter:description" content="Live fantasy football draft board for the 2026 NY Mets WAGs League.">
   <meta name="twitter:image" content="https://theblackcarsociety.com/Draft/NYMets/MrsMet.PNG">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
   <style>
     :root {
       --navy-deep:    #060d1a;
@@ -1304,26 +1306,14 @@ function makePick(playerId) {
   if (drafted.has(playerId) || currentIdx >= draftOrder.length) return;
   const player  = PLAYERS.find(p => p.id === playerId);
   const teamIdx = currentTeamIdx();
-
-  drafted.add(playerId);
-  teamPicks[teamIdx].push(player);
-  pickLog.push({ overall: currentIdx + 1, round: currentRound(), pickInRound: currentPickInRound(), teamIdx, player });
-
   stopTimer();
-  currentIdx++;
-  updateTicker();
-  render();
-
-  if (currentIdx >= draftOrder.length) {
-    document.getElementById('overlay').classList.add('show');
-    return;
-  }
-
-  if (!isMyTurn()) {
-    setTimeout(autoPickForTeam, 2200);
-  } else {
-    startTimer();
-  }
+  db.ref('picks').push({
+    playerId:    player.id,
+    overall:     currentIdx + 1,
+    round:       currentRound(),
+    pickInRound: currentPickInRound(),
+    teamIdx
+  });
 }
 
 // ── TICKER ────────────────────────────────────────────────────────────
@@ -1482,9 +1472,66 @@ document.getElementById('pos-filters').addEventListener('click', e => {
   renderPlayers();
 });
 
+// ── FIREBASE ───────────────────────────────────────────────────────────
+const firebaseConfig = {
+  apiKey:            "AIzaSyDfmfW86DXB2s39AAOr-ZdPMtIa4Td3pK4",
+  authDomain:        "ny-mets-wag-draft.firebaseapp.com",
+  databaseURL:       "https://ny-mets-wag-draft-default-rtdb.firebaseio.com",
+  projectId:         "ny-mets-wag-draft",
+  storageBucket:     "ny-mets-wag-draft.firebasestorage.app",
+  messagingSenderId: "889559299973",
+  appId:             "1:889559299973:web:b98a2cbaa82c76fc0976ec"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+function applyPick(pick) {
+  if (drafted.has(pick.playerId)) return;
+  const player = PLAYERS.find(p => p.id === pick.playerId);
+  if (!player) return;
+  drafted.add(pick.playerId);
+  teamPicks[pick.teamIdx].push(player);
+  pickLog.push({ overall: pick.overall, round: pick.round, pickInRound: pick.pickInRound, teamIdx: pick.teamIdx, player });
+  currentIdx++;
+}
+
 // ── INIT ───────────────────────────────────────────────────────────────
-render();
-startTimer();
+const loadedKeys = new Set();
+
+db.ref('picks').once('value', snapshot => {
+  snapshot.forEach(child => {
+    loadedKeys.add(child.key);
+    applyPick(child.val());
+  });
+
+  render();
+  updateTicker();
+
+  if (currentIdx >= draftOrder.length) {
+    document.getElementById('overlay').classList.add('show');
+  } else if (!isMyTurn()) {
+    setTimeout(autoPickForTeam, 2200);
+  } else {
+    startTimer();
+  }
+
+  db.ref('picks').on('child_added', snap => {
+    if (loadedKeys.has(snap.key)) return;
+    loadedKeys.add(snap.key);
+    applyPick(snap.val());
+    updateTicker();
+    render();
+    if (currentIdx >= draftOrder.length) {
+      document.getElementById('overlay').classList.add('show');
+      return;
+    }
+    if (!isMyTurn()) {
+      setTimeout(autoPickForTeam, 2200);
+    } else {
+      startTimer();
+    }
+  });
+});
 </script>
 </body>
 </html>
