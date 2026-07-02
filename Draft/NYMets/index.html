@@ -186,7 +186,7 @@
     .teams-list { overflow-y: auto; flex: 1; padding: 0.5rem; }
 
     .team-card {
-      background: var(--navy-mid);
+      background: var(--card-bg, var(--navy-mid));
       border: 1px solid rgba(255,89,16,0.12);
       border-radius: 8px;
       margin-bottom: 0.4rem;
@@ -707,18 +707,18 @@ const TIMER_SECS  = 120;
 
 const MLB_PHOTO = id => `https://img.mlbstatic.com/mlb-photos/image/upload/d_people:generic:headshot:67:current.png/w_120,q_auto:best/v1/people/${id}/headshot/67/current`;
 const TEAMS = [
-  {name:"Bichette's WAG",    owner:"Bo Bichette's WAG",         photo:"Bichette.PNG"},
-  {name:"Soto's WAG",        owner:"Juan Soto's WAG",           photo:"Soto.PNG"},
-  {name:"Lindor's WAG",      owner:"Francisco Lindor's WAG",    photo:"Lindor.PNG"},
-  {name:"Semien's WAG",      owner:"Marcus Semien's WAG",       photo:"Semien.PNG"},
-  {name:"Benge's WAG",       owner:"Carson Benge's WAG",        photo:"Benge.PNG"},
-  {name:"D. Williams's WAG", owner:"Devin Williams's WAG",      photo:"Williams.PNG"},
-  {name:"Ewing's WAG",       owner:"A.J. Ewing's WAG",          photo:"Ewing.PNG"},
-  {name:"Vientos's WAG",     owner:"Mark Vientos's WAG",        photo:"Vientos.PNG"},
-  {name:"Weaver's WAG",      owner:"Luke Weaver's WAG",         photo:"Weaver.PNG"},
-  {name:"Torrens's WAG",     owner:"Luis Torrens's WAG",        photo:"Torrens.PNG"},
-  {name:"Baty's WAG",        owner:"Brett Baty's WAG",          photo:"Baty.PNG"},
-  {name:"Alvarez's WAG",     owner:"Francisco Alvarez's WAG",   photo:"Alvarez.PNG"},
+  {name:"Bichette's WAG",    owner:"Bo Bichette's WAG",         photo:"Bichette.PNG", cardBg:"#0D3D4F"},
+  {name:"Soto's WAG",        owner:"Juan Soto's WAG",           photo:"Soto.PNG",     cardBg:"#2D1B4E"},
+  {name:"Lindor's WAG",      owner:"Francisco Lindor's WAG",    photo:"Lindor.PNG",   cardBg:"#1A3D2B"},
+  {name:"Semien's WAG",      owner:"Marcus Semien's WAG",       photo:"Semien.PNG",   cardBg:"#3D1A1A"},
+  {name:"Benge's WAG",       owner:"Carson Benge's WAG",        photo:"Benge.PNG",    cardBg:"#1E2D4F"},
+  {name:"D. Williams's WAG", owner:"Devin Williams's WAG",      photo:"Williams.PNG", cardBg:"#3D2B1A"},
+  {name:"Ewing's WAG",       owner:"A.J. Ewing's WAG",          photo:"Ewing.PNG",    cardBg:"#2B3D1A"},
+  {name:"Vientos's WAG",     owner:"Mark Vientos's WAG",        photo:"Vientos.PNG",  cardBg:"#3D1A2D"},
+  {name:"Weaver's WAG",      owner:"Luke Weaver's WAG",         photo:"Weaver.PNG",   cardBg:"#0D2E3D"},
+  {name:"Torrens's WAG",     owner:"Luis Torrens's WAG",        photo:"Torrens.PNG",  cardBg:"#1A1A3D"},
+  {name:"Baty's WAG",        owner:"Brett Baty's WAG",          photo:"Baty.PNG",     cardBg:"#2A3040"},
+  {name:"Alvarez's WAG",     owner:"Francisco Alvarez's WAG",   photo:"Alvarez.PNG",  cardBg:"#1A3D35"},
 ];
 
 const PLAYERS = [
@@ -1412,7 +1412,7 @@ function renderTeams() {
       ? `<span class="on-clock-label">● ON CLOCK</span>`
       : `<span style="font-size:0.6rem;color:var(--gray2)">${picks.length} picks</span>`;
 
-    return `<div class="${classes}">
+    return `<div class="${classes}" style="--card-bg:${t.cardBg}">
       <div class="team-card-header">
         <div style="display:flex;align-items:center;gap:0.45rem;">
           <img class="team-headshot" src="${t.photo}" alt="${t.name}">
