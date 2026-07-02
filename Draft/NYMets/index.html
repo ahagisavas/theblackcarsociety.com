@@ -1412,7 +1412,9 @@ function renderTeams() {
       ? `<span class="on-clock-label">● ON CLOCK</span>`
       : `<span style="font-size:0.6rem;color:var(--gray2)">${picks.length} picks</span>`;
 
-    return `<div class="${classes}" style="--card-bg:${t.cardBg}">
+    const altBg     = i % 2 === 0 ? '#3D1535' : '#1A0D3D';
+    const altBorder = i % 2 === 0 ? '#E91E8C' : '#9C27B0';
+    return `<div class="${classes}" style="--card-bg:${altBg};border-color:${altBorder}">
       <div class="team-card-header">
         <div style="display:flex;align-items:center;gap:0.45rem;">
           <img class="team-headshot" src="${t.photo}" alt="${t.name}">
