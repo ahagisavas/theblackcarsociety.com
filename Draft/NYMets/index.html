@@ -1563,7 +1563,7 @@ document.getElementById('hide-drafted-btn').addEventListener('click', function()
 // ── RESET DRAFT ────────────────────────────────────────────────────────
 function resetDraft() {
   const pwd = prompt('Enter admin password to reset the draft:');
-  if (pwd !== 'WAGdraft2026') return;
+  if (pwd !== 'Maxwell2023') return;
   if (!confirm('This will permanently delete all picks. Are you sure?')) return;
   db.ref('picks').remove().then(() => location.reload());
 }
