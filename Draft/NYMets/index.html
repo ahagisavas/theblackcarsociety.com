@@ -435,13 +435,13 @@
     ::-webkit-scrollbar-thumb { background: var(--orange-dim); border-radius: 2px; }
 
     /* ── TABS (desktop + mobile) ── */
-    .mobile-tabs {
+    .tab-bar {
       display: flex;
       flex-shrink: 0;
       background: var(--navy-dark);
       border-bottom: 2px solid var(--orange-dim);
     }
-    .mobile-tab {
+    .tab-bar-btn{
       flex: 1;
       padding: 0.55rem 0.3rem;
       text-align: center;
@@ -457,7 +457,7 @@
       text-transform: uppercase;
       transition: color 0.15s, border-color 0.15s;
     }
-    .mobile-tab.active { color: var(--pink); border-bottom-color: var(--pink); }
+    .tab-bar-btn.active { color: var(--pink); border-bottom-color: var(--pink); }
 
     /* Desktop panel visibility */
     .desk-hidden { display: none !important; }
@@ -535,7 +535,7 @@
       .my-turn-pill, .waiting-pill { padding: 0.25rem 0.6rem; font-size: 0.6rem; }
 
       /* Fixed tab bar — above iOS browser nav */
-      .mobile-tabs {
+      .tab-bar {
         position: fixed;
         bottom: 0;
         left: 0;
@@ -546,8 +546,8 @@
         border-bottom: none;
         padding-bottom: env(safe-area-inset-bottom, 0px);
       }
-      .mobile-tab { border-bottom: none; border-top: 3px solid transparent; }
-      .mobile-tab.active { border-top-color: var(--pink); border-bottom-color: transparent; }
+      .tab-bar-btn{ border-bottom: none; border-top: 3px solid transparent; }
+      .tab-bar-btn.active { border-top-color: var(--pink); border-bottom-color: transparent; }
     }
   </style>
 </head>
@@ -576,10 +576,10 @@
 </header>
 
 <!-- TAB BAR -->
-<div class="mobile-tabs">
-  <button class="mobile-tab active" id="tab-full" onclick="switchTab('full')">⊞ Full</button>
-  <button class="mobile-tab" id="tab-players" onclick="switchTab('players')">⚡ Players</button>
-  <button class="mobile-tab" id="tab-teams" onclick="switchTab('teams')">🏈 Teams</button>
+<div class="tab-bar">
+  <button class="tab-bar-btnactive" id="tab-full" onclick="switchTab('full')">⊞ Full</button>
+  <button class="tab-bar-btn" id="tab-players" onclick="switchTab('players')">⚡ Players</button>
+  <button class="tab-bar-btn" id="tab-teams" onclick="switchTab('teams')">🏈 Teams</button>
 </div>
 
 <!-- TICKER -->
