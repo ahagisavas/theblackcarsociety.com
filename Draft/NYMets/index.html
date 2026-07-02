@@ -437,6 +437,7 @@
     /* ── TABS (desktop + mobile) ── */
     .mobile-tabs {
       display: flex;
+      flex-shrink: 0;
       background: var(--navy-dark);
       border-bottom: 2px solid var(--orange-dim);
     }
@@ -457,6 +458,9 @@
       transition: color 0.15s, border-color 0.15s;
     }
     .mobile-tab.active { color: var(--pink); border-bottom-color: var(--pink); }
+
+    /* Desktop panel visibility */
+    .desk-hidden { display: none !important; }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 700px) {
@@ -552,7 +556,7 @@
 <!-- HEADER -->
 <header class="header">
   <div class="header-left">
-    <img src="MsMet_Football.PNG" alt="Ms. Met" style="height:80px;width:auto;">
+    <img src="MsMet_Football.PNG?v=2" alt="Ms. Met" style="height:80px;width:auto;">
     <div class="header-brand">
       <div class="header-title">The Black Car Society Draft Room</div>
       <div class="header-subtitle">WAGs Fantasy League</div>
@@ -658,29 +662,39 @@
 </div>
 
 <script>
-// ── MOBILE TABS ───────────────────────────────────────────────────────
+// ── TABS ──────────────────────────────────────────────────────────────
 function switchTab(tab) {
+  const isMobile   = window.innerWidth <= 700;
   const main       = document.querySelector('.main');
   const teamsPanel = document.querySelector('.teams-panel');
   const draftPanel = document.querySelector('.draft-panel');
+
   ['tab-players','tab-teams','tab-full'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.classList.remove('active');
   });
-  main.classList.remove('mob-split');
-  teamsPanel.classList.remove('mob-active');
-  draftPanel.classList.remove('mob-hidden');
 
-  if (tab === 'teams') {
-    teamsPanel.classList.add('mob-active');
-    draftPanel.classList.add('mob-hidden');
-    document.getElementById('tab-teams').classList.add('active');
-  } else if (tab === 'full') {
-    main.classList.add('mob-split');
-    document.getElementById('tab-full').classList.add('active');
+  if (isMobile) {
+    main.classList.remove('mob-split');
+    teamsPanel.classList.remove('mob-active');
+    draftPanel.classList.remove('mob-hidden');
+    if (tab === 'teams') {
+      teamsPanel.classList.add('mob-active');
+      draftPanel.classList.add('mob-hidden');
+    } else if (tab === 'full') {
+      main.classList.add('mob-split');
+    }
   } else {
-    document.getElementById('tab-players').classList.add('active');
+    teamsPanel.classList.remove('desk-hidden');
+    draftPanel.classList.remove('desk-hidden');
+    if (tab === 'teams') {
+      draftPanel.classList.add('desk-hidden');
+    } else if (tab === 'players') {
+      teamsPanel.classList.add('desk-hidden');
+    }
   }
+
+  document.getElementById('tab-' + tab).classList.add('active');
 }
 
 // Default to Full view on load
