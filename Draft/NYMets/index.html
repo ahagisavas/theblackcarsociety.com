@@ -434,8 +434,29 @@
     ::-webkit-scrollbar-track { background: var(--navy-dark); }
     ::-webkit-scrollbar-thumb { background: var(--orange-dim); border-radius: 2px; }
 
-    /* ── MOBILE TABS (hidden on desktop) ── */
-    .mobile-tabs { display: none; }
+    /* ── TABS (desktop + mobile) ── */
+    .mobile-tabs {
+      display: flex;
+      background: var(--navy-dark);
+      border-bottom: 2px solid var(--orange-dim);
+    }
+    .mobile-tab {
+      flex: 1;
+      padding: 0.55rem 0.3rem;
+      text-align: center;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--gray2);
+      cursor: pointer;
+      border: none;
+      border-bottom: 3px solid transparent;
+      background: none;
+      text-transform: uppercase;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .mobile-tab.active { color: var(--pink); border-bottom-color: var(--pink); }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 700px) {
@@ -511,7 +532,6 @@
 
       /* Fixed tab bar — above iOS browser nav */
       .mobile-tabs {
-        display: flex;
         position: fixed;
         bottom: 0;
         left: 0;
@@ -519,26 +539,11 @@
         z-index: 100;
         background: var(--navy-dark);
         border-top: 2px solid var(--orange-dim);
-        /* push content above iOS home indicator */
+        border-bottom: none;
         padding-bottom: env(safe-area-inset-bottom, 0px);
       }
-      .mobile-tab {
-        flex: 1;
-        padding: 0.55rem 0.3rem;
-        text-align: center;
-        font-family: 'Raleway', sans-serif;
-        font-size: 0.68rem;
-        font-weight: 700;
-        letter-spacing: 0.06em;
-        color: var(--gray2);
-        cursor: pointer;
-        border: none;
-        border-top: 3px solid transparent;
-        background: none;
-        text-transform: uppercase;
-        transition: color 0.15s, border-color 0.15s;
-      }
-      .mobile-tab.active { color: var(--pink); border-top-color: var(--pink); }
+      .mobile-tab { border-bottom: none; border-top: 3px solid transparent; }
+      .mobile-tab.active { border-top-color: var(--pink); border-bottom-color: transparent; }
     }
   </style>
 </head>
@@ -563,6 +568,13 @@
     Your next pick: <span id="hdr-next-pick">–</span>
   </div>
 </header>
+
+<!-- TAB BAR -->
+<div class="mobile-tabs">
+  <button class="mobile-tab active" id="tab-full" onclick="switchTab('full')">⊞ Full</button>
+  <button class="mobile-tab" id="tab-players" onclick="switchTab('players')">⚡ Players</button>
+  <button class="mobile-tab" id="tab-teams" onclick="switchTab('teams')">🏈 Teams</button>
+</div>
 
 <!-- TICKER -->
 <div class="ticker-wrap">
@@ -634,12 +646,6 @@
   </div>
 </div>
 
-<!-- MOBILE TAB BAR -->
-<div class="mobile-tabs">
-  <button class="mobile-tab" id="tab-full" onclick="switchTab('full')">⊞ Full</button>
-  <button class="mobile-tab active" id="tab-players" onclick="switchTab('players')">⚡ Players</button>
-  <button class="mobile-tab" id="tab-teams" onclick="switchTab('teams')">🏈 Teams</button>
-</div>
 
 <!-- DRAFT COMPLETE OVERLAY -->
 <div class="overlay" id="overlay">
@@ -674,6 +680,9 @@ function switchTab(tab) {
     document.getElementById('tab-players').classList.add('active');
   }
 }
+
+// Default to Full view on load
+switchTab('full');
 
 // ── DATA ──────────────────────────────────────────────────────────────
 const MY_TEAM_IDX = 0;
