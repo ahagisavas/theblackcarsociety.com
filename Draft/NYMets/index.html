@@ -1325,6 +1325,19 @@ function makePick(playerId) {
 function updateTicker() {
   if (!pickLog.length) return;
   const track = document.getElementById('ticker-track');
+
+  // Snapshot current scroll progress before rebuilding
+  const prevHalfWidth = track.scrollWidth / 2 || 1;
+  const style = getComputedStyle(track);
+  const duration = parseFloat(style.animationDuration) || 40;
+  const elapsed = parseFloat(style.animationDelay?.replace('s','') || 0);
+
+  // Pause and capture how far through the loop we are
+  track.style.animationPlayState = 'paused';
+  const matrix = new WebKitCSSMatrix(style.transform);
+  const currentX = matrix.m41; // pixels translated so far
+  const progress = Math.abs(currentX) / prevHalfWidth; // 0–1
+
   const makeItems = () => pickLog.slice().reverse().map(p =>
     `<span class="ticker-item">
       <span class="ticker-pick-num">#${p.overall}</span>
@@ -1334,11 +1347,15 @@ function updateTicker() {
     </span>`
   ).join('');
   track.innerHTML = makeItems() + makeItems();
-  // Keep scroll speed constant (~120px/s) regardless of content length
+
   requestAnimationFrame(() => {
     const halfWidth = track.scrollWidth / 2;
-    const duration = halfWidth / 120;
-    track.style.animationDuration = duration + 's';
+    const newDuration = halfWidth / 120;
+    // Resume from same relative position
+    const delay = -(progress * newDuration);
+    track.style.animationDuration = newDuration + 's';
+    track.style.animationDelay = delay + 's';
+    track.style.animationPlayState = 'running';
   });
 }
 
