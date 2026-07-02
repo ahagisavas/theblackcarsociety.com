@@ -592,7 +592,8 @@
   <div class="header-right" id="hdr-right">
     You are: <strong style="color:var(--orange)">Bichette's WAG</strong><br>
     Your next pick:<br>
-    <span id="hdr-next-pick">–</span>
+    <span id="hdr-next-pick">–</span><br>
+    <button onclick="resetDraft()" style="margin-top:0.4rem;background:none;border:1px solid rgba(255,89,16,0.3);border-radius:10px;color:var(--gray2);font-size:0.55rem;padding:0.15rem 0.5rem;cursor:pointer;font-family:'Raleway',sans-serif;">↺ Reset Draft</button>
   </div>
 </header>
 
@@ -1558,6 +1559,14 @@ document.getElementById('hide-drafted-btn').addEventListener('click', function()
   this.textContent = hideDrafted ? 'Show Drafted' : 'Hide Drafted';
   renderPlayers();
 });
+
+// ── RESET DRAFT ────────────────────────────────────────────────────────
+function resetDraft() {
+  const pwd = prompt('Enter admin password to reset the draft:');
+  if (pwd !== 'WAGdraft2026') return;
+  if (!confirm('This will permanently delete all picks. Are you sure?')) return;
+  db.ref('picks').remove().then(() => location.reload());
+}
 
 // ── EMAILJS ────────────────────────────────────────────────────────────
 emailjs.init('cBWfKMO_qauS80YDf');
