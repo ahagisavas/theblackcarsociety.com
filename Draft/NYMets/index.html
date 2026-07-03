@@ -685,6 +685,8 @@
   <h2>Draft Complete! 🎉</h2>
   <p>All 180 picks have been made. Let the season begin!</p>
   <div class="overlay-rule"></div>
+  <button onclick="document.getElementById('overlay').classList.remove('show')" style="background:none;border:1px solid var(--gray2);border-radius:20px;color:var(--gray2);font-size:0.75rem;padding:0.3rem 1rem;cursor:pointer;font-family:'Raleway',sans-serif;margin-top:0.5rem;">Dismiss</button>
+  <button onclick="resetDraft()" style="background:none;border:1px solid rgba(255,89,16,0.4);border-radius:20px;color:var(--orange);font-size:0.7rem;padding:0.25rem 0.9rem;cursor:pointer;font-family:'Raleway',sans-serif;">↺ Reset Draft</button>
 </div>
 
 <script>
