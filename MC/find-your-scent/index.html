@@ -334,6 +334,21 @@
         }
         .no-results strong { color: var(--charcoal); }
 
+        /* CHEMIST BANNER */
+        .chemist-banner {
+            width: 100%; height: 420px; overflow: hidden;
+            background: var(--charcoal);
+        }
+        .chemist-banner img {
+            width: 100%; height: 100%;
+            object-fit: cover; object-position: center 22%;
+            display: block;
+        }
+        @media (max-width: 700px) {
+            .chemist-banner { height: 320px; }
+            .chemist-banner img { object-position: center 20%; }
+        }
+
         /* TAB BAR */
         .tab-bar {
             background: var(--charcoal);
@@ -443,9 +458,14 @@
 <!-- PAGE HEADER -->
 <header class="page-header">
     <p class="page-eyebrow">&#9670; Maxwell's Candles &#9670;</p>
-    <h1 class="page-title">Find Your Scent</h1>
-    <p class="page-sub" id="pageSubText">Too many candles, not enough nose. Pick up to 3 scent profiles and we'll narrow it down for you.</p>
+    <h1 class="page-title">Your perfect candle is right under your nose.</h1>
+    <p class="page-sub" id="pageSubText">Pick up to 3 scent profiles and we'll help you find it.</p>
 </header>
+
+<!-- CHEMIST BANNER -->
+<div class="chemist-banner">
+    <img src="MaxwellChemist.webp" alt="Maxwell the fragrance chemist mixing scents in his lab">
+</div>
 
 <!-- TAB BAR -->
 <div class="tab-bar">
@@ -459,8 +479,8 @@
 <section class="quiz-section" id="quizSection">
     <div class="inner" id="quizStep">
         <div class="quiz-instructions">
-            <h2>What scents call to you?</h2>
-            <p>Select up to 3 and we'll find your best matches.</p>
+            <h2>Let's Narrow Down the Suspects</h2>
+            <p>Pick up to 3 scent profiles and we'll find your best matches.</p>
             <span class="counter" id="counter">0 of 3 selected</span>
         </div>
 
@@ -553,8 +573,8 @@
 <section class="ing-section hidden" id="ingSection">
     <div class="inner">
         <div class="quiz-instructions">
-            <h2>What's in your candle?</h2>
-            <p>Pick up to 3 ingredients — we'll show every candle that contains all of them.</p>
+            <h2>Let's Examine the Evidence</h2>
+            <p>Pick up to 3 ingredients and we'll find every candle that contains them.</p>
             <span class="counter" id="ingCounter">0 of 3 selected</span>
         </div>
         <div class="ing-search-wrap">
@@ -808,7 +828,7 @@ mobileOverlay.addEventListener('click', closeMenu);
 // ── Tab bar ────────────────────────────────────────────────────────────────
 const tabBtns   = document.querySelectorAll('.tab-btn');
 const pageSubEl = document.getElementById('pageSubText');
-const VIBE_SUB  = 'Too many candles, not enough nose. Pick up to 3 scent profiles and we\'ll narrow it down for you.';
+const VIBE_SUB  = 'Pick up to 3 scent profiles and we\'ll help you find it.';
 const ING_SUB   = 'Know exactly what you\'re after? Pick up to 3 ingredients to find every candle that contains them.';
 
 tabBtns.forEach(btn => {
