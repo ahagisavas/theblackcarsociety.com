@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reviews | Maxwell's Candles</title>
     <meta property="og:title" content="Reviews | Maxwell's Candles">
-    <meta property="og:description" content="What people are saying about Maxwell's hand-crafted coconut apricot wax candles.">
+    <meta property="og:description" content="See what people are saying about Maxwell's Candles — hand-crafted coconut apricot wax candles with wood wicks.">
     <meta property="og:url" content="https://maxwellscandles.com/reviews">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://maxwellscandles.com/Logo/MC_LOGO_Square.PNG">
-    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://maxwellscandles.com/Logo/MC_LOGO_Square.PNG">
     <link rel="apple-touch-icon" href="https://maxwellscandles.com/Logo/MC_LOGO_Square.PNG">
     <link rel="icon" type="image/png" href="https://maxwellscandles.com/Logo/MC_LOGO_ROUND2.PNG">
@@ -19,6 +18,7 @@
             --ember:    #c94b1a;
             --ember-d:  #9e3610;
             --honey:    #e8a030;
+            --plum:     #6b2d5e;
             --cream:    #fdf5eb;
             --ivory:    #fff9f2;
             --charcoal: #1e0e05;
@@ -33,13 +33,12 @@
         html { scroll-behavior: smooth; font-size: 16px; }
         body {
             font-family: 'Poppins', -apple-system, sans-serif;
-            background: var(--ivory);
+            background: var(--cream);
             color: var(--charcoal);
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
         a { text-decoration: none; color: inherit; }
-        ul { list-style: none; }
 
         /* NAV */
         .nav {
@@ -93,249 +92,306 @@
         }
         .mobile-overlay.open { opacity: 1; pointer-events: all; }
         .mobile-menu {
-            position: fixed; top: 0; right: -280px; width: 280px; height: 100%;
+            position: fixed; top: 0; right: 0;
+            width: 280px; height: 100vh;
             background: var(--charcoal); z-index: 1000;
-            display: flex; flex-direction: column;
             padding: 80px 32px 40px;
-            gap: 28px; transition: right 0.35s var(--ease);
+            transform: translateX(100%);
+            transition: transform 0.35s var(--ease);
+            box-shadow: -4px 0 30px rgba(0,0,0,0.5);
         }
-        .mobile-menu.open { right: 0; }
+        .mobile-menu.open { transform: translateX(0); }
         .mobile-menu a {
-            font-size: 0.85rem; font-weight: 500;
-            letter-spacing: 0.12em; text-transform: uppercase;
-            color: rgba(255,255,255,0.85);
+            display: block; padding: 14px 0;
+            font-size: 1rem; font-weight: 500;
+            color: rgba(255,249,242,0.85);
+            border-bottom: 1px solid rgba(232,160,48,0.2);
         }
         .mobile-close {
             position: absolute; top: 24px; right: 24px;
             background: none; border: none; color: var(--honey);
-            font-size: 1.6rem; cursor: pointer;
+            font-size: 1.6rem; cursor: pointer; line-height: 1;
         }
 
-        /* PAGE WRAP */
-        .page-wrap {
-            padding-top: calc(var(--nav-h) + 60px);
-            padding-bottom: 100px;
-            max-width: 900px;
-            margin: 0 auto;
-            padding-left: 24px;
-            padding-right: 24px;
-        }
-        .page-eyebrow {
-            font-size: 0.65rem; font-weight: 600;
-            letter-spacing: 0.18em; text-transform: uppercase;
-            color: var(--honey);
+        /* HERO BANNER */
+        .reviews-hero {
+            margin-top: var(--nav-h);
+            background: linear-gradient(145deg, #2c0e00 0%, #5c2400 45%, #1e0a00 100%);
+            padding: 64px 40px 56px;
             text-align: center;
-            margin-bottom: 10px;
+            border-bottom: 3px solid var(--ember);
         }
-        .page-title {
+        .reviews-hero .eyebrow {
+            font-size: 0.66rem; font-weight: 600;
+            letter-spacing: 0.28em; text-transform: uppercase;
+            color: var(--honey); margin-bottom: 14px;
+        }
+        .reviews-hero h1 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 6vw, 3rem);
-            font-weight: 700;
-            background: linear-gradient(to bottom, var(--charcoal) 0%, var(--bark) 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-align: center;
-            margin-bottom: 10px;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700; color: #fff;
+            line-height: 1.15; margin-bottom: 14px;
         }
-        .page-sub {
-            text-align: center;
-            font-size: 0.88rem;
-            color: var(--gray);
-            margin-bottom: 56px;
-            font-style: italic;
+        .reviews-hero p {
+            font-size: 0.9rem; color: rgba(255,249,242,0.6);
+            max-width: 480px; margin: 0 auto;
+            line-height: 1.7;
         }
 
-        /* RATING SUMMARY */
-        .rating-summary {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 32px;
-            background: var(--cream);
-            border: 1px solid rgba(92,56,40,0.12);
-            border-radius: 12px;
-            padding: 32px 40px;
-            margin-bottom: 56px;
-            flex-wrap: wrap;
-        }
-        .rating-big {
-            text-align: center;
-        }
-        .rating-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            font-weight: 700;
-            color: var(--charcoal);
-            line-height: 1;
-        }
-        .stars-row {
-            display: flex; gap: 3px;
-            justify-content: center;
-            margin: 6px 0 4px;
-        }
-        .star {
-            font-size: 1.1rem;
-            color: var(--honey);
-        }
-        .rating-count {
-            font-size: 0.72rem;
-            color: var(--gray);
-            letter-spacing: 0.06em;
-        }
-        .rating-divider {
-            width: 1px; height: 64px;
-            background: rgba(92,56,40,0.15);
-        }
-        .rating-bars {
-            display: flex;
-            flex-direction: column;
-            gap: 7px;
-            min-width: 200px;
-        }
-        .bar-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.72rem;
-            color: var(--gray);
-        }
-        .bar-label { width: 36px; text-align: right; flex-shrink: 0; }
-        .bar-track {
-            flex: 1; height: 6px;
-            background: rgba(92,56,40,0.1);
-            border-radius: 3px;
-            overflow: hidden;
-        }
-        .bar-fill {
-            height: 100%;
-            background: var(--honey);
-            border-radius: 3px;
-        }
-        .bar-pct { width: 28px; color: var(--bark); font-weight: 500; }
+        /* LAYOUT */
+        .inner { max-width: 1260px; margin: 0 auto; padding: 0 40px; }
 
         /* REVIEWS GRID */
+        .reviews-section { padding: 80px 0; background: var(--cream); }
         .reviews-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            margin-top: 52px;
         }
         .review-card {
-            background: var(--cream);
-            border: 1px solid rgba(92,56,40,0.12);
-            border-radius: 10px;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            transition: box-shadow 0.2s, transform 0.2s;
+            background: var(--ivory);
+            border: 1px solid rgba(92,56,40,0.1);
+            border-radius: 6px;
+            padding: 28px 24px 24px;
+            display: flex; flex-direction: column; gap: 14px;
+            transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
         }
         .review-card:hover {
-            box-shadow: 0 6px 24px rgba(92,56,40,0.1);
-            transform: translateY(-2px);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(92,56,40,0.12);
         }
         .review-header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 12px;
+            display: flex; align-items: center; gap: 14px;
+        }
+        .reviewer-photo {
+            width: 58px; height: 58px;
+            border-radius: 50%;
+            object-fit: cover; object-position: center;
+            border: 2px solid var(--honey);
+            flex-shrink: 0;
+            background: var(--ivory);
+        }
+        .reviewer-photo-placeholder {
+            width: 58px; height: 58px;
+            border-radius: 50%;
+            background: var(--charcoal);
+            border: 2px solid var(--honey);
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.4rem;
         }
         .reviewer-info { flex: 1; }
         .reviewer-name {
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: var(--charcoal);
-            margin-bottom: 2px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem; font-weight: 700;
+            color: var(--charcoal); margin-bottom: 2px;
         }
-        .reviewer-location {
-            font-size: 0.72rem;
-            color: var(--lgray);
-        }
-        .review-stars {
-            display: flex; gap: 2px; flex-shrink: 0;
-        }
-        .review-stars .star { font-size: 0.85rem; }
-        .review-scent {
-            font-size: 0.65rem; font-weight: 600;
+        .reviewer-scent {
+            font-size: 0.68rem; font-weight: 500;
             letter-spacing: 0.1em; text-transform: uppercase;
             color: var(--ember);
-            padding: 3px 10px;
-            border: 1px solid rgba(201,75,26,0.25);
-            border-radius: 999px;
-            align-self: flex-start;
         }
-        .review-quote {
-            font-size: 0.84rem;
-            line-height: 1.65;
-            color: var(--bark);
+        .paw-rating {
+            display: flex; gap: 5px; align-items: center;
+            line-height: 1;
+        }
+        .paw-icon {
+            width: 20px; height: 20px;
+            fill: #5c3828;
+            flex-shrink: 0;
+        }
+        .paw-rating .paw-empty { opacity: 0.18; }
+        .review-text {
+            font-size: 0.84rem; color: var(--gray);
+            line-height: 1.75; flex: 1;
             font-style: italic;
         }
-        .review-quote::before { content: '\201C'; }
-        .review-quote::after  { content: '\201D'; }
+        .review-text::before { content: '\201C'; }
+        .review-text::after  { content: '\201D'; }
         .review-date {
-            font-size: 0.68rem;
-            color: var(--lgray);
-            margin-top: auto;
+            font-size: 0.65rem; color: var(--lgray);
+            letter-spacing: 0.08em;
         }
 
-        /* FEATURED REVIEW */
-        .review-card.featured {
-            grid-column: 1 / -1;
-            background: linear-gradient(135deg, #2a1206 0%, #1e0e05 100%);
-            border-color: rgba(232,160,48,0.25);
-            color: #fff;
+        /* SECTION HEADERS */
+        .section-eyebrow {
+            font-size: 0.66rem; font-weight: 600;
+            letter-spacing: 0.28em; text-transform: uppercase;
+            color: var(--ember); margin-bottom: 10px;
         }
-        .review-card.featured .reviewer-name { color: #fff; }
-        .review-card.featured .reviewer-location { color: rgba(255,255,255,0.45); }
-        .review-card.featured .review-quote { color: rgba(255,255,255,0.82); font-size: 1rem; line-height: 1.7; }
-        .review-card.featured .review-date { color: rgba(255,255,255,0.3); }
-        .review-card.featured .review-scent {
-            color: var(--honey);
-            border-color: rgba(232,160,48,0.4);
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 700; color: var(--charcoal);
+            line-height: 1.15; margin-bottom: 14px;
+        }
+        .section-sub {
+            font-size: 0.9rem; font-weight: 300;
+            color: var(--gray); line-height: 1.75;
         }
 
-        /* CTA */
-        .reviews-cta {
-            text-align: center;
-            margin-top: 56px;
+        /* DIVIDER */
+        .divider {
+            border: none;
+            border-top: 1px solid rgba(92,56,40,0.12);
+            margin: 0;
         }
-        .reviews-cta p {
-            font-size: 0.88rem;
-            color: var(--gray);
-            margin-bottom: 20px;
-            font-style: italic;
+
+        /* SUBMIT FORM */
+        .submit-section {
+            padding: 80px 0;
+            background: var(--ivory);
+            border-top: 3px solid var(--ember);
         }
-        .btn-order {
-            display: inline-block;
-            font-size: 0.82rem; font-weight: 600;
-            letter-spacing: 0.1em; text-transform: uppercase;
-            background: linear-gradient(to top, #7a1a00, #c0390a, #e8600a, #f5a623, #ffe066);
-            color: #fff;
-            padding: 14px 36px; border-radius: 30px;
-            transition: filter 0.2s;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+        .submit-inner {
+            max-width: 640px; margin: 0 auto; padding: 0 40px;
         }
-        .btn-order:hover { filter: brightness(1.15); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+        .form-group label, .form-full label {
+            display: block; font-size: 0.65rem; font-weight: 600;
+            letter-spacing: 0.14em; text-transform: uppercase;
+            color: var(--bark); margin-bottom: 6px;
+        }
+        .form-full { margin-bottom: 14px; }
+        .form-group input,
+        .form-group select,
+        .form-full textarea {
+            width: 100%; background: #fff;
+            border: 1px solid rgba(92,56,40,0.2); border-radius: 2px;
+            padding: 12px 14px; font-family: 'Poppins', sans-serif;
+            font-size: 0.84rem; color: var(--charcoal); outline: none;
+            transition: border-color 0.2s;
+        }
+        .form-group input::placeholder, .form-full textarea::placeholder { color: var(--lgray); }
+        .form-group input:focus, .form-group select:focus, .form-full textarea:focus { border-color: var(--ember); }
+        .form-full textarea { min-height: 110px; resize: vertical; }
+
+        /* PAW PICKER */
+        .paw-picker label .paw-icon { width: 28px; height: 28px; fill: #5c3828; }
+        .paw-picker label { opacity: 0.2; transition: opacity 0.15s, transform 0.15s; }
+        .paw-picker label.active { opacity: 1; transform: scale(1.15); }
+        .paw-picker-label {
+            display: block; font-size: 0.65rem; font-weight: 600;
+            letter-spacing: 0.14em; text-transform: uppercase;
+            color: var(--bark); margin-bottom: 10px;
+        }
+        .paw-picker {
+            display: flex; gap: 6px; margin-bottom: 18px;
+        }
+        .paw-picker input[type="radio"] { display: none; }
+        .paw-picker label {
+            font-size: 1.8rem; cursor: pointer;
+            opacity: 0.25; transition: opacity 0.15s, transform 0.15s;
+            user-select: none;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+        .paw-picker:hover label { opacity: 0.25; }
+        .paw-picker label:hover,
+        .paw-picker label:hover ~ label { opacity: 0.25; }
+
+        /* JS-driven active state — !important ensures it beats all sibling selectors */
+        .paw-picker label.active { opacity: 1 !important; transform: scale(1.15); }
+
+        .btn-submit {
+            width: 100%; font-size: 0.86rem; font-weight: 600;
+            padding: 16px; border-radius: 30px;
+            background: linear-gradient(to bottom, #7a1a00, #c0390a, #e8600a, #f5a623, #ffe066); color: #fff;
+            border: none; cursor: pointer;
+            transition: background 0.2s;
+            text-transform: uppercase; letter-spacing: 0.1em;
+            margin-top: 8px;
+        }
+        .btn-submit:hover { filter: brightness(1.15); }
+        .form-note {
+            font-size: 0.7rem; color: var(--lgray);
+            text-align: center; margin-top: 10px; line-height: 1.5;
+        }
+        .form-success {
+            display: none; text-align: center; padding: 48px 32px;
+            background: rgba(201,75,26,0.05);
+            border: 1px solid rgba(201,75,26,0.2); border-radius: 4px;
+        }
+        .form-success h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem; color: var(--ember); margin-bottom: 10px;
+        }
+        .form-success p { font-size: 0.85rem; color: var(--gray); }
+
+        /* FOOTER */
+        .footer {
+            background: var(--charcoal);
+            padding: 24px 0 28px;
+            border-top: 3px solid var(--ember);
+        }
+        .footer-top {
+            max-width: 1100px; margin: 0 auto;
+            padding: 0 40px 40px;
+            display: block;
+            gap: 48px;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+        }
+        .footer-brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem; font-weight: 700;
+            color: var(--honey); margin-bottom: 12px;
+        }
+        .footer-brand p { font-size: 0.78rem; color: rgba(255,249,242,0.38); line-height: 1.7; }
+        .footer-col h5 {
+            font-size: 0.65rem; font-weight: 600;
+            letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--ember); margin-bottom: 16px;
+        }
+        .footer-col a, .footer-col span {
+            display: block; font-size: 0.78rem;
+            color: rgba(255,249,242,0.38); padding: 4px 0;
+            transition: color 0.2s;
+        }
+        .footer-col a:hover { color: var(--honey); }
+        .footer-bottom {
+            max-width: 1100px; margin: 0 auto;
+            padding: 22px 40px 0;
+            display: flex; justify-content: center;
+            align-items: center; font-size: 0.7rem;
+            color: rgba(255,249,242,0.18); flex-wrap: wrap; gap: 10px;
+        }
+        .footer-bottom a { color: rgba(255,249,242,0.18); transition: color 0.2s; }
+        .footer-bottom a:hover { color: rgba(232,160,48,0.6); }
 
         /* RESPONSIVE */
-        @media (max-width: 680px) {
-            .nav { padding: 0 20px; }
+        @media (max-width: 900px) {
             .nav-links { display: none; }
             .hamburger { display: flex; }
-            .nav-cta { display: none; }
-            .rating-divider { display: none; }
-            .rating-summary { gap: 20px; padding: 24px 20px; }
-            .reviews-grid { grid-template-columns: 1fr; }
+            .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-top { grid-template-columns: 1fr 1fr; }
         }
-        @media (max-width: 500px) {
-            .nav-brand img { height: 56px; }
+        @media (max-width: 600px) {
+            .nav { padding: 0 20px; }
+            .inner { padding: 0 20px; }
+            .reviews-hero { padding: 48px 20px 40px; }
+            .reviews-grid { grid-template-columns: 1fr; gap: 16px; }
+            .form-row { grid-template-columns: 1fr; }
+            .submit-inner { padding: 0 20px; }
+            .footer-top { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-<!-- NAVIGATION -->
-<nav class="nav" id="mainNav">
+<!-- SINGLE PAW SVG SYMBOL -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="paw" viewBox="0 0 100 100">
+        <ellipse cx="50" cy="72" rx="25" ry="20"/>
+        <ellipse cx="18" cy="42" rx="12" ry="15"/>
+        <ellipse cx="38" cy="28" rx="12" ry="15"/>
+        <ellipse cx="62" cy="28" rx="12" ry="15"/>
+        <ellipse cx="82" cy="42" rx="12" ry="15"/>
+    </symbol>
+</svg>
+
+<!-- NAV -->
+<nav class="nav">
     <a href="index.html" class="nav-brand"><img src="Logo/MC_Logo-round.PNG" alt="Maxwell's Candles"></a>
     <ul class="nav-links">
         <li><a href="index.html#collection">Our Candles</a></li>
@@ -358,256 +414,620 @@
     <a href="order.html">Order Now</a>
 </div>
 
-<main class="page-wrap">
-    <p class="page-eyebrow">&#9670; Real Customers &#9670;</p>
-    <h1 class="page-title">What People Are Saying</h1>
-    <p class="page-sub">Hand-crafted candles that speak for themselves. Here's what our customers have to say.</p>
+<!-- HERO -->
+<div class="reviews-hero">
+    <p class="eyebrow">&#9670; Customer Reviews &#9670;</p>
+    <h1>What People Are Saying</h1>
+    <p>Real reviews from real people who actually burn these candles. Probably.</p>
+</div>
 
-    <!-- RATING SUMMARY -->
-    <div class="rating-summary">
-        <div class="rating-big">
-            <div class="rating-number">4.9</div>
-            <div class="stars-row">
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-            </div>
-            <div class="rating-count">Based on 47 reviews</div>
+<!-- REVIEWS -->
+<section class="reviews-section">
+    <div class="inner">
+        <div style="text-align:center;">
+            <h2 class="section-title">The Verdict</h2>
+            <p id="avg-rating" style="font-size:1.1rem;color:#5c3828;margin-top:0.25rem;"></p>
         </div>
-        <div class="rating-divider"></div>
-        <div class="rating-bars">
-            <div class="bar-row">
-                <span class="bar-label">5 ★</span>
-                <div class="bar-track"><div class="bar-fill" style="width:89%"></div></div>
-                <span class="bar-pct">89%</span>
+
+        <div class="reviews-grid">
+
+            <!-- Lauren E. -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="Reviews/Lauren_Etta.PNG" class="reviewer-photo" alt="Lauren E.">
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">Lauren E.</div>
+                        <div class="reviewer-scent">Ocean Mist &amp; Sea Salt</div>
+                        <span style="display:inline-flex;align-items:center;gap:3px;font-size:8px;font-weight:600;background:#e1f5ee;color:#0f6e56;border:0.5px solid #5dcaa5;border-radius:20px;padding:1px 6px;margin-top:3px;"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#0f6e56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>Gifted, Honest Review</span>
+                    </div>
+                </div>
+                <div class="paw-rating">
+                    <svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg>
+                </div>
+                <p class="review-text">Candles are 10/10. From quality to smell, Maxwell never misses. You can tell he puts a lot of love into his candles and burning them is my favorite part of my night!</p>
+                <div class="review-date">July 2026</div>
             </div>
-            <div class="bar-row">
-                <span class="bar-label">4 ★</span>
-                <div class="bar-track"><div class="bar-fill" style="width:9%"></div></div>
-                <span class="bar-pct">9%</span>
+
+            <!-- Tucker Carlson -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="Reviews/TuckerCarlson.png" class="reviewer-photo" alt="Tucker Carlson">
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">Tucker Carlson</div>
+                        <div class="reviewer-scent">Basil Breakout</div>
+                    </div>
+                </div>
+                <div class="paw-rating">
+                    <svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon paw-empty"><use href="#paw"/></svg><svg class="paw-icon paw-empty"><use href="#paw"/></svg><svg class="paw-icon paw-empty"><use href="#paw"/></svg><svg class="paw-icon paw-empty"><use href="#paw"/></svg>
+                </div>
+                <p class="review-text">Who is Maxwell? Apparently, a dog. A DOG running a candle company. Huh? Really? So a dog with no business degree has unlimited access to coconut-apricot wax. And we're just supposed to accept that? You light Maxwell's Candles on fire. Intentionally. In your own home. Within minutes, your entire house smells like basil. Who authorized this? And here's what nobody's talking about: THE WAX SLOWLY DISAPPEARS. Where did it go? Who took it? And WHY? Nobody knows. Nobody's even asking. Is this what we want? A country where dogs sell disappearing wax? I guess that's the rule. That's the GOAL now.</p>
+                <div class="review-date">November 2026</div>
             </div>
-            <div class="bar-row">
-                <span class="bar-label">3 ★</span>
-                <div class="bar-track"><div class="bar-fill" style="width:2%"></div></div>
-                <span class="bar-pct">2%</span>
+
+            <!-- César "Primo" Navarro -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="Reviews/Cesar.PNG" class="reviewer-photo" alt="César Big Primo Navarro">
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">César "Primo" Navarro</div>
+                        <div class="reviewer-scent">Maxwell House</div>
+                    </div>
+                </div>
+                <div class="paw-rating">
+                    <svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon paw-empty"><use href="#paw"/></svg><svg class="paw-icon paw-empty"><use href="#paw"/></svg><svg class="paw-icon paw-empty"><use href="#paw"/></svg>
+                </div>
+                <p class="review-text">Órale, holmes. Maxwell House smells so much like fresh coffee, I poured cream into the candle. That part was on me, ese.</p>
+                <div class="review-date">March 2026</div>
             </div>
-            <div class="bar-row">
-                <span class="bar-label">2 ★</span>
-                <div class="bar-track"><div class="bar-fill" style="width:0%"></div></div>
-                <span class="bar-pct">0%</span>
+
+            <!-- Abi W. -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="Reviews/AbiW.PNG" class="reviewer-photo" alt="Abi W.">
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">Abi W.</div>
+                        <div class="reviewer-scent">Apple Cinnamon Crime Ring</div>
+                        <span style="display:inline-flex;align-items:center;gap:3px;font-size:8px;font-weight:600;background:#e1f5ee;color:#0f6e56;border:0.5px solid #5dcaa5;border-radius:20px;padding:1px 6px;margin-top:3px;"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#0f6e56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>Gifted, Honest Review</span>
+                    </div>
+                </div>
+                <div class="paw-rating">
+                    <svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg>
+                </div>
+                <p class="review-text">We absolutely love burning these candles—the scents are beautiful, cozy, and make the whole room feel inviting. They also last such a long time and burn really evenly. The cute dog picture is the cherry on top.</p>
+                <div class="review-date">May 2026</div>
             </div>
-            <div class="bar-row">
-                <span class="bar-label">1 ★</span>
-                <div class="bar-track"><div class="bar-fill" style="width:0%"></div></div>
-                <span class="bar-pct">0%</span>
+
+            <!-- Barack Obama -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="Reviews/Barack.jpg" class="reviewer-photo" alt="Barack Obama">
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">Barack Obama</div>
+                        <div class="reviewer-scent">Thug Life</div>
+                        <span style="display:inline-flex;align-items:center;gap:3px;font-size:8px;font-weight:600;background:#fff8e7;color:#7a4f00;border:0.5px solid #e6c96b;border-radius:20px;padding:1px 6px;margin-top:3px;"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#7a4f00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.4 4.8L20 9l-4 3.9L17 19l-5-2.6L7 19l1-6.1L4 9l5.6-1.2z"/></svg>Verified Purchase</span>
+                    </div>
+                </div>
+                <div class="paw-rating">
+                    <svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg>
+                </div>
+                <p class="review-text">Let me be clear. I've encountered many candles over the years. Some were acceptable. Some, frankly, were not. Thug Life from Maxwell's Candles is hard in the streets, yes. But make no mistake, also soft on the nose. And that crackling wooden wick reminds us that even in divided times, we can still come together around an exceptionally bold fragrance.</p>
+                <div class="review-date">February 2016</div>
             </div>
+
+            <!-- Bat-Sheva G. -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="Reviews/BSG.png" class="reviewer-photo" alt="Bat-Sheva G.">
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">Bat-Sheva G.</div>
+                        <div class="reviewer-scent">Banana Nut Bread Break-In</div>
+                        <span style="display:inline-flex;align-items:center;gap:3px;font-size:8px;font-weight:600;background:#e1f5ee;color:#0f6e56;border:0.5px solid #5dcaa5;border-radius:20px;padding:1px 6px;margin-top:3px;"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#0f6e56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>Gifted, Honest Review</span>
+                    </div>
+                </div>
+                <div class="paw-rating">
+                    <svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg>
+                </div>
+                <p class="review-text">This candle smells so good, it makes all my neighbors think I am someone who bakes. I adore the wide wick and resulting triangle shaped flame. Lots of attention to detail on this one. Would purchase again and try out different scents.</p>
+                <div class="review-date">February 2026</div>
+            </div>
+
+            <!-- Pablo Escobar -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="Reviews/Pablo.jpg" class="reviewer-photo" alt="Pablo Escobar">
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">Pablo Escobar</div>
+                        <div class="reviewer-scent">Grand Theft Apple</div>
+                        <span style="display:inline-flex;align-items:center;gap:3px;font-size:8px;font-weight:600;background:#e1f5ee;color:#0f6e56;border:0.5px solid #5dcaa5;border-radius:20px;padding:1px 6px;margin-top:3px;"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#0f6e56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>Gifted, Honest Review</span>
+                    </div>
+                </div>
+                <div class="paw-rating">
+                    <svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon paw-empty"><use href="#paw"/></svg>
+                </div>
+                <p class="review-text">Grand Theft Apple from Maxwell's Candles... one little taste with the nose, then you want more and more. Muy inteligente perro...</p>
+                <div class="review-date">Octubre 1993</div>
+            </div>
+
+            <!-- Dimitri D. -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="Reviews/DimitriD.PNG" class="reviewer-photo" alt="Dimitri D.">
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">Dimitri D.</div>
+                        <div class="reviewer-scent">Thug Life</div>
+                        <span style="display:inline-flex;align-items:center;gap:3px;font-size:8px;font-weight:600;background:#e1f5ee;color:#0f6e56;border:0.5px solid #5dcaa5;border-radius:20px;padding:1px 6px;margin-top:3px;"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#0f6e56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>Gifted, Honest Review</span>
+                    </div>
+                </div>
+                <div class="paw-rating">
+                    <svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg>
+                </div>
+                <p class="review-text">Amazing scents. Thug Life in particular was so delightful that I accidentally left one burning overnight. By morning, the house smelled incredible, the candle was still going strong, and my security deposit was still intact. As a testament to the candles' quality, my supply of Thug Life survived the night without incident.</p>
+                <div class="review-date">August 2026</div>
+            </div>
+
+            <!-- Walter White -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="Reviews/WalterWhite.PNG" class="reviewer-photo" alt="Walter White">
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">Walter White</div>
+                        <div class="reviewer-scent">White Oak &amp; Vanilla</div>
+                        <span style="display:inline-flex;align-items:center;gap:3px;font-size:8px;font-weight:600;background:#fff8e7;color:#7a4f00;border:0.5px solid #e6c96b;border-radius:20px;padding:1px 6px;margin-top:3px;"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#7a4f00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.4 4.8L20 9l-4 3.9L17 19l-5-2.6L7 19l1-6.1L4 9l5.6-1.2z"/></svg>Verified Purchase</span>
+                    </div>
+                </div>
+                <div class="paw-rating">
+                    <svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg>
+                </div>
+                <p class="review-text">People think a candle is just wax and fragrance. They're wrong. It's chemistry. Balance. Precision. Every note in White Oak &amp; Vanilla serves a purpose. Walter White. White Oak. Purity recognizes purity.</p>
+                <div class="review-date">August 2013</div>
+            </div>
+
+            <!-- Dana S. -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="Reviews/DanaS.PNG" class="reviewer-photo" alt="Dana S.">
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">Dana S.</div>
+                        <div class="reviewer-scent">Maxwell House</div>
+                        <span style="display:inline-flex;align-items:center;gap:3px;font-size:8px;font-weight:600;background:#e1f5ee;color:#0f6e56;border:0.5px solid #5dcaa5;border-radius:20px;padding:1px 6px;margin-top:3px;"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#0f6e56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>Gifted, Honest Review</span>
+                    </div>
+                </div>
+                <div class="paw-rating">
+                    <svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg>
+                </div>
+                <p class="review-text">candles are 10/10! the coffee candle actually smells like coffee brewing. i love it!!!!!</p>
+                <div class="review-date">August 2026</div>
+            </div>
+
+            <!-- Joe Biden -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="Reviews/Biden.jpg" class="reviewer-photo" alt="Joe Biden">
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">Joe Biden</div>
+                        <div class="reviewer-scent">Cinnamon Rollin'</div>
+                        <span style="display:inline-flex;align-items:center;gap:3px;font-size:8px;font-weight:600;background:#fff8e7;color:#7a4f00;border:0.5px solid #e6c96b;border-radius:20px;padding:1px 6px;margin-top:3px;"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#7a4f00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.4 4.8L20 9l-4 3.9L17 19l-5-2.6L7 19l1-6.1L4 9l5.6-1.2z"/></svg>Verified Purchase</span>
+                    </div>
+                </div>
+                <div class="paw-rating">
+                    <svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon paw-empty"><use href="#paw"/></svg><svg class="paw-icon paw-empty"><use href="#paw"/></svg><svg class="paw-icon paw-empty"><use href="#paw"/></svg><svg class="paw-icon paw-empty"><use href="#paw"/></svg>
+                </div>
+                <p class="review-text">Now look, folks... I mean this. Cinnamon Rollin' from Maxwell's Candles... it's the real deal. No malarkey. Bold cinnamon, warms up the whole room, and the scent throw... well... it's stronger than... anyway... folks, check on your neighbors.</p>
+                <div class="review-date">May 2024</div>
+            </div>
+
+            <!-- Daniela R. -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="Reviews/DanielaR.PNG" class="reviewer-photo" alt="Daniela R.">
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">Daniela R.</div>
+                        <div class="reviewer-scent">Pomegranate Noir</div>
+                        <span style="display:inline-flex;align-items:center;gap:3px;font-size:8px;font-weight:600;background:#e1f5ee;color:#0f6e56;border:0.5px solid #5dcaa5;border-radius:20px;padding:1px 6px;margin-top:3px;"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#0f6e56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>Gifted, Honest Review</span>
+                    </div>
+                </div>
+                <div class="paw-rating">
+                    <svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon paw-empty"><use href="#paw"/></svg><svg class="paw-icon paw-empty"><use href="#paw"/></svg>
+                </div>
+                <p class="review-text">The candle itself is beautiful and lovely. Pomegranate noir was my least favorite of the three candles. I have also tried Citronella &amp; Capri Blue.</p>
+                <div class="review-date">August 2026</div>
+            </div>
+
+            <!-- Big Smoke -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="Reviews/Big_Smoke.png" class="reviewer-photo" alt="Big Smoke">
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">Big Smoke</div>
+                        <div class="reviewer-scent">Pomegranate Noir</div>
+                    </div>
+                </div>
+                <div class="paw-rating">
+                    <svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg>
+                </div>
+                <p class="review-text">Sometimes after a drive-by I come back to the crib a little shook. That's when I light Pomegranate Noir. Juicy pomegranate, crackling wooden wick. That's how you turn pressure into peace, homie.</p>
+                <div class="review-date">July 2025</div>
+            </div>
+
+            <!-- Nicole W -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="Reviews/Nicole.PNG" class="reviewer-photo" alt="Nicole W">
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">Nicole W.</div>
+                        <div class="reviewer-scent">Capri Blue</div>
+                        <span style="display:inline-flex;align-items:center;gap:3px;font-size:8px;font-weight:600;background:#e1f5ee;color:#0f6e56;border:0.5px solid #5dcaa5;border-radius:20px;padding:1px 6px;margin-top:3px;"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#0f6e56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>Gifted, Honest Review</span>
+                    </div>
+                </div>
+                <div class="paw-rating">
+                    <svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg>
+                </div>
+                <p class="review-text">This candle is so good that we accidentally left it burning when we left for Christmas and it didn't even burn our apartment building down. 4/5 paws, but added an extra for the complimentary Maxwell sticker on each candle. If anyone can compete with Anthropology, it's Maxwell.</p>
+                <div class="review-date">January 2026</div>
+            </div>
+
+            <!-- Donald Trump -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="Reviews/Donald.png" class="reviewer-photo" alt="Donald Trump">
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">Donald Trump</div>
+                        <div class="reviewer-scent">Fresh Linen Undercover</div>
+                    </div>
+                </div>
+                <div class="paw-rating">
+                    <svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon paw-empty"><use href="#paw"/></svg>
+                </div>
+                <p class="review-text">Most candles are, frankly, so SAD! They use WEAK cotton wicks instead of STRONG wooden wicks. A COMPLETE WICK HUNT! But Work From Home from Maxwell's Candles? A TOTAL WINNER. The fresh-linen scent is FANTASTIC. The wooden wick is FIRST CLASS. Everybody wants one. Believe me!</p>
+                <div class="review-date">April 2026</div>
+            </div>
+
+            <!-- Anastasios H. -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="Reviews/Anastasios.PNG" class="reviewer-photo" alt="Anastasios H.">
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">Anastasios H.</div>
+                    </div>
+                </div>
+                <div class="paw-rating">
+                    <svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon paw-empty"><use href="#paw"/></svg><svg class="paw-icon paw-empty"><use href="#paw"/></svg>
+                </div>
+                <p class="review-text">Excellent candles. Deducting two paws because there is no visible path to profitability.</p>
+                <div class="review-date">August 2025</div>
+            </div>
+
+            <!-- Al Capone -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="Reviews/Capone.png" class="reviewer-photo" alt="Al Capone">
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">Al Capone</div>
+                        <div class="reviewer-scent">The Final Rose</div>
+                        <span style="display:inline-flex;align-items:center;gap:3px;font-size:8px;font-weight:600;background:#fff8e7;color:#7a4f00;border:0.5px solid #e6c96b;border-radius:20px;padding:1px 6px;margin-top:3px;"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#7a4f00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.4 4.8L20 9l-4 3.9L17 19l-5-2.6L7 19l1-6.1L4 9l5.6-1.2z"/></svg>Verified Purchase</span>
+                    </div>
+                </div>
+                <div class="paw-rating">
+                    <svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg>
+                </div>
+                <p class="review-text">Ya see, everybody remembers the last rose. Nobody remembers the second-to-last one. That's why this candle's called The Final Rose, see?</p>
+                <div class="review-date">November 1946</div>
+            </div>
+
+            <!-- Alec S. -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="Reviews/Alec.PNG" class="reviewer-photo" alt="Alec S.">
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">Alec S.</div>
+                        <div class="reviewer-scent">Ocean Mist &amp; Sea Salt</div>
+                        <span style="display:inline-flex;align-items:center;gap:3px;font-size:8px;font-weight:600;background:#e1f5ee;color:#0f6e56;border:0.5px solid #5dcaa5;border-radius:20px;padding:1px 6px;margin-top:3px;"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#0f6e56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>Gifted, Honest Review</span>
+                    </div>
+                </div>
+                <div class="paw-rating">
+                    <svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg>
+                </div>
+                <p class="review-text">This candle goes hard.</p>
+                <div class="review-date">November 2025</div>
+            </div>
+
+            <!-- Tony Montana -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="Reviews/Montana.jpg" class="reviewer-photo" alt="Tony Montana">
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">Tony Montana</div>
+                        <div class="reviewer-scent">Citronella</div>
+                    </div>
+                </div>
+                <div class="paw-rating">
+                    <svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon paw-empty"><use href="#paw"/></svg>
+                </div>
+                <p class="review-text">You know what I hate? Mosquitoes. Tiny little punks. You light this thing, they disappear, and your backyard smells like paradise instead of a swamp. Say hello to my little candle.</p>
+                <div class="review-date">December 1983</div>
+            </div>
+
+            <!-- John Wick -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="Reviews/WICK2.jpg" class="reviewer-photo" alt="John Wick">
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">John Wick</div>
+                        <div class="reviewer-scent">Sandalwood</div>
+                    </div>
+                </div>
+                <div class="paw-rating">
+                    <svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg>
+                </div>
+                <p class="review-text">People keep asking me if I like this candle. Yeah… I'm thinking I do. Sandalwood. Smooth. Quiet. People fear John Wick. I trust Maxwell's wicks.</p>
+                <div class="review-date">October 2014</div>
+            </div>
+
+            <!-- Tony Soprano -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="Reviews/Soprano.jpg" class="reviewer-photo" alt="Tony Soprano">
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">Tony Soprano</div>
+                        <div class="reviewer-scent">Spa Day</div>
+                    </div>
+                </div>
+                <div class="paw-rating">
+                    <svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon paw-empty"><use href="#paw"/></svg>
+                </div>
+                <p class="review-text">I don't do spas. I don't wear robes with little slippers. But I lit this candle and, whaddya know… it's a beautiful thing. Don't go tellin' anybody I said that.</p>
+                <div class="review-date">May 2007</div>
+            </div>
+
+            <!-- Sierra C. -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="Reviews/SierraC.PNG" class="reviewer-photo" alt="Sierra C.">
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">Sierra C.</div>
+                        <div class="reviewer-scent">Capri Blue</div>
+                        <span style="display:inline-flex;align-items:center;gap:3px;font-size:8px;font-weight:600;background:#e1f5ee;color:#0f6e56;border:0.5px solid #5dcaa5;border-radius:20px;padding:1px 6px;margin-top:3px;"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#0f6e56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>Gifted, Honest Review</span>
+                    </div>
+                </div>
+                <div class="paw-rating">
+                    <svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg>
+                </div>
+                <p class="review-text">The bestest candle everrrrr!!! 10/10 covers the wet dog smell.</p>
+                <div class="review-date">August 2026</div>
+            </div>
+
+            <!-- Homelander -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="Reviews/Homelander.jpg" class="reviewer-photo" alt="Homelander">
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">Homelander</div>
+                        <div class="reviewer-scent">Campfire Marshmallow</div>
+                        <span style="display:inline-flex;align-items:center;gap:3px;font-size:8px;font-weight:600;background:#fff8e7;color:#7a4f00;border:0.5px solid #e6c96b;border-radius:20px;padding:1px 6px;margin-top:3px;"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#7a4f00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.4 4.8L20 9l-4 3.9L17 19l-5-2.6L7 19l1-6.1L4 9l5.6-1.2z"/></svg>Verified Purchase</span>
+                    </div>
+                </div>
+                <div class="paw-rating">
+                    <svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon paw-empty"><use href="#paw"/></svg><svg class="paw-icon paw-empty"><use href="#paw"/></svg>
+                </div>
+                <p class="review-text">People gather around a campfire because it makes them feel safe. That's adorable. This candle smells fantastic. It just doesn't smell as good as me.</p>
+                <div class="review-date">June 2024</div>
+            </div>
+
+            <!-- Nikki Freeman -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="Reviews/Nikki.PNG" class="reviewer-photo" alt="Nikki Freeman">
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">Nikki Freeman</div>
+                        <div class="reviewer-scent">Peach on Earth</div>
+                        <span style="display:inline-flex;align-items:center;gap:3px;font-size:8px;font-weight:600;background:#fff8e7;color:#7a4f00;border:0.5px solid #e6c96b;border-radius:20px;padding:1px 6px;margin-top:3px;"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#7a4f00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.4 4.8L20 9l-4 3.9L17 19l-5-2.6L7 19l1-6.1L4 9l5.6-1.2z"/></svg>Verified Purchase</span>
+                    </div>
+                </div>
+                <div class="paw-rating">
+                    <svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg><svg class="paw-icon"><use href="#paw"/></svg>
+                </div>
+                <p class="review-text">I don't sniff Maxwell's Candles every day. That would be unhealthy. It's more like every few seconds.<br>I was only going to light Peach on Earth for a couple of hours. It's been three days.<br>People keep telling me I should try a different candle company.&nbsp;&nbsp; No. No, no, no...<br>NO, NO, NO, NO, NO, NO, NO, NO...I DON'T WANT TO SMELL ANY OTHER CANDLE!<br>I DON'T NEED ANY OTHER CANDLE! MAXWELL'S CANDLES ARE PERFECT!</p>
+                <div class="review-date">May 2026</div>
+            </div>
+
         </div>
     </div>
+</section>
 
-    <!-- REVIEWS -->
-    <div class="reviews-grid">
+<hr class="divider">
 
-        <!-- FEATURED -->
-        <div class="review-card featured">
-            <div class="review-header">
-                <div class="reviewer-info">
-                    <div class="reviewer-name">Danielle R.</div>
-                    <div class="reviewer-location">Atlanta, GA</div>
+<!-- SUBMIT FORM -->
+<section class="submit-section">
+    <div class="submit-inner">
+        <p class="section-eyebrow" style="text-align:center;">Leave a Review</p>
+        <h2 class="section-title" style="text-align:center;">Share Your Experience</h2>
+        <p class="section-sub" style="margin-bottom: 36px;text-align:center;">Loved your candle? Let the world know. Or don't. But please do.</p>
+
+        <form id="reviewForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="r-name">Your Name</label>
+                    <input type="text" id="r-name" name="name" placeholder="Jane Smith" required>
                 </div>
-                <div class="review-stars">
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
+                <div class="form-group">
+                    <label for="r-scent">Scent Reviewed</label>
+                    <select id="r-scent" name="scent">
+                        <option value="" disabled selected>Select a scent</option>
+                        <option>Apple Cinnamon</option>
+                        <option>Banana Nut Bread Break-In</option>
+                        <option>Beachwood</option>
+                        <option>Strawberry Bergamot Mugshot</option>
+                        <option>Bergamot Crime Plot</option>
+                        <option>Brunson Burner</option>
+                        <option>Campfire Marshmallow</option>
+                        <option>Capri Blue</option>
+                        <option>Cashmere Pumpkin Ponzi Scheme</option>
+                        <option>Cinnamon Spiced Vanilla</option>
+                        <option>Cinnamon Stick</option>
+                        <option>Citronella</option>
+                        <option>Santal &amp; Coconut Scandal</option>
+                        <option>Coffee Beans</option>
+                        <option>The Cool Down</option>
+                        <option>Dragon's Blood</option>
+                        <option>The Final Rose</option>
+                        <option>Frasier Fir Fugitive</option>
+                        <option>Foraged Red Currant Contraband</option>
+                        <option>Lawn &amp; Order</option>
+                        <option>Golden Hour</option>
+                        <option>Grapefruit &amp; Mangosteen</option>
+                        <option>Hot Apple Pie</option>
+                        <option>Library</option>
+                        <option>Mistletoe Mix-Up</option>
+                        <option>Matcha &amp; Bergamot</option>
+                        <option>Maxwell House</option>
+                        <option>Nag Champa Presumed Incense</option>
+                        <option>Ocean Mist &amp; Sea Salt</option>
+                        <option>Pomegranate Noir Crime Czar</option>
+                        <option>Sandalwood Safehouse</option>
+                        <option>Spa Day</option>
+                        <option>Speakeasy</option>
+                        <option>Spiced Honey &amp; Tonka</option>
+                        <option>Sweet Strawberry Stickup</option>
+                        <option>Thug Life</option>
+                        <option>Wassail Out on Bail</option>
+                        <option>White Oak &amp; Vanilla</option>
+                        <option>Fresh Linen Undercover</option>
+                        <option>Work From Home</option>
+                        <option>Peach on Earth</option>
+                        <option>The Perfect Con Man</option>
+                    </select>
                 </div>
             </div>
-            <div class="review-scent">Amber Noir Final Score</div>
-            <div class="review-quote">I've tried a lot of candles. A lot. And I say this with full sincerity — this one is different. The scent fills a room without being aggressive. It's layered, it's warm, it lingers. I bought three more the same day.</div>
-            <div class="review-date">October 2024</div>
-        </div>
 
-        <div class="review-card">
-            <div class="review-header">
-                <div class="reviewer-info">
-                    <div class="reviewer-name">Marcus T.</div>
-                    <div class="reviewer-location">Chicago, IL</div>
-                </div>
-                <div class="review-stars">
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                </div>
+            <label class="paw-picker-label">Your Rating</label>
+            <div class="paw-picker" id="pawPicker">
+                <input type="radio" name="rating" id="paw1" value="1 paw">
+                <label for="paw1" title="1 paw"><svg class="paw-icon"><use href="#paw"/></svg></label>
+                <input type="radio" name="rating" id="paw2" value="2 paws">
+                <label for="paw2" title="2 paws"><svg class="paw-icon"><use href="#paw"/></svg></label>
+                <input type="radio" name="rating" id="paw3" value="3 paws">
+                <label for="paw3" title="3 paws"><svg class="paw-icon"><use href="#paw"/></svg></label>
+                <input type="radio" name="rating" id="paw4" value="4 paws">
+                <label for="paw4" title="4 paws"><svg class="paw-icon"><use href="#paw"/></svg></label>
+                <input type="radio" name="rating" id="paw5" value="5 paws" checked>
+                <label for="paw5" title="5 paws"><svg class="paw-icon"><use href="#paw"/></svg></label>
             </div>
-            <div class="review-scent">Maximus</div>
-            <div class="review-quote">Bought this for my girlfriend and she immediately asked where I'd been hiding it. The throw on this candle is unreal. My whole apartment smells like a luxury hotel.</div>
-            <div class="review-date">September 2024</div>
-        </div>
 
-        <div class="review-card">
-            <div class="review-header">
-                <div class="reviewer-info">
-                    <div class="reviewer-name">Priya N.</div>
-                    <div class="reviewer-location">Houston, TX</div>
-                </div>
-                <div class="review-stars">
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                </div>
+            <div class="form-full">
+                <label for="r-review">Your Review</label>
+                <textarea id="r-review" name="review" placeholder="Tell us what you thought about your candle..." required></textarea>
             </div>
-            <div class="review-scent">Lavender &amp; Beet</div>
-            <div class="review-quote">The wood wick crackle alone is worth it. Add the fact that this scent is absolutely gorgeous and you have something special. I light it every evening without fail.</div>
-            <div class="review-date">October 2024</div>
-        </div>
 
-        <div class="review-card">
-            <div class="review-header">
-                <div class="reviewer-info">
-                    <div class="reviewer-name">James W.</div>
-                    <div class="reviewer-location">New York, NY</div>
-                </div>
-                <div class="review-stars">
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                </div>
-            </div>
-            <div class="review-scent">Old Fashioned</div>
-            <div class="review-quote">Gave one as a gift and ended up needing a second for myself immediately. The packaging looks sharp, the scent is perfect for a home office. Already on my third order.</div>
-            <div class="review-date">August 2024</div>
-        </div>
+            <button type="submit" class="btn-submit">Submit My Review</button>
+        </form>
 
-        <div class="review-card">
-            <div class="review-header">
-                <div class="reviewer-info">
-                    <div class="reviewer-name">Keisha M.</div>
-                    <div class="reviewer-location">Los Angeles, CA</div>
-                </div>
-                <div class="review-stars">
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                </div>
-            </div>
-            <div class="review-scent">Cognac &amp; Cardamom</div>
-            <div class="review-quote">This is a sophisticated candle. The kind of scent that makes guests ask questions. I've referred at least six people to Maxwell's since my first order.</div>
-            <div class="review-date">September 2024</div>
+        <div class="form-success" id="reviewSuccess">
+            <h3>Thank You!</h3>
+            <p>Your review has been received. We'll read it and add it to the page soon.</p>
         </div>
-
-        <div class="review-card">
-            <div class="review-header">
-                <div class="reviewer-info">
-                    <div class="reviewer-name">Tyler B.</div>
-                    <div class="reviewer-location">Nashville, TN</div>
-                </div>
-                <div class="review-stars">
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                </div>
-            </div>
-            <div class="review-scent">Smoky Oak</div>
-            <div class="review-quote">Not many candles can hold up against my wood-burning fireplace season but this one actually competes. Deep, rich, and masculine. Perfect for fall.</div>
-            <div class="review-date">October 2024</div>
-        </div>
-
-        <div class="review-card">
-            <div class="review-header">
-                <div class="reviewer-info">
-                    <div class="reviewer-name">Simone L.</div>
-                    <div class="reviewer-location">Miami, FL</div>
-                </div>
-                <div class="review-stars">
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star" style="color:var(--lgray)">★</span>
-                </div>
-            </div>
-            <div class="review-scent">Coconut Mango</div>
-            <div class="review-quote">Bright and summery without being fake-sweet. This is my go-to for the living room. Knocked one star off only because I want about 10 more scent options in this vibe.</div>
-            <div class="review-date">July 2024</div>
-        </div>
-
-        <div class="review-card">
-            <div class="review-header">
-                <div class="reviewer-info">
-                    <div class="reviewer-name">Andre F.</div>
-                    <div class="reviewer-location">Philadelphia, PA</div>
-                </div>
-                <div class="review-stars">
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                </div>
-            </div>
-            <div class="review-scent">Velvet Oud</div>
-            <div class="review-quote">I do not write reviews. I wrote this one. That should tell you everything you need to know.</div>
-            <div class="review-date">September 2024</div>
-        </div>
-
-        <div class="review-card">
-            <div class="review-header">
-                <div class="reviewer-info">
-                    <div class="reviewer-name">Carla V.</div>
-                    <div class="reviewer-location">Denver, CO</div>
-                </div>
-                <div class="review-stars">
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                </div>
-            </div>
-            <div class="review-scent">Vanilla Bourbon</div>
-            <div class="review-quote">Warm, cozy, complex. Exactly what I wanted for my bedroom. The wood wick crackle is such a nice touch — it honestly makes the whole experience feel more intentional.</div>
-            <div class="review-date">August 2024</div>
-        </div>
-
     </div>
+</section>
 
-    <!-- CTA -->
-    <div class="reviews-cta">
-        <p>Ready to find your signature scent?</p>
-        <a href="order.html" class="btn-order">Place Your Order</a>
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-top">
+        <div class="footer-brand" style="text-align:center;">
+            <img src="Logo/MC_Logo.PNG" alt="Maxwell's Candles" style="height:180px;width:auto;margin-bottom:12px;opacity:0.9;">
+            <p>Hand-crafted coconut apricot wax candles with wooden wicks.<br><br>Melted with the <strong>intensity</strong> of a thousand <span style="background:linear-gradient(to top, #7a1a00, #c0390a, #e8600a, #f5a623, #ffe066);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic;">suns</span>,<br><br>poured with a <span style="background:linear-gradient(to top, #6b3a00, #a0522d, #cd8500, #e8a030, #f5c842);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic;">warrior's</span> <strong>focus</strong>.</p>
+            <a href="order.html" style="display:inline-block;margin-top:20px;padding:14px 32px;background:linear-gradient(to top, #7a1a00, #c0390a, #e8600a, #f5a623, #ffe066);color:#fff;font-size:0.85rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;border-radius:30px;text-decoration:none;transition:filter 0.2s;text-shadow:0 1px 4px rgba(0,0,0,0.5);" onmouseover="this.style.filter='brightness(1.15)'" onmouseout="this.style.filter='brightness(1)'">Place an Order</a>
+        </div>
     </div>
-</main>
+    <div class="footer-bottom">
+        <span>&copy; 2026 Maxwell's Candles. All rights reserved.</span>
+    </div>
+</footer>
 
 <script>
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
+    // Mobile menu
+    const hamburger     = document.getElementById('hamburger');
+    const mobileMenu    = document.getElementById('mobileMenu');
     const mobileOverlay = document.getElementById('mobileOverlay');
-    const mobileClose = document.getElementById('mobileClose');
-
-    function openMenu() {
-        mobileMenu.classList.add('open');
-        mobileOverlay.classList.add('open');
-    }
-    function closeMenu() {
-        mobileMenu.classList.remove('open');
-        mobileOverlay.classList.remove('open');
-    }
-
+    const mobileClose   = document.getElementById('mobileClose');
+    function openMenu()  { mobileMenu.classList.add('open');    mobileOverlay.classList.add('open');    document.body.style.overflow = 'hidden'; }
+    function closeMenu() { mobileMenu.classList.remove('open'); mobileOverlay.classList.remove('open'); document.body.style.overflow = ''; }
     hamburger.addEventListener('click', openMenu);
     mobileClose.addEventListener('click', closeMenu);
     mobileOverlay.addEventListener('click', closeMenu);
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+    // Paw rating picker
+    const pawLabels = document.querySelectorAll('#pawPicker label');
+    function updatePaws(index) {
+        pawLabels.forEach((lbl, i) => {
+            lbl.classList.toggle('active', i <= index);
+        });
+    }
+    // Default: all 5 active
+    updatePaws(4);
+    pawLabels.forEach((lbl, i) => {
+        lbl.addEventListener('click', () => updatePaws(i));
+        lbl.addEventListener('mouseenter', () => updatePaws(i));
+    });
+    document.getElementById('pawPicker').addEventListener('mouseleave', () => {
+        const checked = document.querySelector('#pawPicker input[type="radio"]:checked');
+        if (checked) {
+            const idx = [...document.querySelectorAll('#pawPicker input')].indexOf(checked);
+            updatePaws(idx);
+        }
+    });
+
+    // Form submit
+    const reviewForm = document.getElementById('reviewForm');
+    reviewForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = reviewForm.querySelector('.btn-submit');
+        btn.textContent = 'Sending…';
+        btn.disabled = true;
+
+        const data = new FormData(reviewForm);
+        try {
+            const res = await fetch('https://formspree.io/f/xeewbabr', {
+                method: 'POST',
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            });
+            if (res.ok) {
+                reviewForm.style.display = 'none';
+                document.getElementById('reviewSuccess').style.display = 'block';
+            } else {
+                btn.textContent = 'Submit My Review';
+                btn.disabled = false;
+                alert('Something went wrong. Please try again.');
+            }
+        } catch {
+            btn.textContent = 'Submit My Review';
+            btn.disabled = false;
+            alert('Something went wrong. Please try again.');
+        }
+    });
 </script>
+
+<script>
+    (function() {
+        var cards = document.querySelectorAll('.review-card');
+        var total = 0, count = 0;
+        cards.forEach(function(card) {
+            var filled = card.querySelectorAll('.paw-rating .paw-icon:not(.paw-empty)').length;
+            total += filled;
+            count++;
+        });
+        if (count > 0) {
+            var avg = (total / count).toFixed(1);
+            var paws = '';
+            for (var i = 0; i < 5; i++) {
+                paws += i < Math.round(total / count)
+                    ? '<svg style="width:18px;height:18px;fill:#5c3828;vertical-align:middle"><use href="#paw"/></svg>'
+                    : '<svg style="width:18px;height:18px;fill:#5c3828;opacity:0.18;vertical-align:middle"><use href="#paw"/></svg>';
+            }
+            document.getElementById('avg-rating').innerHTML = 'Average Rating: ' + paws + ' &nbsp;<strong>' + avg + '</strong> / 5';
+        }
+    })();
+</script>
+
 </body>
 </html>
